@@ -1,0 +1,182 @@
+﻿<UserControl x:Class="Pokedex.Controls.InfoCenter"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Pokedex.Controls" xmlns:converters="clr-namespace:Pokedex.Converters"
+             mc:Ignorable="d" 
+             xmlns:gif="https://github.com/XamlAnimatedGif/XamlAnimatedGif"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <Style TargetType="{x:Type Border}">
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="LightGray"/>
+        </Style>
+        <converters:ProgressBarForegroundConverter x:Key="ProgressBarForegroundConverter"/>
+        <converters:HeightConverter x:Key="HeightConverter"/>
+        <converters:WeightConverter x:Key="WeightConverter"/>
+    </UserControl.Resources>
+
+    <Grid Background="White" Name="CenterGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="1.5*"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <GroupBox Name="PokemonAbilities" BorderBrush="{Binding Types[0].Info.Color}" BorderThickness="2" Grid.Row="1" Grid.Column="2" Padding="5,0,0,0" Margin="0,0,5,5" HorizontalContentAlignment="Center">
+            <GroupBox.Header>
+                <TextBlock Text="Abilities" FontWeight="Bold" FontStyle="Italic"/>
+            </GroupBox.Header>
+            <StackPanel  Orientation="Horizontal">
+                <ItemsControl ItemsSource="{Binding Abilities}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <WrapPanel>
+                                    <StackPanel>
+                                        <TextBlock Margin="0,5" FontSize="13" Text="{Binding Info.Name}"  FontWeight="DemiBold"/>
+                                        <TextBlock TextWrapping="Wrap" Margin="0,0,0,10" FontWeight="Light" Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType={x:Type GroupBox}}}" Text="{Binding Info.Effect[0].Short}"/>
+                                    </StackPanel>
+                                </WrapPanel>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
+        </GroupBox>
+
+        <GroupBox Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" BorderThickness="2" BorderBrush="{Binding Types[0].Info.Color}" Margin="5,0,5,5">
+            <GroupBox.Header>
+                <TextBlock Text="Learnable Moves" FontWeight="Bold"/>
+            </GroupBox.Header>
+
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <StackPanel>
+                    <ListBox Margin="2" ItemsSource="{Binding pokemon.Moves}" Name="PokemonMoves" BorderThickness="0">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock TextWrapping="Wrap" Text="{Binding Info.Name}" FontWeight="DemiBold"/>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </StackPanel>
+            </ScrollViewer>
+        </GroupBox>
+
+        <GroupBox Name="PokemonStats" BorderBrush="{Binding Types[0].Info.Color}" BorderThickness="2" Grid.Row="0" Grid.Column="2" Margin="0,0,5,5" HorizontalContentAlignment="Center">
+            <GroupBox.Header>
+                <TextBlock Text="Base Stats" FontWeight="Bold" FontStyle="Italic"/>
+            </GroupBox.Header>
+            <StackPanel  Orientation="Horizontal" Margin="5">
+                <StackPanel Width="50" >
+                    <TextBlock Text="HP" FontWeight="DemiBold"/>
+                    <TextBlock Text="Atk" FontWeight="DemiBold" Margin="0,10,0,0"/>
+                    <TextBlock Text="Def" FontWeight="DemiBold" Margin="0,10,0,0"/>
+                    <TextBlock Text="Sp.Atk" FontWeight="DemiBold" Margin="0,10,0,0"/>
+                    <TextBlock Text="Sp.Def" FontWeight="DemiBold" Margin="0,10,0,0"/>
+                    <TextBlock Text="Speed" FontWeight="DemiBold" Margin="0,10,0,0"/>
+                </StackPanel>
+
+                <ItemsControl ItemsSource="{Binding Stats}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <WrapPanel>
+                                    <StackPanel>
+                                        <TextBlock Margin="0,0,5,10" Text="{Binding BaseStat}"  FontWeight="DemiBold"/>
+                                    </StackPanel>
+                                </WrapPanel>
+                                <StackPanel Margin="10,2,0,0" HorizontalAlignment="Left" Name="StatsStack">
+                                    <ProgressBar Name="progressBar" Minimum="0" Maximum="255" Value="{Binding BaseStat}" Height="10" Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType={x:Type GroupBox}}}" Foreground="{Binding RelativeSource={RelativeSource Mode=Self}, Path=Value, Converter={StaticResource ProgressBarForegroundConverter}}"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
+        </GroupBox>
+
+        <GroupBox Name="PokemonProfile" BorderBrush="{Binding Types[0].Info.Color}" BorderThickness="2" Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Margin="0,0,5,5" HorizontalContentAlignment="Center">
+            <GroupBox.Header>
+                <TextBlock Text="Profile" FontWeight="Bold" FontStyle="Italic"/>
+            </GroupBox.Header>
+
+            <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                <StackPanel Orientation="Vertical" >
+
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10">
+                        <Image Name="PokemoneImage" gif:AnimationBehavior.SourceUri="{Binding Sprites.Visuals.Gifs.FrontGif}" MaxHeight="120" MaxWidth="150"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <ItemsControl ItemsSource="{Binding Types}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border CornerRadius="3" Background="{Binding Info.Color}" Padding="10,3,0,3" Margin="0,10,5,10">
+                                        <TextBlock Foreground="White" Text="{Binding Info.Name}" FontSize="12" FontFamily="MS Gothic" FontWeight="DemiBold" Margin="0,0,10,0"/>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                        </ItemsControl>
+                    </StackPanel>
+
+                    <WrapPanel HorizontalAlignment="Center" Margin="0,0,0,5">
+                        <TextBlock Text="{Binding Name}" FontSize="20" FontWeight="Bold" Margin="30,0,10,0"/>
+                        <TextBlock  FontSize="12" VerticalAlignment="Bottom">
+                    <Run Text="#"/>
+                    <Run Text="{Binding ID}"/>
+                        </TextBlock>
+                    </WrapPanel>
+                    <TextBlock Text="{Binding GeneralDescription}" FontSize="10" FontStyle="Italic" HorizontalAlignment="Center"/>
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Margin="0,30,0,0" HorizontalAlignment="Center" Grid.Column="0">
+                            <TextBlock Text="Height" FontSize="14" FontWeight="DemiBold" HorizontalAlignment="Center" Margin="0,0,0,5"/>
+                            <TextBlock Text="{Binding Height, Converter={StaticResource HeightConverter}}"/>
+                        </StackPanel>
+
+                        <StackPanel Margin="0,30,0,0" HorizontalAlignment="Center" Grid.Column="1">
+                            <TextBlock Text="Weight" FontSize="14" FontWeight="DemiBold" HorizontalAlignment="Center" Margin="0,0,0,5"/>
+                            <TextBlock Text="{Binding Weight, Converter={StaticResource WeightConverter}}"/>
+                        </StackPanel>
+                    </Grid>
+
+                    <TextBlock Text="Evolutions" FontSize="15" FontWeight="Bold" FontStyle="Italic" Margin="20"/>
+                    <StackPanel HorizontalAlignment="Center" Margin="20,0,0,0">
+                        <ItemsControl ItemsSource="{Binding Evolutions}" >
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Margin="10">
+                                        <TextBlock Text="{Binding Name}" FontWeight="DemiBold" HorizontalAlignment="Center"/>
+                                        <Image Source="{Binding EvoSprite.FrontImage}" Height="100"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                        </ItemsControl>
+                    </StackPanel>
+                </StackPanel>
+            </ScrollViewer>
+        </GroupBox>
+
+    </Grid>
+</UserControl>

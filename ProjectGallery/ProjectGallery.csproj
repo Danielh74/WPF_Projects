@@ -1,0 +1,38 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\joke.png" />
+    <None Remove="Resources\PersonManager.png" />
+    <None Remove="Resources\pokedex.png" />
+    <None Remove="Resources\pokemon_memory.png" />
+    <None Remove="Resources\tic-tac-toe.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj" />
+    <ProjectReference Include="..\JokeApp\JokeApp.csproj" />
+    <ProjectReference Include="..\Memory_Game\Memory_Game.csproj" />
+    <ProjectReference Include="..\PersonManager\PersonManager.csproj" />
+    <ProjectReference Include="..\Pokedex\Pokedex.csproj" />
+    <ProjectReference Include="..\Tic-Tac-Toe\Tic-Tac-Toe.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\joke.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\PersonManager.png" />
+    <Resource Include="Resources\pokedex.png" />
+    <Resource Include="Resources\pokemon_memory.png" />
+    <Resource Include="Resources\tic-tac-toe.png" />
+  </ItemGroup>
+
+</Project>

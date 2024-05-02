@@ -1,0 +1,51 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Images\Blastoise.png" />
+    <None Remove="Images\Bulbasaur.png" />
+    <None Remove="Images\card_background.png" />
+    <None Remove="Images\Charizard.png" />
+    <None Remove="Images\Charmander.png" />
+    <None Remove="Images\Dragonite.png" />
+    <None Remove="Images\Eevee.png" />
+    <None Remove="Images\Magikarp.png" />
+    <None Remove="Images\Mewtwo.png" />
+    <None Remove="Images\Pikachu.png" />
+    <None Remove="Images\pokemon_logo.png" />
+    <None Remove="Images\Squirtle.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\Blastoise.png" />
+    <Resource Include="Images\Bulbasaur.png" />
+    <Resource Include="Images\card_background.png" />
+    <Resource Include="Images\Charizard.png" />
+    <Resource Include="Images\Charmander.png" />
+    <Resource Include="Images\Dragonite.png" />
+    <Resource Include="Images\Eevee.png" />
+    <Resource Include="Images\Magikarp.png" />
+    <Resource Include="Images\Mewtwo.png" />
+    <Resource Include="Images\Pikachu.png" />
+    <Resource Include="Images\pokemon_logo.png" />
+    <Resource Include="Images\Squirtle.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Controls\Board.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+
+</Project>

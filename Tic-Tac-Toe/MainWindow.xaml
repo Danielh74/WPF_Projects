@@ -1,0 +1,50 @@
+﻿<Window x:Class="Tic_Tac_Toe.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:controls="clr-namespace:Tic_Tac_Toe.Controls"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="500" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <controls:Board Grid.Column="0" x:Name="MyBoard" />
+        <controls:EndGameMessage Grid.Column="0" x:Name="MyMessage" />
+
+        <StackPanel Grid.Column="1" Margin="10">
+            <TextBlock Text="Tic-Tac-Toe Game" FontSize="24" FontWeight="Bold" Margin="10" />
+            <TextBlock Text="This is my version of the" Margin="10 10 10 0" />
+            <TextBlock Text="classic tic-tac-toe game, Enjoy!" Margin="10 0 10 10"/>
+
+            <StackPanel Name="playerNameBoxes" Visibility="Visible">
+                <Label Content="Player1:" Width="50" HorizontalAlignment="Left"/>
+                <TextBox Name="p1_text" Width="150" Margin="0,-20,0,5"/>
+                <Label Content="Player2:" Width="50" HorizontalAlignment="Left"/>
+                <TextBox Name="p2_text" Width="150" Margin="0,-20,0,5"/>
+            </StackPanel>
+
+            <TextBlock Text="Leaderboard:" Margin="10 10 10 5" FontWeight="Bold" FontSize ="15" />
+            
+                <TextBlock Margin="10 0 10 0" FontSize ="15" >
+                    <Run Name="p1_name" Text="Player1" FontWeight="DemiBold"/>
+                    <Run Text=":" FontWeight="Bold"/>
+                    <Run Name="p1_score" Text="{Binding PlayerOneScore}"/>
+                </TextBlock>
+
+            <TextBlock  Margin="10 0 10 20" FontSize ="15">
+                    <Run Name="p2_name" Text="Player2" FontWeight="DemiBold"/>
+                    <Run Text=":"  FontWeight="Bold"/>
+                    <Run Name="p2_score" Text="{Binding PlayerTwoScore}"/>
+                </TextBlock>
+
+                <Button Content="PvP (Player Vs Player)" Margin="10" Click="NewGame_Click" Name="Btn_PvP" />
+            <Button Content="PvC (Player Vs Computer)" Margin="10 0 10 0" Click="NewGame_Click" Name="Btn_PvC"/>
+            <Button Content="CvC (Computer Vs Computer)" Margin="10" Click="NewGame_Click" Name="Btn_CvC"/>
+
+            <Button Content="Exit" Margin="10 20 10 10" Click="NewGame_Click" Name="Btn_Exit"/>
+        </StackPanel>
+    </Grid>
+</Window>
