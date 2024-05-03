@@ -7,10 +7,20 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <ScrollViewer VerticalScrollBarVisibility="Auto">
-            <WrapPanel Name="PhotosPanel" Margin="5"/>
-        </ScrollViewer>
-         
+        <DockPanel>
+            <Button 
+                Content="Add Photo" 
+                Margin="5" 
+                Padding="2" 
+                HorizontalAlignment="Left" 
+                DockPanel.Dock="Top"
+                Click="AddToGallery_Click"/>
+            
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <WrapPanel Name="GalleryPanel"/>
+            </ScrollViewer>
+            
+        </DockPanel>
         <controls:SelectedPhoto x:Name="SelectedPhotoControl"/>
     </Grid>
    
