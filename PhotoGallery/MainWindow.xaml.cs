@@ -44,13 +44,13 @@ namespace PhotoGallery
             foreach (Photo photo in photoList)
             {
                 BitmapImage image = new BitmapImage(new Uri(photo.Uri));
-                Image photoToDisplay = new Image 
-                { 
+                Image photoToDisplay = new Image
+                {
                     Source = image,
                     MaxHeight = 150,
                     MaxWidth = 150,
                     Margin = new Thickness(5),
-                    Stretch =  Stretch.UniformToFill,
+                    Stretch = Stretch.UniformToFill,
                 };
                 photoToDisplay.MouseLeftButtonDown += PhotoClick;
                 GalleryPanel.Children.Add(photoToDisplay);
@@ -77,7 +77,7 @@ namespace PhotoGallery
                 Liked = false
             };
 
-            if(photoList.Exists(photo => photo.Uri == photoToAdd.Uri))
+            if (IsVideoFormat(photoToAdd.Uri))
             {
                 MessageBox.Show("Photo is already in the gallery");
                 return;
@@ -96,10 +96,19 @@ namespace PhotoGallery
             LoadPhotos();
 
         }
+
+        private bool IsVideoFormat(string uri)
+        {
+            string[] videoExtensions = [".mp4", ".avi", ".mkv", ".mov", ".wmv", ".flv", ".webm"];
+
+            string mediaToCheck = System.IO.Path.GetExtension(uri);
+            if (mediaToCheck != null && Array.IndexOf(videoExtensions, mediaToCheck.ToLower()) == -1)
+            {
+                return false;
+            }
+            return true;
+        }
     }
-    public class Photo
-    {
-        public string Uri { get; set; }
-        public bool Liked { get; set; }
-    }
+
+
 }
