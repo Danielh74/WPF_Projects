@@ -11,6 +11,7 @@
   <ItemGroup>
     <None Remove="Resources\joke.png" />
     <None Remove="Resources\PersonManager.png" />
+    <None Remove="Resources\photoGallery.png" />
     <None Remove="Resources\pokedex.png" />
     <None Remove="Resources\pokemon_memory.png" />
     <None Remove="Resources\tic-tac-toe.png" />
@@ -21,6 +22,7 @@
     <ProjectReference Include="..\JokeApp\JokeApp.csproj" />
     <ProjectReference Include="..\Memory_Game\Memory_Game.csproj" />
     <ProjectReference Include="..\PersonManager\PersonManager.csproj" />
+    <ProjectReference Include="..\PhotoGallery\PhotoGallery.csproj" />
     <ProjectReference Include="..\Pokedex\Pokedex.csproj" />
     <ProjectReference Include="..\Tic-Tac-Toe\Tic-Tac-Toe.csproj" />
   </ItemGroup>
@@ -30,6 +32,7 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\PersonManager.png" />
+    <Resource Include="Resources\photoGallery.png" />
     <Resource Include="Resources\pokedex.png" />
     <Resource Include="Resources\pokemon_memory.png" />
     <Resource Include="Resources\tic-tac-toe.png" />

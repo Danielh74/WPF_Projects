@@ -24,6 +24,7 @@ namespace ProjectGallery
             new PersonManager.Project(),
             new JokeApp.Project(),
             new Pokedex.Project(),
+            new PhotoGallery.Project(),
         ];
         public MainWindow()
         {
