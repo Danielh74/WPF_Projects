@@ -9,11 +9,19 @@
 
     <Grid Name="ControlGrid" Background="#7F000000">
         <DockPanel>
-            <Border DockPanel.Dock="Top" Background="#CC000000" CornerRadius="5" Padding="5,0" Margin="5" HorizontalAlignment="Center">
+            <Border DockPanel.Dock="Top" Background="White" CornerRadius="5" Padding="5,0" Margin="5" HorizontalAlignment="Center">
                 <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                    <Button Content="Back" Margin="5,5,100,5" Width="50" Height="25"  VerticalAlignment="Top" Click="Button_Click"/>
-                    <Button Content="Like" Margin="5" Width="50" Height="25"  VerticalAlignment="Top" Click="Button_Click"/>
-                    <Button Content="Delete"  Margin="5" Width="50" Height="25"  VerticalAlignment="Top" Click="Button_Click"/>
+                    <Button Margin="5,5,100,5" Width="Auto" Height="25" BorderThickness="0" Background="Transparent" VerticalAlignment="Top" Click="Back_Click">
+                        <Image Source="/Resources/back_icon.png"/>
+                    </Button>
+                    <Button Margin="5" Width="Auto" Height="25" Background="Transparent" BorderThickness="0" VerticalAlignment="Top" Click="OnPhotoLiked">
+                        <Image Name="LikeButton" Source="/Resources/empty_heart.png"/>
+                    </Button>
+                    <Button Margin="5" BorderThickness="0" Background="Transparent" Width="Auto" Height="25"  VerticalAlignment="Top" Click="Delete_Click">
+                        <Image Source="/Resources/trash-bin.png"/>
+                    </Button>
+
+
                 </StackPanel>
             </Border>
 

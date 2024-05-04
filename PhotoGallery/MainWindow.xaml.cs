@@ -21,21 +21,45 @@ namespace PhotoGallery
     /// </summary>
     public partial class MainWindow : Window
     {
+
         JsonSerializerOptions options = new JsonSerializerOptions
         {
             WriteIndented = true
         };
+
         List<Photo> photoList;
+        Image selectedImage;
+
         public MainWindow()
         {
             InitializeComponent();
 
             SelectedPhotoControl.Visibility = Visibility.Collapsed;
 
+            SelectedPhotoControl.PhotoLiked += HandlePhotoLiked;
+            
             LoadPhotos();
         }
 
-        private void LoadPhotos()
+        private void HandlePhotoLiked(object? sender, EventArgs e)
+        {
+            foreach (Photo photo in photoList)
+            {
+                if(photo.Uri == selectedImage.Source.ToString())
+                {
+                    photo.Liked = !photo.Liked;
+
+                    SetLikeButton(photo.Liked);
+
+                    break;
+                }
+            }
+
+            string ListToJson = JsonSerializer.Serialize(photoList, options);
+            File.WriteAllText("PhotosInvantory.json", ListToJson);
+        }
+
+        public void LoadPhotos()
         {
             GalleryPanel.Children.Clear();
             string rawJson = File.ReadAllText("PhotosInvantory.json");
@@ -52,6 +76,8 @@ namespace PhotoGallery
                     Margin = new Thickness(5),
                     Stretch = Stretch.UniformToFill,
                 };
+                photoToDisplay.MouseEnter += (sender, e) => { photoToDisplay.Opacity = 0.5; };
+                photoToDisplay.MouseLeave += (sender, e) => { photoToDisplay.Opacity = 1; };
                 photoToDisplay.MouseLeftButtonDown += PhotoClick;
                 GalleryPanel.Children.Add(photoToDisplay);
             }
@@ -59,7 +85,16 @@ namespace PhotoGallery
 
         private void PhotoClick(object sender, MouseButtonEventArgs e)
         {
-            Image selectedImage = (Image)sender;
+            
+            selectedImage = (Image)sender;
+            foreach (Photo photo in photoList)
+            {
+                if (photo.Uri == selectedImage.Source.ToString())
+                {
+                    SetLikeButton(photo.Liked);
+                }
+            }
+
             SelectedPhotoControl.DataContext = selectedImage;
             SelectedPhotoControl.Visibility = Visibility.Visible;
         }
@@ -107,6 +142,19 @@ namespace PhotoGallery
                 return false;
             }
             return true;
+        }
+
+        private void SetLikeButton(bool isLiked)
+        {
+            if (isLiked)
+            {
+                SelectedPhotoControl.LikeButton.Source = new BitmapImage(new Uri(@"\Resources\full_heart.png", UriKind.Relative));
+            }
+            else
+            {
+                SelectedPhotoControl.LikeButton.Source = new BitmapImage(new Uri(@"\Resources\empty_heart.png", UriKind.Relative));
+
+            }
         }
     }
 
