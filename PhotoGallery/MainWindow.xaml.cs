@@ -73,7 +73,7 @@ namespace PhotoGallery
                }   
           string updatedJson = JsonSerializer.Serialize(photoList, options); 
 
-          File.WriteAllText("PhotoInvantory.json", updatedJson); 
+          File.WriteAllText("PhotosInvantory.json", updatedJson); 
 
           LoadPhotos();
         }
