@@ -37,7 +37,7 @@ namespace PhotoGallery
             SelectedPhotoControl.Visibility = Visibility.Collapsed;
 
             SelectedPhotoControl.PhotoLiked += HandlePhotoLiked;
-            SelectedPhotoControl.PhotoDeleted = HandlePhotoDeleted;
+            SelectedPhotoControl.PhotoDeleted += HandlePhotoDeleted;
             
             LoadPhotos();
         }
