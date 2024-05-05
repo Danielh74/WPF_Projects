@@ -37,6 +37,7 @@ namespace PhotoGallery
             SelectedPhotoControl.Visibility = Visibility.Collapsed;
 
             SelectedPhotoControl.PhotoLiked += HandlePhotoLiked;
+            SelectedPhotoControl.PhotoDeleted = HandlePhotoDeleted;
             
             LoadPhotos();
         }
@@ -58,6 +59,25 @@ namespace PhotoGallery
             string ListToJson = JsonSerializer.Serialize(photoList, options);
             File.WriteAllText("PhotosInvantory.json", ListToJson);
         }
+
+        private void HandlePhotoDeleted(object? sender, EventArgs e)
+        {
+          foreach(Photo photo in photoList)
+               {
+                 if(photo.Uri == selectedImage.Source.ToString())
+                   {         
+                      photoList.Remove(photo);
+
+                      break;
+                   }     
+               }   
+          string updatedJson = JsonSerializer.Serialize(photoList, options); 
+
+          File.WriteAllText("PhotoInvantory.json", updatedJson); 
+
+          LoadPhotos();
+        }
+
 
         public void LoadPhotos()
         {
@@ -92,6 +112,7 @@ namespace PhotoGallery
                 if (photo.Uri == selectedImage.Source.ToString())
                 {
                     SetLikeButton(photo.Liked);
+                    break;
                 }
             }
 

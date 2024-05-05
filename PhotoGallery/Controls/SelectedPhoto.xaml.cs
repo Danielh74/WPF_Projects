@@ -21,6 +21,7 @@ namespace PhotoGallery.Controls
     public partial class SelectedPhoto : UserControl
     {
         public event EventHandler PhotoLiked;
+        public event EventHandler PhotoDeleted;
 
        
         public SelectedPhoto()
@@ -39,9 +40,9 @@ namespace PhotoGallery.Controls
             PhotoLiked?.Invoke(this, EventArgs.Empty);
         }
         
-        private void Delete_Click(object sender, RoutedEventArgs e)
+        private void OnPhotoDeleted (object sender, RoutedEventArgs e)
         {
-            Visibility = Visibility.Collapsed;
+            PhotoDeleted?.Invoke(this, EventArgs.Empty);
         }
     }
 }

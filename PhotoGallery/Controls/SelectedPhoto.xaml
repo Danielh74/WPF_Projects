@@ -17,7 +17,7 @@
                     <Button Margin="5" Width="Auto" Height="25" Background="Transparent" BorderThickness="0" VerticalAlignment="Top" Click="OnPhotoLiked">
                         <Image Name="LikeButton" Source="/Resources/empty_heart.png"/>
                     </Button>
-                    <Button Margin="5" BorderThickness="0" Background="Transparent" Width="Auto" Height="25"  VerticalAlignment="Top" Click="Delete_Click">
+                    <Button Margin="5" BorderThickness="0" Background="Transparent" Width="Auto" Height="25"  VerticalAlignment="Top" Click="OnPhotoDeleted">
                         <Image Source="/Resources/trash-bin.png"/>
                     </Button>
 
