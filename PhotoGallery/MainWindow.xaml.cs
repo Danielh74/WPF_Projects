@@ -68,18 +68,23 @@ namespace PhotoGallery
             {
                 if (photo.SafeUri == selectedImageSafeUri)
                 {
-                    photoList.Remove(photo);
+                    MessageBoxResult result = MessageBox.Show("Are you sure you want to delete?", "Delete Photo", MessageBoxButton.YesNo);
+                    if (result == MessageBoxResult.Yes)
+                    {
+                        photoList.Remove(photo);
+
+                        SelectedPhotoControl.Visibility = Visibility.Collapsed;
+
+                        string updatedJson = JsonSerializer.Serialize(photoList, options);
+
+                        File.WriteAllText("PhotosInvantory.json", updatedJson);
+
+                        LoadPhotos();
+                    }
 
                     break;
                 }
             }
-            string updatedJson = JsonSerializer.Serialize(photoList, options);
-
-            File.WriteAllText("PhotosInvantory.json", updatedJson);
-
-            SelectedPhotoControl.Visibility = Visibility.Collapsed;
-
-            LoadPhotos();
         }
 
 
