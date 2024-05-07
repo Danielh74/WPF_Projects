@@ -23,7 +23,7 @@ namespace PhotoGallery.Controls
         public event EventHandler PhotoLiked;
         public event EventHandler PhotoDeleted;
 
-       
+
         public SelectedPhoto()
         {
             InitializeComponent();
@@ -39,8 +39,8 @@ namespace PhotoGallery.Controls
         {
             PhotoLiked?.Invoke(this, EventArgs.Empty);
         }
-        
-        private void OnPhotoDeleted (object sender, RoutedEventArgs e)
+
+        private void OnPhotoDeleted(object sender, RoutedEventArgs e)
         {
             PhotoDeleted?.Invoke(this, EventArgs.Empty);
         }

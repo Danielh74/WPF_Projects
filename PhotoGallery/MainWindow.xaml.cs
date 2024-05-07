@@ -38,15 +38,16 @@ namespace PhotoGallery
 
             SelectedPhotoControl.PhotoLiked += HandlePhotoLiked;
             SelectedPhotoControl.PhotoDeleted += HandlePhotoDeleted;
-            
+
             LoadPhotos();
         }
 
         private void HandlePhotoLiked(object? sender, EventArgs e)
         {
+            string selectedImageSafeUri = GetSafeFileName(selectedImage.Source.ToString());
             foreach (Photo photo in photoList)
             {
-                if(photo.Uri == selectedImage.Source.ToString())
+                if (photo.SafeUri == selectedImageSafeUri)
                 {
                     photo.Liked = !photo.Liked;
 
@@ -62,20 +63,23 @@ namespace PhotoGallery
 
         private void HandlePhotoDeleted(object? sender, EventArgs e)
         {
-          foreach(Photo photo in photoList)
-               {
-                 if(photo.Uri == selectedImage.Source.ToString())
-                   {         
-                      photoList.Remove(photo);
+            string selectedImageSafeUri = GetSafeFileName(selectedImage.Source.ToString());
+            foreach (Photo photo in photoList)
+            {
+                if (photo.SafeUri == selectedImageSafeUri)
+                {
+                    photoList.Remove(photo);
 
-                      break;
-                   }     
-               }   
-          string updatedJson = JsonSerializer.Serialize(photoList, options); 
+                    break;
+                }
+            }
+            string updatedJson = JsonSerializer.Serialize(photoList, options);
 
-          File.WriteAllText("PhotosInvantory.json", updatedJson); 
+            File.WriteAllText("PhotosInvantory.json", updatedJson);
 
-          LoadPhotos();
+            SelectedPhotoControl.Visibility = Visibility.Collapsed;
+
+            LoadPhotos();
         }
 
 
@@ -105,11 +109,13 @@ namespace PhotoGallery
 
         private void PhotoClick(object sender, MouseButtonEventArgs e)
         {
-            
             selectedImage = (Image)sender;
+
+            string selectedImageSafeUri = GetSafeFileName(selectedImage.Source.ToString());
+
             foreach (Photo photo in photoList)
             {
-                if (photo.Uri == selectedImage.Source.ToString())
+                if (photo.SafeUri == selectedImageSafeUri)
                 {
                     SetLikeButton(photo.Liked);
                     break;
@@ -130,6 +136,7 @@ namespace PhotoGallery
             Photo photoToAdd = new Photo()
             {
                 Uri = fileDialog.FileName,
+                SafeUri = fileDialog.SafeFileName,
                 Liked = false
             };
 
@@ -176,6 +183,13 @@ namespace PhotoGallery
                 SelectedPhotoControl.LikeButton.Source = new BitmapImage(new Uri(@"\Resources\empty_heart.png", UriKind.Relative));
 
             }
+        }
+        private string GetSafeFileName(string uri)
+        {
+            int lastIndex = uri.LastIndexOf('/');
+            string safeFileName = uri.Substring(lastIndex + 1);
+
+            return safeFileName;
         }
     }
 
