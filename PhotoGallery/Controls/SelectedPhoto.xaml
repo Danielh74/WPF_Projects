@@ -14,7 +14,7 @@
                     <Button Margin="5,5,100,5" Width="Auto" Height="25" BorderThickness="0" Background="Transparent" VerticalAlignment="Top" Click="Back_Click">
                         <Image Source="/Resources/back_icon.png"/>
                     </Button>
-                    <Button Margin="5" Width="Auto" Height="25" Background="Transparent" BorderThickness="0" VerticalAlignment="Top" Click="OnPhotoLiked">
+                    <Button Margin="5" Width="Auto" Height="25" Background="Transparent" BorderThickness="0" VerticalAlignment="Top" Click="OnPhotoFavorited">
                         <Image Name="LikeButton" Source="/Resources/empty_heart.png"/>
                     </Button>
                     <Button Margin="5" BorderThickness="0" Background="Transparent" Width="Auto" Height="25"  VerticalAlignment="Top" Click="OnPhotoDeleted">

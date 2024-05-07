@@ -12,6 +12,7 @@
     <None Remove="Resources\back_icon.png" />
     <None Remove="Resources\empty_heart.png" />
     <None Remove="Resources\full_heart.png" />
+    <None Remove="Resources\plus_icon.png" />
     <None Remove="Resources\trash-bin.png" />
   </ItemGroup>
 
@@ -23,6 +24,7 @@
     <Resource Include="Resources\back_icon.png" />
     <Resource Include="Resources\empty_heart.png" />
     <Resource Include="Resources\full_heart.png" />
+    <Resource Include="Resources\plus_icon.png" />
     <Resource Include="Resources\trash-bin.png" />
   </ItemGroup>
 

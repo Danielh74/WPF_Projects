@@ -1,5 +1,6 @@
 ﻿using Microsoft.Win32;
 using PhotoGallery.Controls;
+using PhotoGallery.Utils;
 using System.Collections;
 using System.IO;
 using System.Text;
@@ -29,6 +30,7 @@ namespace PhotoGallery
 
         List<Photo> photoList;
         Image selectedImage;
+        WindowType currentType;
 
         public MainWindow()
         {
@@ -36,22 +38,130 @@ namespace PhotoGallery
 
             SelectedPhotoControl.Visibility = Visibility.Collapsed;
 
-            SelectedPhotoControl.PhotoLiked += HandlePhotoLiked;
+            SelectedPhotoControl.PhotoFavorited += HandlePhotoFavorited;
             SelectedPhotoControl.PhotoDeleted += HandlePhotoDeleted;
 
-            LoadPhotos();
+            currentType = WindowType.Home;
+            LoadPhotos("home");
         }
 
-        private void HandlePhotoLiked(object? sender, EventArgs e)
+        public void LoadPhotos(string option)
         {
-            string selectedImageSafeUri = GetSafeFileName(selectedImage.Source.ToString());
+            GalleryPanel.Children.Clear();
+            string rawJson = File.ReadAllText("PhotosInvantory.json");
+            photoList = JsonSerializer.Deserialize<List<Photo>>(rawJson);
+
+            switch (option)
+            {
+                case "home":
+                    foreach (Photo photo in photoList)
+                    {
+                        BitmapImage image = new BitmapImage(new Uri(photo.Uri));
+                        Image photoToDisplay = new Image
+                        {
+                            Source = image,
+                            MaxHeight = 150,
+                            MaxWidth = 150,
+                            Margin = new Thickness(5),
+                            Stretch = Stretch.UniformToFill,
+                        };
+                        photoToDisplay.MouseEnter += (sender, e) => { photoToDisplay.Opacity = 0.5; };
+                        photoToDisplay.MouseLeave += (sender, e) => { photoToDisplay.Opacity = 1; };
+                        photoToDisplay.MouseLeftButtonDown += PhotoClick;
+                        GalleryPanel.Children.Add(photoToDisplay);
+                    }
+
+                    if (GalleryPanel.Children.Count == 0)
+                    {
+                        TextBlock emptyGalleryMessage = new TextBlock()
+                        {
+                            Text = "Your gallery is empty"
+                        };
+
+                        GalleryPanel.Children.Add(emptyGalleryMessage);
+                    }
+
+                    break;
+
+                case "favorites":
+                    foreach (Photo photo in photoList)
+                    {
+                        if (photo.IsFavorite)
+                        {
+                            BitmapImage image = new BitmapImage(new Uri(photo.Uri));
+                            Image photoToDisplay = new Image
+                            {
+                                Source = image,
+                                MaxHeight = 150,
+                                MaxWidth = 150,
+                                Margin = new Thickness(5),
+                                Stretch = Stretch.UniformToFill,
+                            };
+                            photoToDisplay.MouseEnter += (sender, e) => { photoToDisplay.Opacity = 0.5; };
+                            photoToDisplay.MouseLeave += (sender, e) => { photoToDisplay.Opacity = 1; };
+                            photoToDisplay.MouseLeftButtonDown += PhotoClick;
+                            GalleryPanel.Children.Add(photoToDisplay);
+                        }
+                    }
+                    if (GalleryPanel.Children.Count == 0)
+                    {
+                        TextBlock noFavMessage = new TextBlock()
+                        {
+                            Text = "No favorite photos"
+                        };
+
+                        GalleryPanel.Children.Add(noFavMessage);
+                    }
+                    break;
+
+                case "about":
+                    StackPanel stackPanel = new StackPanel()
+                    {
+                        VerticalAlignment = VerticalAlignment.Center,
+                        HorizontalAlignment = HorizontalAlignment.Center,
+                    };
+                    TextBlock textBlock = new TextBlock()
+                    {
+                        Text = "This is the about section"
+                    };
+                    stackPanel.Children.Add(textBlock);
+                    GalleryPanel.Children.Add(stackPanel);
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+        private void PhotoClick(object sender, MouseButtonEventArgs e)
+        {
+            selectedImage = (Image)sender;
+
+            string selectedImageSafeUri = Helpers.GetSafeFileName(selectedImage.Source.ToString());
+
             foreach (Photo photo in photoList)
             {
                 if (photo.SafeUri == selectedImageSafeUri)
                 {
-                    photo.Liked = !photo.Liked;
+                    SelectedPhotoControl.LikeButton.Source = Helpers.SetLikeButton(photo.IsFavorite);
+                    break;
+                }
+            }
 
-                    SetLikeButton(photo.Liked);
+            SelectedPhotoControl.DataContext = selectedImage;
+            SelectedPhotoControl.Visibility = Visibility.Visible;
+        }
+
+        private void HandlePhotoFavorited(object? sender, EventArgs e)
+        {
+            string selectedImageSafeUri = Helpers.GetSafeFileName(selectedImage.Source.ToString());
+            foreach (Photo photo in photoList)
+            {
+                if (photo.SafeUri == selectedImageSafeUri)
+                {
+                    photo.IsFavorite = !photo.IsFavorite;
+
+                    SelectedPhotoControl.LikeButton.Source = Helpers.SetLikeButton(photo.IsFavorite);
 
                     break;
                 }
@@ -59,11 +169,16 @@ namespace PhotoGallery
 
             string ListToJson = JsonSerializer.Serialize(photoList, options);
             File.WriteAllText("PhotosInvantory.json", ListToJson);
+
+            if (currentType == WindowType.Favorites)
+            {
+                LoadPhotos("favorites");
+            }
         }
 
         private void HandlePhotoDeleted(object? sender, EventArgs e)
         {
-            string selectedImageSafeUri = GetSafeFileName(selectedImage.Source.ToString());
+            string selectedImageSafeUri = Helpers.GetSafeFileName(selectedImage.Source.ToString());
             foreach (Photo photo in photoList)
             {
                 if (photo.SafeUri == selectedImageSafeUri)
@@ -79,56 +194,19 @@ namespace PhotoGallery
 
                         File.WriteAllText("PhotosInvantory.json", updatedJson);
 
-                        LoadPhotos();
+                        if (currentType == WindowType.Favorites)
+                        {
+                            LoadPhotos("favorites");
+                        }
+                        else
+                        {
+                            LoadPhotos("home");
+                        }
                     }
 
                     break;
                 }
             }
-        }
-
-
-        public void LoadPhotos()
-        {
-            GalleryPanel.Children.Clear();
-            string rawJson = File.ReadAllText("PhotosInvantory.json");
-            photoList = JsonSerializer.Deserialize<List<Photo>>(rawJson);
-
-            foreach (Photo photo in photoList)
-            {
-                BitmapImage image = new BitmapImage(new Uri(photo.Uri));
-                Image photoToDisplay = new Image
-                {
-                    Source = image,
-                    MaxHeight = 150,
-                    MaxWidth = 150,
-                    Margin = new Thickness(5),
-                    Stretch = Stretch.UniformToFill,
-                };
-                photoToDisplay.MouseEnter += (sender, e) => { photoToDisplay.Opacity = 0.5; };
-                photoToDisplay.MouseLeave += (sender, e) => { photoToDisplay.Opacity = 1; };
-                photoToDisplay.MouseLeftButtonDown += PhotoClick;
-                GalleryPanel.Children.Add(photoToDisplay);
-            }
-        }
-
-        private void PhotoClick(object sender, MouseButtonEventArgs e)
-        {
-            selectedImage = (Image)sender;
-
-            string selectedImageSafeUri = GetSafeFileName(selectedImage.Source.ToString());
-
-            foreach (Photo photo in photoList)
-            {
-                if (photo.SafeUri == selectedImageSafeUri)
-                {
-                    SetLikeButton(photo.Liked);
-                    break;
-                }
-            }
-
-            SelectedPhotoControl.DataContext = selectedImage;
-            SelectedPhotoControl.Visibility = Visibility.Visible;
         }
 
         private void AddToGallery_Click(object sender, RoutedEventArgs e)
@@ -142,61 +220,45 @@ namespace PhotoGallery
             {
                 Uri = fileDialog.FileName,
                 SafeUri = fileDialog.SafeFileName,
-                Liked = false
+                IsFavorite = false
             };
 
-            if (IsVideoFormat(photoToAdd.Uri))
-            {
-                MessageBox.Show("Photo is already in the gallery");
-                return;
-            }
-
-            if (photoToAdd.Uri.Contains(".mp4"))
+            if (Helpers.IsVideoFormat(photoToAdd.Uri))
             {
                 MessageBox.Show("Cannot add videos to gallery");
                 return;
             }
 
+            if (photoList.Any(photo => photo.SafeUri == photoToAdd.SafeUri))
+            {
+                MessageBox.Show("Photo is already exists in gallery");
+                return;
+            }
+            
             photoList.Add(photoToAdd);
 
             string ListToJson = JsonSerializer.Serialize(photoList, options);
             File.WriteAllText("PhotosInvantory.json", ListToJson);
-            LoadPhotos();
+
+            LoadPhotos("home");
 
         }
 
-        private bool IsVideoFormat(string uri)
+        private void HomeButton_Click(object sender, RoutedEventArgs e)
         {
-            string[] videoExtensions = [".mp4", ".avi", ".mkv", ".mov", ".wmv", ".flv", ".webm"];
-
-            string mediaToCheck = System.IO.Path.GetExtension(uri);
-            if (mediaToCheck != null && Array.IndexOf(videoExtensions, mediaToCheck.ToLower()) == -1)
-            {
-                return false;
-            }
-            return true;
+            currentType = WindowType.Home;
+            LoadPhotos("home");
         }
 
-        private void SetLikeButton(bool isLiked)
+        private void FavoriteButton_Click(object sender, RoutedEventArgs e)
         {
-            if (isLiked)
-            {
-                SelectedPhotoControl.LikeButton.Source = new BitmapImage(new Uri(@"\Resources\full_heart.png", UriKind.Relative));
-            }
-            else
-            {
-                SelectedPhotoControl.LikeButton.Source = new BitmapImage(new Uri(@"\Resources\empty_heart.png", UriKind.Relative));
-
-            }
+            currentType = WindowType.Favorites;
+            LoadPhotos("favorites");
         }
-        private string GetSafeFileName(string uri)
-        {
-            int lastIndex = uri.LastIndexOf('/');
-            string safeFileName = uri.Substring(lastIndex + 1);
 
-            return safeFileName;
+        private void AboutButton_Click(object sender, RoutedEventArgs e)
+        {
+            LoadPhotos("about");
         }
     }
-
-
 }

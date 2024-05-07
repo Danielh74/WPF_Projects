@@ -4,6 +4,6 @@
     {
         public string Uri { get; set; }
         public string SafeUri { get; set; }
-        public bool Liked { get; set; }
+        public bool IsFavorite { get; set; }
     }
 }

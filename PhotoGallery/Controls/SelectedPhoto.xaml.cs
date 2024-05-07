@@ -20,14 +20,13 @@ namespace PhotoGallery.Controls
     /// </summary>
     public partial class SelectedPhoto : UserControl
     {
-        public event EventHandler PhotoLiked;
+        public event EventHandler PhotoFavorited;
         public event EventHandler PhotoDeleted;
 
 
         public SelectedPhoto()
         {
             InitializeComponent();
-
         }
 
         private void Back_Click(object sender, RoutedEventArgs e)
@@ -35,9 +34,9 @@ namespace PhotoGallery.Controls
             Visibility = Visibility.Collapsed;
         }
 
-        private void OnPhotoLiked(object sender, RoutedEventArgs e)
+        private void OnPhotoFavorited(object sender, RoutedEventArgs e)
         {
-            PhotoLiked?.Invoke(this, EventArgs.Empty);
+            PhotoFavorited?.Invoke(this, EventArgs.Empty);
         }
 
         private void OnPhotoDeleted(object sender, RoutedEventArgs e)

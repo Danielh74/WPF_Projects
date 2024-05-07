@@ -8,21 +8,33 @@
         Title="MainWindow" Height="450" Width="800">
     <Grid>
         <DockPanel>
-            <Button 
-                Content="Add Photo" 
-                Margin="5" 
-                Padding="2" 
-                HorizontalAlignment="Left" 
-                DockPanel.Dock="Top"
-                Click="AddToGallery_Click"/>
-            
+            <Border BorderBrush="Black" BorderThickness="0,0,0.5,0" Margin="0,5,5,5">
+                <StackPanel DockPanel.Dock="Left" >
+                    <Button
+                        HorizontalAlignment="Center" 
+                        Margin="0,0,0,5"
+                        Padding="2" 
+                        Height="25"
+                        Width="25"
+                        Background="Transparent"
+                        Click="AddToGallery_Click">
+                        <Image Source="/Resources/plus_icon.png"/>
+                    </Button>
+                    <Button Content="Home" FontWeight="DemiBold" Margin="5" Padding="5" Background="Transparent" BorderThickness="0" Click="HomeButton_Click"/>
+                    <Button Content="Favorites" FontWeight="DemiBold" Margin="5" Padding="5" Background="Transparent" BorderThickness="0" Click="FavoriteButton_Click"/>
+                    <Button Content="About" FontWeight="DemiBold" Margin="5" Padding="5" Background="Transparent" BorderThickness="0" Click="AboutButton_Click"/>
+                </StackPanel>
+            </Border>
+
+
             <ScrollViewer VerticalScrollBarVisibility="Auto">
-                <WrapPanel Name="GalleryPanel"/>
+                <WrapPanel Name="GalleryPanel" Margin="5"/>
             </ScrollViewer>
-            
+
         </DockPanel>
+
         <controls:SelectedPhoto x:Name="SelectedPhotoControl"/>
     </Grid>
-   
-    
+
+
 </Window>
