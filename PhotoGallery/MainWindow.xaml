@@ -26,7 +26,6 @@
                 </StackPanel>
             </Border>
 
-
             <ScrollViewer VerticalScrollBarVisibility="Auto">
                 <WrapPanel Name="GalleryPanel" Margin="5"/>
             </ScrollViewer>
@@ -34,6 +33,7 @@
         </DockPanel>
 
         <controls:SelectedPhoto x:Name="SelectedPhotoControl"/>
+        <controls:LoginPage x:Name="LoginPageControl"/>
     </Grid>
 
 

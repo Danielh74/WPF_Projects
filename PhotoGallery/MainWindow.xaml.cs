@@ -1,5 +1,7 @@
 ﻿using Microsoft.Win32;
 using PhotoGallery.Controls;
+using PhotoGallery.CustomEventArgs;
+using PhotoGallery.Models;
 using PhotoGallery.Utils;
 using System.Collections;
 using System.IO;
@@ -27,8 +29,9 @@ namespace PhotoGallery
         {
             WriteIndented = true
         };
-
-        List<Photo> photoList;
+        User currentUser;
+        int currentUserIndex;
+        List<User> userList;
         Image selectedImage;
         WindowType currentType;
 
@@ -41,20 +44,36 @@ namespace PhotoGallery
             SelectedPhotoControl.PhotoFavorited += HandlePhotoFavorited;
             SelectedPhotoControl.PhotoDeleted += HandlePhotoDeleted;
 
+            LoginPageControl.UserLogin += HandleUserLogin;
+
             currentType = WindowType.Home;
-            LoadPhotos("home");
+            LoadUsers();
+        }
+
+        private void HandleUserLogin(object? sender, LoginEventArgs e)
+        {
+            foreach (User user in userList)
+            {
+                if(user.Email == e.Email && user.Password == e.Password)
+                {
+                    LoginPageControl.Visibility = Visibility.Collapsed;
+                    GalleryPanel.Visibility = Visibility.Visible;
+                    currentUser = user;
+                    currentUserIndex = userList.IndexOf(user);
+                    LoadPhotos("home");
+                    return;
+                }
+            }
         }
 
         public void LoadPhotos(string option)
         {
             GalleryPanel.Children.Clear();
-            string rawJson = File.ReadAllText("PhotosInvantory.json");
-            photoList = JsonSerializer.Deserialize<List<Photo>>(rawJson);
 
             switch (option)
             {
                 case "home":
-                    foreach (Photo photo in photoList)
+                    foreach (Photo photo in currentUser.Gallery)
                     {
                         BitmapImage image = new BitmapImage(new Uri(photo.Uri));
                         Image photoToDisplay = new Image
@@ -84,7 +103,7 @@ namespace PhotoGallery
                     break;
 
                 case "favorites":
-                    foreach (Photo photo in photoList)
+                    foreach (Photo photo in currentUser.Gallery)
                     {
                         if (photo.IsFavorite)
                         {
@@ -139,7 +158,7 @@ namespace PhotoGallery
 
             string selectedImageSafeUri = Helpers.GetSafeFileName(selectedImage.Source.ToString());
 
-            foreach (Photo photo in photoList)
+            foreach (Photo photo in currentUser.Gallery)
             {
                 if (photo.SafeUri == selectedImageSafeUri)
                 {
@@ -155,7 +174,7 @@ namespace PhotoGallery
         private void HandlePhotoFavorited(object? sender, EventArgs e)
         {
             string selectedImageSafeUri = Helpers.GetSafeFileName(selectedImage.Source.ToString());
-            foreach (Photo photo in photoList)
+            foreach (Photo photo in currentUser.Gallery)
             {
                 if (photo.SafeUri == selectedImageSafeUri)
                 {
@@ -166,8 +185,8 @@ namespace PhotoGallery
                     break;
                 }
             }
-
-            string ListToJson = JsonSerializer.Serialize(photoList, options);
+            userList[currentUserIndex].Gallery = currentUser.Gallery;
+            string ListToJson = JsonSerializer.Serialize(userList, options);
             File.WriteAllText("PhotosInvantory.json", ListToJson);
 
             if (currentType == WindowType.Favorites)
@@ -179,20 +198,20 @@ namespace PhotoGallery
         private void HandlePhotoDeleted(object? sender, EventArgs e)
         {
             string selectedImageSafeUri = Helpers.GetSafeFileName(selectedImage.Source.ToString());
-            foreach (Photo photo in photoList)
+            foreach (Photo photo in currentUser.Gallery)
             {
                 if (photo.SafeUri == selectedImageSafeUri)
                 {
                     MessageBoxResult result = MessageBox.Show("Are you sure you want to delete?", "Delete Photo", MessageBoxButton.YesNo);
                     if (result == MessageBoxResult.Yes)
                     {
-                        photoList.Remove(photo);
+                        currentUser.Gallery.Remove(photo);
 
                         SelectedPhotoControl.Visibility = Visibility.Collapsed;
 
-                        string updatedJson = JsonSerializer.Serialize(photoList, options);
-
-                        File.WriteAllText("PhotosInvantory.json", updatedJson);
+                        userList[currentUserIndex].Gallery = currentUser.Gallery;
+                        string ListToJson = JsonSerializer.Serialize(userList, options);
+                        File.WriteAllText("PhotosInvantory.json", ListToJson);
 
                         if (currentType == WindowType.Favorites)
                         {
@@ -229,15 +248,16 @@ namespace PhotoGallery
                 return;
             }
 
-            if (photoList.Any(photo => photo.SafeUri == photoToAdd.SafeUri))
+            if (currentUser.Gallery.Any(photo => photo.SafeUri == photoToAdd.SafeUri))
             {
                 MessageBox.Show("Photo is already exists in gallery");
                 return;
             }
-            
-            photoList.Add(photoToAdd);
 
-            string ListToJson = JsonSerializer.Serialize(photoList, options);
+            currentUser.Gallery.Add(photoToAdd);
+
+            userList[currentUserIndex].Gallery = currentUser.Gallery;
+            string ListToJson = JsonSerializer.Serialize(userList, options);
             File.WriteAllText("PhotosInvantory.json", ListToJson);
 
             LoadPhotos("home");
@@ -259,6 +279,12 @@ namespace PhotoGallery
         private void AboutButton_Click(object sender, RoutedEventArgs e)
         {
             LoadPhotos("about");
+        }
+
+        private void LoadUsers()
+        {
+            string rawJson = File.ReadAllText("PhotosInvantory.json");
+            userList = JsonSerializer.Deserialize<List<User>>(rawJson);
         }
     }
 }
