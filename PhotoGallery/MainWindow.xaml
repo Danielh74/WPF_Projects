@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <DockPanel>
+        <DockPanel Name="MainPanel">
             <Border BorderBrush="Black" BorderThickness="0,0,0.5,0" Margin="0,5,5,5">
                 <StackPanel DockPanel.Dock="Left" >
                     <Button
@@ -34,6 +34,7 @@
 
         <controls:SelectedPhoto x:Name="SelectedPhotoControl"/>
         <controls:LoginPage x:Name="LoginPageControl"/>
+        <controls:RegisterPage x:Name="RegisterPageControl"/>
     </Grid>
 
 

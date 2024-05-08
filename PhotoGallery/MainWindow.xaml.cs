@@ -40,30 +40,59 @@ namespace PhotoGallery
             InitializeComponent();
 
             SelectedPhotoControl.Visibility = Visibility.Collapsed;
+            RegisterPageControl.Visibility = Visibility.Collapsed;
+            MainPanel.Visibility = Visibility.Collapsed;
 
             SelectedPhotoControl.PhotoFavorited += HandlePhotoFavorited;
             SelectedPhotoControl.PhotoDeleted += HandlePhotoDeleted;
 
-            LoginPageControl.UserLogin += HandleUserLogin;
+            LoginPageControl.UserLoggedIn += HandleUserLogin;
+            LoginPageControl.ChangingForm += HandleFormChange;
+
+            RegisterPageControl.UserRegistered += HandleUserLogin;
+            RegisterPageControl.ChangingForm += HandleFormChange;
 
             currentType = WindowType.Home;
-            LoadUsers();
         }
 
         private void HandleUserLogin(object? sender, LoginEventArgs e)
         {
-            foreach (User user in userList)
+            LoadUsers();
+
+            currentUser = userList.Find(user => user.Email == e.Email && user.Password == e.Password);
+            if (currentUser != null)
             {
-                if(user.Email == e.Email && user.Password == e.Password)
-                {
-                    LoginPageControl.Visibility = Visibility.Collapsed;
-                    GalleryPanel.Visibility = Visibility.Visible;
-                    currentUser = user;
-                    currentUserIndex = userList.IndexOf(user);
-                    LoadPhotos("home");
-                    return;
-                }
+                LoginPageControl.Visibility = Visibility.Collapsed;
+                RegisterPageControl.Visibility = Visibility.Collapsed;
+                GalleryPanel.Visibility = Visibility.Visible;
+                currentUserIndex = userList.IndexOf(currentUser);
+                MainPanel.Visibility = Visibility.Visible;
+                LoadPhotos("home");
             }
+            else
+            {
+                return;
+            }
+        }
+
+        private void HandleFormChange(object? sender, EventArgs e)
+        {
+            if (RegisterPageControl.Visibility == Visibility.Visible)
+            {
+                RegisterPageControl.Visibility = Visibility.Collapsed;
+                LoginPageControl.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                RegisterPageControl.Visibility = Visibility.Visible;
+                LoginPageControl.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private void LoadUsers()
+        {
+            string rawJson = File.ReadAllText("PhotosInvantory.json");
+            userList = JsonSerializer.Deserialize<List<User>>(rawJson);
         }
 
         public void LoadPhotos(string option)
@@ -279,12 +308,6 @@ namespace PhotoGallery
         private void AboutButton_Click(object sender, RoutedEventArgs e)
         {
             LoadPhotos("about");
-        }
-
-        private void LoadUsers()
-        {
-            string rawJson = File.ReadAllText("PhotosInvantory.json");
-            userList = JsonSerializer.Deserialize<List<User>>(rawJson);
         }
     }
 }

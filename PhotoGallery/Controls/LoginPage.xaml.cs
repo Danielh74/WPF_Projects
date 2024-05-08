@@ -21,7 +21,9 @@ namespace PhotoGallery.Controls
     /// </summary>
     public partial class LoginPage : UserControl
     {
-        public event EventHandler<LoginEventArgs> UserLogin;
+        public event EventHandler<LoginEventArgs> UserLoggedIn;
+        public event EventHandler ChangingForm;
+
         public LoginPage()
         {
             InitializeComponent();
@@ -29,7 +31,12 @@ namespace PhotoGallery.Controls
 
         private void OnUserLogin(object sender, RoutedEventArgs e)
         {
-            UserLogin?.Invoke(this, new LoginEventArgs() { Email = Email_TB.Text, Password = Password_TB.Text});
+            UserLoggedIn?.Invoke(this, new LoginEventArgs() { Email = Email_TB.Text, Password = Password_TB.Text });
+        }
+
+        private void ChangeForm(object sender, RoutedEventArgs e)
+        {
+            ChangingForm?.Invoke(this, EventArgs.Empty);
         }
     }
 }

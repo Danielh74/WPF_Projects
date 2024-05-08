@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="PhotoGallery.Controls.LoginPage"
+﻿<UserControl x:Class="PhotoGallery.Controls.RegisterPage"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -6,17 +6,18 @@
              xmlns:local="clr-namespace:PhotoGallery.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    
-    <StackPanel Name="LoginPanel">
+
+    <StackPanel Name="RegisterPanel">
+        <Label Content="UserName:"/>
+        <TextBox Name="UserName_TB"/>
         <Label Content="Email:"/>
         <TextBox Name="Email_TB"/>
         <Label Content="Password:"/>
         <TextBox Name="Password_TB"/>
-        <Button Content="Login" Margin="10" Click="OnUserLogin"/>
+        <Button Content="Register" Margin="10" Click="OnUserRegister"/>
 
-        <TextBlock Text="Not a user? Register now" Margin="0,20,0,5" HorizontalAlignment="Center"/>
-        <Button Content="Register" HorizontalAlignment="Center" Padding="5" Click="ChangeForm" />
-
+        <TextBlock Text="Already a user? Login" Margin="0,20,0,5" HorizontalAlignment="Center"/>
+        <Button Content="Login" HorizontalAlignment="Center" Padding="5" Click="ChangeForm" />
     </StackPanel>
-    
+
 </UserControl>
