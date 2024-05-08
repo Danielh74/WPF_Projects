@@ -8,7 +8,7 @@
              d:DesignHeight="450" d:DesignWidth="800">
 
     <StackPanel Name="RegisterPanel">
-        <Label Content="UserName:"/>
+        <Label Content="User Name:"/>
         <TextBox Name="UserName_TB"/>
         <Label Content="Email:"/>
         <TextBox Name="Email_TB"/>

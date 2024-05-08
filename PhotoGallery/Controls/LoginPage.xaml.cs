@@ -32,6 +32,8 @@ namespace PhotoGallery.Controls
         private void OnUserLogin(object sender, RoutedEventArgs e)
         {
             UserLoggedIn?.Invoke(this, new LoginEventArgs() { Email = Email_TB.Text, Password = Password_TB.Text });
+            Email_TB.Text = "";
+            Password_TB.Text = "";
         }
 
         private void ChangeForm(object sender, RoutedEventArgs e)

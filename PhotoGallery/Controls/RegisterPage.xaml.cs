@@ -56,6 +56,10 @@ namespace PhotoGallery.Controls
             File.WriteAllText("PhotosInvantory.json", updatedList);
 
             UserRegistered?.Invoke(this,new LoginEventArgs { Email = Email_TB.Text, Password = Password_TB.Text });
+
+            UserName_TB.Text = "";
+            Email_TB.Text = "";
+            Password_TB.Text = "";
         }
 
         private void ChangeForm(object sender, RoutedEventArgs e)

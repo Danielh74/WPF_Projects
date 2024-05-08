@@ -309,5 +309,12 @@ namespace PhotoGallery
         {
             LoadPhotos("about");
         }
+
+        private void LogOut(object sender, RoutedEventArgs e)
+        {
+            currentUser = null;
+            MainPanel.Visibility = Visibility.Collapsed;
+            LoginPageControl.Visibility = Visibility.Visible;
+        }
     }
 }

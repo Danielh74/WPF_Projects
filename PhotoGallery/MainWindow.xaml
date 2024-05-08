@@ -23,6 +23,7 @@
                     <Button Content="Home" FontWeight="DemiBold" Margin="5" Padding="5" Background="Transparent" BorderThickness="0" Click="HomeButton_Click"/>
                     <Button Content="Favorites" FontWeight="DemiBold" Margin="5" Padding="5" Background="Transparent" BorderThickness="0" Click="FavoriteButton_Click"/>
                     <Button Content="About" FontWeight="DemiBold" Margin="5" Padding="5" Background="Transparent" BorderThickness="0" Click="AboutButton_Click"/>
+                    <Button Content="Log out" FontWeight="DemiBold" Margin="5" Padding="5" Background="Transparent" BorderThickness="0" Click="LogOut"/>
                 </StackPanel>
             </Border>
 
