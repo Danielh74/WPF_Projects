@@ -58,56 +58,6 @@ namespace PhotoGallery
             currentType = WindowType.Home;
         }
 
-        private void HandlePhotoChanged(object? sender, PhotoChangeEventArgs e)
-        {
-            if (e.Next)
-            {
-                if (selectedPhotoIndex + 1 >= currentUser.Gallery.Count)
-                {
-                    return;
-                }
-                else
-                {
-                    selectedPhotoIndex += 1;
-                }
-            }
-            else if (e.Previous)
-            {
-                if (selectedPhotoIndex - 1 < 0)
-                {
-                    return;
-                }
-                else
-                {
-                    selectedPhotoIndex -= 1;
-                }
-            }
-
-            selectedPhoto = currentUser.Gallery[selectedPhotoIndex];
-            SelectedPhotoControl.LikeButton.Source = Helpers.SetLikeButton(selectedPhoto.IsFavorite);
-            SelectedPhotoControl.DataContext = GalleryPanel.Children[selectedPhotoIndex];
-        }
-
-        private void HandleUserLogin(object? sender, LoginEventArgs e)
-        {
-            userList = e.UserList;
-
-            currentUser = userList.Find(user => user.Email == e.Email && user.Password == e.Password);
-            if (currentUser != null)
-            {
-                LoginPageControl.Visibility = Visibility.Collapsed;
-                RegisterPageControl.Visibility = Visibility.Collapsed;
-                GalleryPanel.Visibility = Visibility.Visible;
-                currentUserIndex = userList.IndexOf(currentUser);
-                MainPanel.Visibility = Visibility.Visible;
-                LoadPhotos("home");
-            }
-            else
-            {
-                return;
-            }
-        }
-
         private void HandleFormChange(object? sender, EventArgs e)
         {
             if (RegisterPageControl.Visibility == Visibility.Visible)
@@ -122,7 +72,27 @@ namespace PhotoGallery
             }
         }
 
-        public void LoadPhotos(string option)
+        private void HandleUserLogin(object? sender, LoginEventArgs e)
+        {
+            userList = e.UserList;
+
+            currentUser = userList.Find(user => user.Email == e.Email && user.Password == e.Password);
+            if (currentUser != null)
+            {
+                LoginPageControl.Visibility = Visibility.Collapsed;
+                RegisterPageControl.Visibility = Visibility.Collapsed;
+                GalleryPanel.Visibility = Visibility.Visible;
+                currentUserIndex = userList.IndexOf(currentUser);
+                MainPanel.Visibility = Visibility.Visible;
+                LoadWindow("home");
+            }
+            else
+            {
+                return;
+            }
+        }
+
+        public void LoadWindow(string option)
         {
             GalleryPanel.Children.Clear();
 
@@ -155,9 +125,7 @@ namespace PhotoGallery
 
                         GalleryPanel.Children.Add(emptyGalleryMessage);
                     }
-
                     break;
-
                 case "favorites":
                     foreach (Photo photo in currentUser.Gallery)
                     {
@@ -188,7 +156,6 @@ namespace PhotoGallery
                         GalleryPanel.Children.Add(noFavMessage);
                     }
                     break;
-
                 case "about":
                     StackPanel stackPanel = new StackPanel()
                     {
@@ -202,7 +169,6 @@ namespace PhotoGallery
                     stackPanel.Children.Add(textBlock);
                     GalleryPanel.Children.Add(stackPanel);
                     break;
-
                 default:
                     break;
             }
@@ -224,6 +190,36 @@ namespace PhotoGallery
             SelectedPhotoControl.Visibility = Visibility.Visible;
         }
 
+        private void HandlePhotoChanged(object? sender, PhotoChangeEventArgs e)
+        {
+            if (e.Next)
+            {
+                if (selectedPhotoIndex + 1 >= currentUser.Gallery.Count)
+                {
+                    return;
+                }
+                else
+                {
+                    selectedPhotoIndex += 1;
+                }
+            }
+            else if (e.Previous)
+            {
+                if (selectedPhotoIndex - 1 < 0)
+                {
+                    return;
+                }
+                else
+                {
+                    selectedPhotoIndex -= 1;
+                }
+            }
+
+            selectedPhoto = currentUser.Gallery[selectedPhotoIndex];
+            SelectedPhotoControl.LikeButton.Source = Helpers.SetLikeButton(selectedPhoto.IsFavorite);
+            SelectedPhotoControl.DataContext = GalleryPanel.Children[selectedPhotoIndex];
+        }
+
         private void HandlePhotoFavorited(object? sender, EventArgs e)
         {
             selectedPhoto.IsFavorite = !selectedPhoto.IsFavorite;
@@ -241,7 +237,7 @@ namespace PhotoGallery
 
             if (currentType == WindowType.Favorites)
             {
-                LoadPhotos("favorites");
+                LoadWindow("favorites");
             }
         }
 
@@ -261,14 +257,13 @@ namespace PhotoGallery
 
                 if (currentType == WindowType.Favorites)
                 {
-                    LoadPhotos("favorites");
+                    LoadWindow("favorites");
                 }
                 else
                 {
-                    LoadPhotos("home");
+                    LoadWindow("home");
                 }
             }
-
         }
 
         private void AddToGallery_Click(object sender, RoutedEventArgs e)
@@ -303,32 +298,32 @@ namespace PhotoGallery
             string ListToJson = JsonSerializer.Serialize(userList, options);
             File.WriteAllText("PhotosInvantory.json", ListToJson);
 
-            LoadPhotos("home");
+            LoadWindow("home");
 
         }
 
-        private void HomeButton_Click(object sender, RoutedEventArgs e)
+        private void ChangeWindow_Click(object sender, RoutedEventArgs e)
         {
-            currentType = WindowType.Home;
-            LoadPhotos("home");
-        }
-
-        private void FavoriteButton_Click(object sender, RoutedEventArgs e)
-        {
-            currentType = WindowType.Favorites;
-            LoadPhotos("favorites");
-        }
-
-        private void AboutButton_Click(object sender, RoutedEventArgs e)
-        {
-            LoadPhotos("about");
-        }
-
-        private void LogOut(object sender, RoutedEventArgs e)
-        {
-            currentUser = null;
-            MainPanel.Visibility = Visibility.Collapsed;
-            LoginPageControl.Visibility = Visibility.Visible;
+            Button button = sender as Button;
+            switch (button.Name)
+            {
+                case "FavBtn":
+                    currentType = WindowType.Favorites;
+                    LoadWindow("favorites");
+                    break;
+                case "AboutBtn":
+                    LoadWindow("about");
+                    break;
+                case "LogOutBtn":
+                    currentUser = null;
+                    MainPanel.Visibility = Visibility.Collapsed;
+                    LoginPageControl.Visibility = Visibility.Visible;
+                    break;
+                default:
+                    currentType = WindowType.Home;
+                    LoadWindow("home");
+                    break;
+            }
         }
     }
 }
