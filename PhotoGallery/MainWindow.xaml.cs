@@ -57,7 +57,7 @@ namespace PhotoGallery
 
         private void HandleUserLogin(object? sender, LoginEventArgs e)
         {
-            LoadUsers();
+            userList = e.UserList;
 
             currentUser = userList.Find(user => user.Email == e.Email && user.Password == e.Password);
             if (currentUser != null)
@@ -89,12 +89,6 @@ namespace PhotoGallery
             }
         }
 
-        private void LoadUsers()
-        {
-            string rawJson = File.ReadAllText("PhotosInvantory.json");
-            userList = JsonSerializer.Deserialize<List<User>>(rawJson);
-        }
-
         public void LoadPhotos(string option)
         {
             GalleryPanel.Children.Clear();
@@ -104,7 +98,7 @@ namespace PhotoGallery
                 case "home":
                     foreach (Photo photo in currentUser.Gallery)
                     {
-                        BitmapImage image = new BitmapImage(new Uri(photo.Uri));
+                        BitmapImage image = new BitmapImage(new Uri(photo.Uri, UriKind.RelativeOrAbsolute));
                         Image photoToDisplay = new Image
                         {
                             Source = image,
@@ -136,7 +130,7 @@ namespace PhotoGallery
                     {
                         if (photo.IsFavorite)
                         {
-                            BitmapImage image = new BitmapImage(new Uri(photo.Uri));
+                            BitmapImage image = new BitmapImage(new Uri(photo.Uri, UriKind.RelativeOrAbsolute));
                             Image photoToDisplay = new Image
                             {
                                 Source = image,
@@ -210,6 +204,11 @@ namespace PhotoGallery
                     photo.IsFavorite = !photo.IsFavorite;
 
                     SelectedPhotoControl.LikeButton.Source = Helpers.SetLikeButton(photo.IsFavorite);
+
+                    if (!photo.IsFavorite && currentType == WindowType.Favorites)
+                    {
+                        SelectedPhotoControl.Visibility = Visibility.Collapsed;
+                    }
 
                     break;
                 }

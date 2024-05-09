@@ -1,7 +1,10 @@
-﻿using System;
+﻿using PhotoGallery.Models;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 
@@ -40,6 +43,12 @@ namespace PhotoGallery.Utils
             string safeFileName = uri.Substring(lastIndex + 1);
 
             return safeFileName;
+        }
+
+        public static List<User> LoadUsers()
+        {
+            string rawJson = File.ReadAllText("PhotosInvantory.json");
+            return JsonSerializer.Deserialize<List<User>>(rawJson);
         }
     }
 }

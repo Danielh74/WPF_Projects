@@ -1,4 +1,6 @@
 ﻿using PhotoGallery.CustomEventArgs;
+using PhotoGallery.Models;
+using PhotoGallery.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,14 +26,36 @@ namespace PhotoGallery.Controls
         public event EventHandler<LoginEventArgs> UserLoggedIn;
         public event EventHandler ChangingForm;
 
+        List<User> userList;
+
         public LoginPage()
         {
             InitializeComponent();
+
+            userList = Helpers.LoadUsers();
         }
 
         private void OnUserLogin(object sender, RoutedEventArgs e)
         {
-            UserLoggedIn?.Invoke(this, new LoginEventArgs() { Email = Email_TB.Text, Password = Password_TB.Text });
+            if (Email_TB.Text == "" || Password_TB.Text == "")
+            {
+                ErrorMessage.Text = "Please input email and password";
+                return;
+            }
+
+            if (!userList.Exists(user => user.Email == Email_TB.Text))
+            {
+                ErrorMessage.Text = "Email not registered";
+                return;
+            }
+
+            if (!userList.Exists(user => user.Email == Email_TB.Text && user.Password == Password_TB.Text))
+            {
+                ErrorMessage.Text = "Password is incorrect";
+                return;
+            }
+
+            UserLoggedIn?.Invoke(this, new LoginEventArgs() { Email = Email_TB.Text, Password = Password_TB.Text, UserList = userList });
             Email_TB.Text = "";
             Password_TB.Text = "";
         }

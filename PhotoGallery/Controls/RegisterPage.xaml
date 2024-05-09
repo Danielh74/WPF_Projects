@@ -7,17 +7,37 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
 
-    <StackPanel Name="RegisterPanel">
-        <Label Content="User Name:"/>
-        <TextBox Name="UserName_TB"/>
-        <Label Content="Email:"/>
-        <TextBox Name="Email_TB"/>
-        <Label Content="Password:"/>
-        <TextBox Name="Password_TB"/>
-        <Button Content="Register" Margin="10" Click="OnUserRegister"/>
 
-        <TextBlock Text="Already a user? Login" Margin="0,20,0,5" HorizontalAlignment="Center"/>
-        <Button Content="Login" HorizontalAlignment="Center" Padding="5" Click="ChangeForm" />
+    <StackPanel Name="RegisterPanel" Margin="10" Width="300" VerticalAlignment="Center" HorizontalAlignment="Center">
+        <GroupBox BorderThickness="2" BorderBrush="Black" Padding="20">
+            <GroupBox.Header>
+                <TextBlock Text="Registery" FontWeight="DemiBold"/>
+            </GroupBox.Header>
+            <StackPanel>
+                <StackPanel Margin="5">
+                    <Label Content="User Name:"/>
+                    <TextBox Name="UserName_TB"/>
+                </StackPanel>
+
+                <StackPanel Margin="5">
+                    <Label Content="Email:"/>
+                    <TextBox Name="Email_TB"/>
+                </StackPanel>
+
+                <StackPanel Margin="5">
+                    <Label Content="Password:"/>
+                    <TextBox Name="Password_TB"/>
+                </StackPanel>
+
+                <Button Content="Register" Margin="10" Width="60"  Click="OnUserRegister"/>
+                <TextBlock Name="ErrorMessage" Foreground="Red" HorizontalAlignment="Center"/>
+
+                <TextBlock Text="Already a user? Login" Margin="0,20,0,5" HorizontalAlignment="Center"/>
+                <Button Content="Login" Width="50" HorizontalAlignment="Center" Click="ChangeForm" />
+            </StackPanel>
+        </GroupBox>
     </StackPanel>
+
+
 
 </UserControl>

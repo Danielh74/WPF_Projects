@@ -9,6 +9,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="DemoPhotos\pexels-bess-hamiti-83687-35537.jpg" />
+    <None Remove="DemoPhotos\pexels-egos68-1906658.jpg" />
+    <None Remove="DemoPhotos\pexels-jill-wellington-1638660-39853.jpg" />
+    <None Remove="DemoPhotos\pexels-maxandrey-1366630.jpg" />
+    <None Remove="DemoPhotos\pexels-sebastian-214574.jpg" />
     <None Remove="Resources\back_icon.png" />
     <None Remove="Resources\empty_heart.png" />
     <None Remove="Resources\full_heart.png" />
@@ -21,6 +26,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="DemoPhotos\pexels-bess-hamiti-83687-35537.jpg" />
+    <Resource Include="DemoPhotos\pexels-egos68-1906658.jpg" />
+    <Resource Include="DemoPhotos\pexels-jill-wellington-1638660-39853.jpg" />
+    <Resource Include="DemoPhotos\pexels-maxandrey-1366630.jpg" />
+    <Resource Include="DemoPhotos\pexels-sebastian-214574.jpg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\back_icon.png" />
     <Resource Include="Resources\empty_heart.png" />
     <Resource Include="Resources\full_heart.png" />

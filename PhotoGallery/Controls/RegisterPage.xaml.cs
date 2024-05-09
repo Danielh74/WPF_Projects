@@ -1,5 +1,6 @@
 ﻿using PhotoGallery.CustomEventArgs;
 using PhotoGallery.Models;
+using PhotoGallery.Utils;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -32,30 +33,43 @@ namespace PhotoGallery.Controls
         public event EventHandler<LoginEventArgs> UserRegistered;
         public event EventHandler ChangingForm;
 
+        List<User> userList;
+
         public RegisterPage()
         {
             InitializeComponent();
+
+            userList = Helpers.LoadUsers();
         }
 
         private void OnUserRegister(object sender, RoutedEventArgs e)
         {
-            string rawJson = File.ReadAllText("PhotosInvantory.json");
-            List<User> userList = JsonSerializer.Deserialize<List<User>>(rawJson);
+            if (Email_TB.Text == "" || Password_TB.Text == "" || UserName_TB.Text == "")
+            {
+                ErrorMessage.Text = "Please input email, password and username";
+                return;
+            }
 
             User newUser = new User()
             {
-                UserName = UserName_TB.Text,
+                UserName = char.ToUpper(UserName_TB.Text[0]) + UserName_TB.Text.Substring(1),
                 Email = Email_TB.Text,
                 Password = Password_TB.Text,
                 Gallery = new List<Photo>()
             };
-            
+
+            if (userList.Exists(user => user.Email == Email_TB.Text))
+            {
+                ErrorMessage.Text = "Email is already registered";
+                return;
+            }
+
             userList.Add(newUser);
 
-            string updatedList = JsonSerializer.Serialize(userList,options);
+            string updatedList = JsonSerializer.Serialize(userList, options);
             File.WriteAllText("PhotosInvantory.json", updatedList);
 
-            UserRegistered?.Invoke(this,new LoginEventArgs { Email = Email_TB.Text, Password = Password_TB.Text });
+            UserRegistered?.Invoke(this, new LoginEventArgs { Email = Email_TB.Text, Password = Password_TB.Text, UserList = userList });
 
             UserName_TB.Text = "";
             Email_TB.Text = "";
