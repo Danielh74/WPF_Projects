@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PhotoGallery.CustomEventArgs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,7 @@ namespace PhotoGallery.Controls
     {
         public event EventHandler PhotoFavorited;
         public event EventHandler PhotoDeleted;
+        public event EventHandler<PhotoChangeEventArgs> PhotoChanged;
 
 
         public SelectedPhoto()
@@ -42,6 +44,23 @@ namespace PhotoGallery.Controls
         private void OnPhotoDeleted(object sender, RoutedEventArgs e)
         {
             PhotoDeleted?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void OnPhotoChanged(object sender, RoutedEventArgs e)
+        {
+            Button btnClicked = sender as Button;
+
+            switch (btnClicked.Name)
+            {
+                case "PreviousBtn":
+                    PhotoChanged?.Invoke(this, new PhotoChangeEventArgs() { Previous = true, Next = false });
+                    break;
+                case "NextBtn":
+                    PhotoChanged?.Invoke(this, new PhotoChangeEventArgs() { Previous = false, Next = true });
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }

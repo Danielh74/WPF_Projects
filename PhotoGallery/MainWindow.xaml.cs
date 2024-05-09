@@ -32,7 +32,9 @@ namespace PhotoGallery
         User currentUser;
         int currentUserIndex;
         List<User> userList;
-        Image selectedImage;
+        Photo selectedPhoto;
+        string selectedPhotoSafeUri;
+        int selectedPhotoIndex;
         WindowType currentType;
 
         public MainWindow()
@@ -45,6 +47,7 @@ namespace PhotoGallery
 
             SelectedPhotoControl.PhotoFavorited += HandlePhotoFavorited;
             SelectedPhotoControl.PhotoDeleted += HandlePhotoDeleted;
+            SelectedPhotoControl.PhotoChanged += HandlePhotoChanged;
 
             LoginPageControl.UserLoggedIn += HandleUserLogin;
             LoginPageControl.ChangingForm += HandleFormChange;
@@ -53,6 +56,36 @@ namespace PhotoGallery
             RegisterPageControl.ChangingForm += HandleFormChange;
 
             currentType = WindowType.Home;
+        }
+
+        private void HandlePhotoChanged(object? sender, PhotoChangeEventArgs e)
+        {
+            if (e.Next)
+            {
+                if (selectedPhotoIndex + 1 >= currentUser.Gallery.Count)
+                {
+                    return;
+                }
+                else
+                {
+                    selectedPhotoIndex += 1;
+                }
+            }
+            else if (e.Previous)
+            {
+                if (selectedPhotoIndex - 1 < 0)
+                {
+                    return;
+                }
+                else
+                {
+                    selectedPhotoIndex -= 1;
+                }
+            }
+
+            selectedPhoto = currentUser.Gallery[selectedPhotoIndex];
+            SelectedPhotoControl.LikeButton.Source = Helpers.SetLikeButton(selectedPhoto.IsFavorite);
+            SelectedPhotoControl.DataContext = GalleryPanel.Children[selectedPhotoIndex];
         }
 
         private void HandleUserLogin(object? sender, LoginEventArgs e)
@@ -177,42 +210,31 @@ namespace PhotoGallery
 
         private void PhotoClick(object sender, MouseButtonEventArgs e)
         {
-            selectedImage = (Image)sender;
+            Image clickedImage = (Image)sender;
 
-            string selectedImageSafeUri = Helpers.GetSafeFileName(selectedImage.Source.ToString());
+            selectedPhotoSafeUri = Helpers.GetSafeFileName(clickedImage.Source.ToString());
 
-            foreach (Photo photo in currentUser.Gallery)
-            {
-                if (photo.SafeUri == selectedImageSafeUri)
-                {
-                    SelectedPhotoControl.LikeButton.Source = Helpers.SetLikeButton(photo.IsFavorite);
-                    break;
-                }
-            }
+            selectedPhotoIndex = currentUser.Gallery.FindIndex(photo => photo.SafeUri == selectedPhotoSafeUri);
 
-            SelectedPhotoControl.DataContext = selectedImage;
+            selectedPhoto = currentUser.Gallery[selectedPhotoIndex];
+
+            SelectedPhotoControl.LikeButton.Source = Helpers.SetLikeButton(selectedPhoto.IsFavorite);
+
+            SelectedPhotoControl.DataContext = clickedImage;
             SelectedPhotoControl.Visibility = Visibility.Visible;
         }
 
         private void HandlePhotoFavorited(object? sender, EventArgs e)
         {
-            string selectedImageSafeUri = Helpers.GetSafeFileName(selectedImage.Source.ToString());
-            foreach (Photo photo in currentUser.Gallery)
+            selectedPhoto.IsFavorite = !selectedPhoto.IsFavorite;
+
+            SelectedPhotoControl.LikeButton.Source = Helpers.SetLikeButton(selectedPhoto.IsFavorite);
+
+            if (!selectedPhoto.IsFavorite && currentType == WindowType.Favorites)
             {
-                if (photo.SafeUri == selectedImageSafeUri)
-                {
-                    photo.IsFavorite = !photo.IsFavorite;
-
-                    SelectedPhotoControl.LikeButton.Source = Helpers.SetLikeButton(photo.IsFavorite);
-
-                    if (!photo.IsFavorite && currentType == WindowType.Favorites)
-                    {
-                        SelectedPhotoControl.Visibility = Visibility.Collapsed;
-                    }
-
-                    break;
-                }
+                SelectedPhotoControl.Visibility = Visibility.Collapsed;
             }
+
             userList[currentUserIndex].Gallery = currentUser.Gallery;
             string ListToJson = JsonSerializer.Serialize(userList, options);
             File.WriteAllText("PhotosInvantory.json", ListToJson);
@@ -225,35 +247,28 @@ namespace PhotoGallery
 
         private void HandlePhotoDeleted(object? sender, EventArgs e)
         {
-            string selectedImageSafeUri = Helpers.GetSafeFileName(selectedImage.Source.ToString());
-            foreach (Photo photo in currentUser.Gallery)
+
+            MessageBoxResult result = MessageBox.Show("Are you sure you want to delete?", "Delete Photo", MessageBoxButton.YesNo);
+            if (result == MessageBoxResult.Yes)
             {
-                if (photo.SafeUri == selectedImageSafeUri)
+                currentUser.Gallery.Remove(selectedPhoto);
+
+                SelectedPhotoControl.Visibility = Visibility.Collapsed;
+
+                userList[currentUserIndex].Gallery = currentUser.Gallery;
+                string ListToJson = JsonSerializer.Serialize(userList, options);
+                File.WriteAllText("PhotosInvantory.json", ListToJson);
+
+                if (currentType == WindowType.Favorites)
                 {
-                    MessageBoxResult result = MessageBox.Show("Are you sure you want to delete?", "Delete Photo", MessageBoxButton.YesNo);
-                    if (result == MessageBoxResult.Yes)
-                    {
-                        currentUser.Gallery.Remove(photo);
-
-                        SelectedPhotoControl.Visibility = Visibility.Collapsed;
-
-                        userList[currentUserIndex].Gallery = currentUser.Gallery;
-                        string ListToJson = JsonSerializer.Serialize(userList, options);
-                        File.WriteAllText("PhotosInvantory.json", ListToJson);
-
-                        if (currentType == WindowType.Favorites)
-                        {
-                            LoadPhotos("favorites");
-                        }
-                        else
-                        {
-                            LoadPhotos("home");
-                        }
-                    }
-
-                    break;
+                    LoadPhotos("favorites");
+                }
+                else
+                {
+                    LoadPhotos("home");
                 }
             }
+
         }
 
         private void AddToGallery_Click(object sender, RoutedEventArgs e)
