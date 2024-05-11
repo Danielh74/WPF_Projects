@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.Json;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -44,9 +45,30 @@ namespace PhotoGallery.Controls
 
         private void OnUserRegister(object sender, RoutedEventArgs e)
         {
+            string emailFormat = @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$";
+            string passwordPattern = @"^(?=.*\d)(?=.*[A-Z])(?=.*[a-z]).{8,}$";
+
             if (Email_TB.Text == "" || Password_TB.Text == "" || UserName_TB.Text == "")
             {
                 ErrorMessage.Text = "Please input email, password and username";
+                return;
+            }
+
+            if (!Regex.IsMatch(Email_TB.Text, emailFormat))
+            {
+                ErrorMessage.Text = "The email is an incorrect format";
+                return;
+            }
+
+            if (!Regex.IsMatch(Password_TB.Text, passwordPattern))
+            {
+                ErrorMessage.Text = "The password has to have at least:\n- 8 characters\n- 1 digit\n- 1 uppercase letter\n- 1 lowercase letter ";
+                return;
+            }
+
+            if (userList.Exists(user => user.Email == Email_TB.Text))
+            {
+                ErrorMessage.Text = "Email is already registered";
                 return;
             }
 
@@ -57,12 +79,6 @@ namespace PhotoGallery.Controls
                 Password = Password_TB.Text,
                 Gallery = new List<Photo>()
             };
-
-            if (userList.Exists(user => user.Email == Email_TB.Text))
-            {
-                ErrorMessage.Text = "Email is already registered";
-                return;
-            }
 
             userList.Add(newUser);
 
@@ -79,6 +95,10 @@ namespace PhotoGallery.Controls
         private void ChangeForm(object sender, RoutedEventArgs e)
         {
             ChangingForm?.Invoke(this, EventArgs.Empty);
+
+            UserName_TB.Text = "";
+            Email_TB.Text = "";
+            Password_TB.Text = "";
         }
     }
 }

@@ -1,40 +1,46 @@
 ﻿[
   {
     "UserName": "Daniel",
-    "Email": "daniel@gmail.com",
-    "Password": "123456789",
+    "Email": "1",
+    "Password": "1",
     "Gallery": [
       {
-        "Uri": "C:\\Users\\Danie\\Desktop\\Studies\\.NET\\.NET_course\\WPF\\Projects\\PhotoGallery\\DemoPhotos\\pexels-bess-hamiti-83687-35537.jpg",
+        "Uri": "/DemoPhotos/pexels-bess-hamiti-83687-35537.jpg",
         "SafeUri": "pexels-bess-hamiti-83687-35537.jpg",
         "IsFavorite": false
       },
       {
-        "Uri": "C:\\Users\\Danie\\Desktop\\Studies\\.NET\\.NET_course\\WPF\\Projects\\PhotoGallery\\DemoPhotos\\pexels-egos68-1906658.jpg",
+        "Uri": "/DemoPhotos/pexels-egos68-1906658.jpg",
         "SafeUri": "pexels-egos68-1906658.jpg",
         "IsFavorite": false
       },
       {
-        "Uri": "C:\\Users\\Danie\\Desktop\\Studies\\.NET\\.NET_course\\WPF\\Projects\\PhotoGallery\\DemoPhotos\\pexels-jill-wellington-1638660-39853.jpg",
+        "Uri": "/DemoPhotos/pexels-jill-wellington-1638660-39853.jpg",
         "SafeUri": "pexels-jill-wellington-1638660-39853.jpg",
         "IsFavorite": false
       },
       {
-        "Uri": "C:\\Users\\Danie\\Desktop\\Studies\\.NET\\.NET_course\\WPF\\Projects\\PhotoGallery\\DemoPhotos\\pexels-maxandrey-1366630.jpg",
+        "Uri": "/DemoPhotos/pexels-maxandrey-1366630.jpg",
         "SafeUri": "pexels-maxandrey-1366630.jpg",
         "IsFavorite": false
       },
       {
-        "Uri": "PhotoGallery\\DemoPhotos\\pexels-sebastian-214574.jpg",
+        "Uri": "/DemoPhotos/pexels-sebastian-214574.jpg",
         "SafeUri": "pexels-sebastian-214574.jpg",
-        "IsFavorite": false
+        "IsFavorite": true
       }
     ]
   },
   {
-    "UserName": "Avner",
-    "Email": "avner@gmail.com",
+    "UserName": "Amit",
+    "Email": "amit@gmail.com",
     "Password": "12345",
+    "Gallery": []
+  },
+  {
+    "UserName": "Or",
+    "Email": "or@gmail.com",
+    "Password": "123",
     "Gallery": []
   }
 ]

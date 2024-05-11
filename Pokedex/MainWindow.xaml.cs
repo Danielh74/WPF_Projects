@@ -50,7 +50,7 @@ namespace Pokedex
             ItemsList.ItemsSource = capitalNames;
         }
 
-        private async void Button_Click(object sender, RoutedEventArgs e)
+        private async void DisplayPokemon(object sender, RoutedEventArgs e)
         {
             if (ItemsList.SelectedItem == null)
             {
