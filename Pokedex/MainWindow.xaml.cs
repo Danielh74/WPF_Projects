@@ -34,8 +34,6 @@ namespace Pokedex
 
             client.BaseAddress = new Uri("https://pokeapi.co/api/v2/");
 
-            LoadingControl.Visibility = Visibility.Collapsed;
-
             GetNamesFromAPI();
         }
 
@@ -66,7 +64,7 @@ namespace Pokedex
 
         private async Task GetPokemonFromAPI(string name)
         {
-            LoadingControl.Visibility = Visibility.Visible;
+            LoadingControl.Start();
 
             try
             {
@@ -112,13 +110,13 @@ namespace Pokedex
                 {
                     pokemonToView.Sprites.Visuals.Gifs.FrontGif = pokemonToView.Sprites.FrontImage;
                 }
-                LoadingControl.Visibility = Visibility.Collapsed;
-
             }
             catch (HttpRequestException ex)
             {
                 MessageBox.Show(ex.Message);
             }
+
+            LoadingControl.Stop();
         }
 
         private async Task GetPokemonAbilityEffect(string url, int index)

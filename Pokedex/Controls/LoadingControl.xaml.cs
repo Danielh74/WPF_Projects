@@ -23,6 +23,18 @@ namespace Pokedex.Controls
         public LoadingControl()
         {
             InitializeComponent();
+
+            Visibility = Visibility.Collapsed;
+        }
+
+        public void Start()
+        {
+            Visibility = Visibility.Visible;
+        }
+
+        public void Stop()
+        {
+            Visibility = Visibility.Collapsed;
         }
     }
 }
