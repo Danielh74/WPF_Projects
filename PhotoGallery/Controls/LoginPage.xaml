@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:PhotoGallery.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    
+
     <StackPanel Name="LoginPanel" Margin="10" Width="300" VerticalAlignment="Center" HorizontalAlignment="Center">
         <GroupBox BorderBrush="Black" BorderThickness="2" Padding="20">
             <GroupBox.Header>
