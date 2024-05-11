@@ -18,7 +18,7 @@
                         Width="25"
                         Background="Transparent"
                         Click="AddToGallery_Click">
-                        <Image Source="/Resources/plus_icon.png"/>
+                        <Image Source="\Resources\plus_icon.png"/>
                     </Button>
                     <Button Content="Home" Name="HomeBtn" FontWeight="DemiBold" Margin="5" Padding="5" Background="Transparent" BorderThickness="0" Click="ChangeWindow_Click"/>
                     <Button Content="Favorites" Name="FavBtn" FontWeight="DemiBold" Margin="5" Padding="5" Background="Transparent" BorderThickness="0" Click="ChangeWindow_Click"/>
