@@ -9,7 +9,129 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\+2_blue.png" />
+    <None Remove="Resources\+2_green.png" />
+    <None Remove="Resources\+2_red.png" />
+    <None Remove="Resources\+2_yellow.png" />
+    <None Remove="Resources\+4_.png" />
+    <None Remove="Resources\0_blue.png" />
+    <None Remove="Resources\0_green.png" />
+    <None Remove="Resources\0_red.png" />
+    <None Remove="Resources\0_yellow.png" />
+    <None Remove="Resources\1_blue.png" />
+    <None Remove="Resources\1_green.png" />
+    <None Remove="Resources\1_red.png" />
+    <None Remove="Resources\1_yellow.png" />
+    <None Remove="Resources\2_blue.png" />
+    <None Remove="Resources\2_green.png" />
+    <None Remove="Resources\2_red.png" />
+    <None Remove="Resources\2_yellow.png" />
+    <None Remove="Resources\3_blue.png" />
+    <None Remove="Resources\3_green.png" />
+    <None Remove="Resources\3_red.png" />
+    <None Remove="Resources\3_yellow.png" />
+    <None Remove="Resources\4_blue.png" />
+    <None Remove="Resources\4_green.png" />
+    <None Remove="Resources\4_red.png" />
+    <None Remove="Resources\4_yellow.png" />
+    <None Remove="Resources\5_blue.png" />
+    <None Remove="Resources\5_green.png" />
+    <None Remove="Resources\5_red.png" />
+    <None Remove="Resources\5_yellow.png" />
+    <None Remove="Resources\6_blue.png" />
+    <None Remove="Resources\6_green.png" />
+    <None Remove="Resources\6_red.png" />
+    <None Remove="Resources\6_yellow.png" />
+    <None Remove="Resources\7_blue.png" />
+    <None Remove="Resources\7_green.png" />
+    <None Remove="Resources\7_red.png" />
+    <None Remove="Resources\7_yellow.png" />
+    <None Remove="Resources\8_blue.png" />
+    <None Remove="Resources\8_green.png" />
+    <None Remove="Resources\8_red.png" />
+    <None Remove="Resources\8_yellow.png" />
+    <None Remove="Resources\9_blue.png" />
+    <None Remove="Resources\9_green.png" />
+    <None Remove="Resources\9_red.png" />
+    <None Remove="Resources\9_yellow.png" />
+    <None Remove="Resources\card_back.png" />
+    <None Remove="Resources\reverse_blue.png" />
+    <None Remove="Resources\reverse_green.png" />
+    <None Remove="Resources\reverse_red.png" />
+    <None Remove="Resources\reverse_yellow.png" />
+    <None Remove="Resources\stop_blue.png" />
+    <None Remove="Resources\stop_green.png" />
+    <None Remove="Resources\stop_red.png" />
+    <None Remove="Resources\stop_yellow.png" />
+    <None Remove="Resources\wild_.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\stop_green.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\0_yellow.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\+2_blue.png" />
+    <Resource Include="Resources\+2_green.png" />
+    <Resource Include="Resources\+2_red.png" />
+    <Resource Include="Resources\+2_yellow.png" />
+    <Resource Include="Resources\+4_.png" />
+    <Resource Include="Resources\0_blue.png" />
+    <Resource Include="Resources\0_green.png" />
+    <Resource Include="Resources\0_red.png" />
+    <Resource Include="Resources\1_blue.png" />
+    <Resource Include="Resources\1_green.png" />
+    <Resource Include="Resources\1_red.png" />
+    <Resource Include="Resources\1_yellow.png" />
+    <Resource Include="Resources\2_blue.png" />
+    <Resource Include="Resources\2_green.png" />
+    <Resource Include="Resources\2_red.png" />
+    <Resource Include="Resources\2_yellow.png" />
+    <Resource Include="Resources\3_blue.png" />
+    <Resource Include="Resources\3_green.png" />
+    <Resource Include="Resources\3_red.png" />
+    <Resource Include="Resources\3_yellow.png" />
+    <Resource Include="Resources\4_blue.png" />
+    <Resource Include="Resources\4_green.png" />
+    <Resource Include="Resources\4_red.png" />
+    <Resource Include="Resources\4_yellow.png" />
+    <Resource Include="Resources\5_blue.png" />
+    <Resource Include="Resources\5_green.png" />
+    <Resource Include="Resources\5_red.png" />
+    <Resource Include="Resources\5_yellow.png" />
+    <Resource Include="Resources\6_blue.png" />
+    <Resource Include="Resources\6_green.png" />
+    <Resource Include="Resources\6_red.png" />
+    <Resource Include="Resources\6_yellow.png" />
+    <Resource Include="Resources\7_blue.png" />
+    <Resource Include="Resources\7_green.png" />
+    <Resource Include="Resources\7_red.png" />
+    <Resource Include="Resources\7_yellow.png" />
+    <Resource Include="Resources\8_blue.png" />
+    <Resource Include="Resources\8_green.png" />
+    <Resource Include="Resources\8_red.png" />
+    <Resource Include="Resources\8_yellow.png" />
+    <Resource Include="Resources\9_blue.png" />
+    <Resource Include="Resources\9_green.png" />
+    <Resource Include="Resources\9_red.png" />
+    <Resource Include="Resources\9_yellow.png" />
+    <Resource Include="Resources\card_back.png" />
+    <Resource Include="Resources\reverse_blue.png" />
+    <Resource Include="Resources\reverse_green.png" />
+    <Resource Include="Resources\reverse_red.png" />
+    <Resource Include="Resources\reverse_yellow.png" />
+    <Resource Include="Resources\stop_blue.png" />
+    <Resource Include="Resources\stop_red.png" />
+    <Resource Include="Resources\stop_yellow.png" />
+    <Resource Include="Resources\wild_.png" />
   </ItemGroup>
 
 </Project>

@@ -47,7 +47,7 @@ namespace PhotoGallery.Utils
 
         public static List<User> LoadUsers()
         {
-            string rawJson = File.ReadAllText("PhotosInvantory.json");
+            string rawJson = File.ReadAllText("UsersInvantory.json");
             return JsonSerializer.Deserialize<List<User>>(rawJson);
         }
     }

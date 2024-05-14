@@ -233,7 +233,7 @@ namespace PhotoGallery
 
             userList[currentUserIndex].Gallery = currentUser.Gallery;
             string ListToJson = JsonSerializer.Serialize(userList, options);
-            File.WriteAllText("PhotosInvantory.json", ListToJson);
+            File.WriteAllText("UsersInvantory.json", ListToJson);
 
             if (currentType == WindowType.Favorites)
             {
@@ -253,7 +253,7 @@ namespace PhotoGallery
 
                 userList[currentUserIndex].Gallery = currentUser.Gallery;
                 string ListToJson = JsonSerializer.Serialize(userList, options);
-                File.WriteAllText("PhotosInvantory.json", ListToJson);
+                File.WriteAllText("UsersInvantory.json", ListToJson);
 
                 if (currentType == WindowType.Favorites)
                 {
@@ -296,7 +296,7 @@ namespace PhotoGallery
 
             userList[currentUserIndex].Gallery = currentUser.Gallery;
             string ListToJson = JsonSerializer.Serialize(userList, options);
-            File.WriteAllText("PhotosInvantory.json", ListToJson);
+            File.WriteAllText("UsersInvantory.json", ListToJson);
 
             LoadWindow("home");
 

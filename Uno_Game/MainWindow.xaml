@@ -6,7 +6,19 @@
         xmlns:local="clr-namespace:Uno_Game"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
-
+    <Grid Name="GameBoard">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Button Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" Padding="0" Width="Auto" Height="Auto">
+            <Image Source="/Resources/card_back.png"/>
+        </Button>
     </Grid>
 </Window>

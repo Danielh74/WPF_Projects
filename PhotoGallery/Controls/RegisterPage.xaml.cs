@@ -83,7 +83,7 @@ namespace PhotoGallery.Controls
             userList.Add(newUser);
 
             string updatedList = JsonSerializer.Serialize(userList, options);
-            File.WriteAllText("PhotosInvantory.json", updatedList);
+            File.WriteAllText("UsersInvantory.json", updatedList);
 
             UserRegistered?.Invoke(this, new LoginEventArgs { Email = Email_TB.Text, Password = Password_TB.Text, UserList = userList });
 
