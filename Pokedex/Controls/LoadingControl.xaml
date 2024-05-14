@@ -8,6 +8,6 @@
              xmlns:gif="https://github.com/XamlAnimatedGif/XamlAnimatedGif"
              d:DesignHeight="450" d:DesignWidth="800">
     <StackPanel>
-        <Image  gif:AnimationBehavior.SourceUri="/Resources/pokemon_Loading.gif" Height="100" Width="100"/>
+        <Image  gif:AnimationBehavior.SourceUri="../Resources/pokemon_Loading.gif" Height="100" Width="100"/>
     </StackPanel>
 </UserControl>
