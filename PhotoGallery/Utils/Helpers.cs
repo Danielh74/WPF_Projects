@@ -28,11 +28,11 @@ namespace PhotoGallery.Utils
         {
             if (isLiked)
             {
-                return new BitmapImage(new Uri(@"\Resources\full_heart.png", UriKind.Relative));
+                return new BitmapImage(new Uri("../Resources/full_heart.png", UriKind.Relative));
             }
             else
             {
-                return new BitmapImage(new Uri(@"\Resources\empty_heart.png", UriKind.Relative));
+                return new BitmapImage(new Uri("../Resources/empty_heart.png", UriKind.Relative));
 
             }
         }
