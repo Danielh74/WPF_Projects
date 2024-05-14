@@ -3,22 +3,46 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Uno_Game"
+        xmlns:local="clr-namespace:Uno_Game" xmlns:controls="clr-namespace:Uno_Game.Controls"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+
     <Grid Name="GameBoard">
+
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="2*"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="2*"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Button Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" Padding="0" Width="Auto" Height="Auto">
-            <Image Source="/Resources/card_back.png"/>
-        </Button>
+        <StackPanel Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" Orientation="Horizontal">
+            <Button Grid.Column="1" Grid.Row="1" BorderThickness="0" Background="Transparent" MaxHeight="150" MaxWidth="100">
+                <Image Source="/Resources/card_back.png" Cursor="Hand" RenderTransformOrigin="0.5,0.5">
+                    <Image.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform Angle="0"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </Image.RenderTransform>
+                </Image>
+            </Button>
+            <Image Source="/Resources/card_back.png" Grid.Column="1" Grid.Row="1" Margin="5" MaxHeight="150" MaxWidth="100"/>
+            <StackPanel VerticalAlignment="Center">
+                <TextBlock Text="Current color:" Margin="5"/>
+                <Rectangle Fill="RoyalBlue" Height="50" Width="50"/>
+            </StackPanel>
+        </StackPanel>
+        <StackPanel Name="Player1Space" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal" Grid.Row="2" Grid.Column="1"/>
+        <StackPanel Name="Player2Space" HorizontalAlignment="Center" VerticalAlignment="Bottom" Orientation="Horizontal" Grid.Row="0" Grid.Column="1"/>
+        <StackPanel Name="Player3Space" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Grid.Column="2" Margin="0,5,5,5"/>
+        <StackPanel Name="Player4Space" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0" Margin="5,5,0,5"/>
+
+        <controls:PlayerSelectionControl x:Name="PlayerSelectionWindow" Grid.ColumnSpan="3" Grid.RowSpan="3"/>
     </Grid>
 </Window>

@@ -67,6 +67,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\card_back.png" />
     <Resource Include="Resources\stop_green.png" />
   </ItemGroup>
 
@@ -123,7 +124,6 @@
     <Resource Include="Resources\9_green.png" />
     <Resource Include="Resources\9_red.png" />
     <Resource Include="Resources\9_yellow.png" />
-    <Resource Include="Resources\card_back.png" />
     <Resource Include="Resources\reverse_blue.png" />
     <Resource Include="Resources\reverse_green.png" />
     <Resource Include="Resources\reverse_red.png" />
