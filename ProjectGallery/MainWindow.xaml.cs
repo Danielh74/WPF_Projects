@@ -25,6 +25,7 @@ namespace ProjectGallery
             new JokeApp.Project(),
             new Pokedex.Project(),
             new PhotoGallery.Project(),
+            new Uno_Game.Project(),
         ];
         public MainWindow()
         {

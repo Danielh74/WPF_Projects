@@ -15,6 +15,7 @@
     <None Remove="Resources\pokedex.png" />
     <None Remove="Resources\pokemon_memory.png" />
     <None Remove="Resources\tic-tac-toe.png" />
+    <None Remove="Resources\uno_logo.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -25,6 +26,7 @@
     <ProjectReference Include="..\PhotoGallery\PhotoGallery.csproj" />
     <ProjectReference Include="..\Pokedex\Pokedex.csproj" />
     <ProjectReference Include="..\Tic-Tac-Toe\Tic-Tac-Toe.csproj" />
+    <ProjectReference Include="..\Uno_Game\Uno_Game.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -36,6 +38,7 @@
     <Resource Include="Resources\pokedex.png" />
     <Resource Include="Resources\pokemon_memory.png" />
     <Resource Include="Resources\tic-tac-toe.png" />
+    <Resource Include="Resources\uno_logo.png" />
   </ItemGroup>
 
 </Project>
