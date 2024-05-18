@@ -26,11 +26,11 @@
             </Border>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <Button Name="PreviousBtn" Click="OnPhotoChanged" Background="Transparent" Width="Auto" Height="30" BorderThickness="0" Margin="0,0,5,0">
-                    <Image Source="/Resources/previous_arrow.png"/>
+                    <Image Source="../Resources/previous_arrow.png"/>
                 </Button>
                 <Image Source="{Binding Source}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,5"/>
                 <Button Name="NextBtn" Click="OnPhotoChanged" Background="Transparent" Width="Auto" Height="30" BorderThickness="0" Margin="5,0,0,0">
-                    <Image Source="/Resources/next_arrow.png"/>
+                    <Image Source="../Resources/next_arrow.png"/>
                 </Button>
             </StackPanel>
             

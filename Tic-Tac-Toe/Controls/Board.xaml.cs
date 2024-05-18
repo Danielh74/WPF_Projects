@@ -66,11 +66,6 @@ namespace Tic_Tac_Toe.Controls
             }
         }
 
-        private void OnPropertyChanged(string name)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
-        }
-
         private void OnGameEnd(GameResult result)
         {
             GameEnded?.Invoke(this, new GameEndEventArgs(result));
@@ -81,8 +76,7 @@ namespace Tic_Tac_Toe.Controls
             set
             {
                 _activePlayer = value;
-                //PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
-                OnPropertyChanged(nameof(CurrentPlayerTurn));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CurrentPlayerTurn)));
             }
         }
 

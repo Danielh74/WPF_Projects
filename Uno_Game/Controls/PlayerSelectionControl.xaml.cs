@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,6 +24,7 @@ namespace Uno_Game.Controls
     public partial class PlayerSelectionControl : UserControl
     {
         public event EventHandler<PlayerSelectionEventArgs> PlayerNumberSelected;
+
         public PlayerSelectionControl()
         {
             InitializeComponent();

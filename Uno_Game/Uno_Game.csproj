@@ -59,16 +59,19 @@
     <None Remove="Resources\reverse_green.png" />
     <None Remove="Resources\reverse_red.png" />
     <None Remove="Resources\reverse_yellow.png" />
-    <None Remove="Resources\stop_blue.png" />
-    <None Remove="Resources\stop_green.png" />
-    <None Remove="Resources\stop_red.png" />
-    <None Remove="Resources\stop_yellow.png" />
+    <None Remove="Resources\skip_blue.png" />
+    <None Remove="Resources\skip_green.png" />
+    <None Remove="Resources\skip_red.png" />
+    <None Remove="Resources\skip_yellow.png" />
     <None Remove="Resources\wild_.png" />
   </ItemGroup>
 
   <ItemGroup>
     <Resource Include="Resources\card_back.png" />
-    <Resource Include="Resources\stop_green.png" />
+    <Resource Include="Resources\skip_blue.png" />
+    <Resource Include="Resources\skip_green.png" />
+    <Resource Include="Resources\skip_red.png" />
+    <Resource Include="Resources\skip_yellow.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -128,9 +131,6 @@
     <Resource Include="Resources\reverse_green.png" />
     <Resource Include="Resources\reverse_red.png" />
     <Resource Include="Resources\reverse_yellow.png" />
-    <Resource Include="Resources\stop_blue.png" />
-    <Resource Include="Resources\stop_red.png" />
-    <Resource Include="Resources\stop_yellow.png" />
     <Resource Include="Resources\wild_.png" />
   </ItemGroup>
 
