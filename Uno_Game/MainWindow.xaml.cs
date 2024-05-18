@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Numerics;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -53,33 +54,77 @@ public partial class MainWindow : Window
         switch (e.PlayerMode)
         {
             case NumOfPlayers.Two:
-                SetPlayerSpace(180,  new Thickness(0, 0, -15, 0),Player2Space);
+                SetPlayerSpace("player2");
                 break;
             case NumOfPlayers.Three:
-                SetPlayerSpace(180, new Thickness(0, 0, -15, 0), Player2Space);
-                SetPlayerSpace( 270, new Thickness(0, -65, 0, 0), Player3Space);
+                SetPlayerSpace("player2");
+                SetPlayerSpace("player3");
                 break;
             case NumOfPlayers.Four:
-                SetPlayerSpace(180, new Thickness(0, 0, -15, 0), Player2Space);
-                SetPlayerSpace(270, new Thickness(0, 0, 0, -65), Player3Space);
-                SetPlayerSpace(90, new Thickness(0, -65, 0, 0), Player4Space);
+                SetPlayerSpace("player2");
+                SetPlayerSpace("player3");
+                SetPlayerSpace("player4");
                 break;
         }
         PlayerSelectionWindow.Visibility = Visibility.Collapsed;
     }
-    private void SetPlayerSpace(int rotation, Thickness thickness, StackPanel playerSpace)
+    private void SetPlayerSpace(string player)
     {
-        for (int j = 0; j < 7; j++)
+        
+
+        switch (player)
         {
-            Image cardImage = new Image()
-            {
-                Source = new BitmapImage(new Uri(@"\Resources\card_back.png", UriKind.Relative)),
-                Height = 100,
-                Width = 50,
-                Margin = thickness,
-                RenderTransform = new RotateTransform(rotation)
-            };
-            playerSpace.Children.Add(cardImage);
+            case "player2":
+                for (int i = 0; i < 7; i++)
+                {
+                    Image cardImage = new Image()
+                    {
+                        Source = new BitmapImage(new Uri(@"\Resources\card_back.png", UriKind.Relative)),
+                        Height = 100,
+                        Width = 50,
+                        Margin = new Thickness(0, 0, -15, 0),
+                    };
+                    cardImage.RenderTransformOrigin = new Point(0.5, 0.5);
+                    ScaleTransform flipTrans = new ScaleTransform();
+                    flipTrans.ScaleX = -1;
+                    flipTrans.ScaleY = -1;
+                    cardImage.RenderTransform = flipTrans;
+                    Player2Space.Children.Add(cardImage);
+                }
+                break;
+            case "player3":
+                for (int i = 0; i < 7; i++)
+                {
+                    Image cardImage = new Image()
+                    {
+                        Source = new BitmapImage(new Uri(@"\Resources\card_back.png", UriKind.Relative)),
+                        Height = 100,
+                        Width = 50,
+                        Margin = new Thickness(0, -65, 0, 0),
+                        RenderTransformOrigin = new Point(0.5, 0.5),
+                        RenderTransform = new RotateTransform(270)
+                    };
+                    Player3Space.Children.Add(cardImage);
+                }
+                break;
+            case "player4":
+                for (int i = 0; i < 7; i++)
+                {
+                    Image cardImage = new Image()
+                    {
+                        Source = new BitmapImage(new Uri(@"\Resources\card_back.png", UriKind.Relative)),
+                        Height = 100,
+                        Width = 50,
+                        Margin = new Thickness(0, -65, 0, 0),
+                        RenderTransformOrigin = new Point(0.5, 0.5),
+                        RenderTransform = new RotateTransform(90)
+                    };
+                    Player4Space.Children.Add(cardImage);
+                }
+                break;
+            default:
+                break;
         }
+        
     }
 }
