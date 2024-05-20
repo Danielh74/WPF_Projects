@@ -27,7 +27,6 @@
                 </Button>
                 <Image Name="UpCard" Margin="0,0,10,0" Height="75" Width="25"/>
                 <StackPanel VerticalAlignment="Center">
-                    <TextBlock Text="{Binding CurrentPlayerTurn}" FontWeight="Bold" Margin="5"/>
                     <Border CornerRadius="20" BorderThickness="0.5" BorderBrush="Black" Background="{Binding CurrentColor}" Height="15" Width="15"/>
                 </StackPanel>
             </StackPanel>
@@ -35,7 +34,7 @@
 
         <Viewbox Grid.Row="2" Grid.Column="1">
             <StackPanel HorizontalAlignment="Center">
-                <TextBlock Text="Player 1"/>
+                <TextBlock Name="Player1Text" Text="Player 1" Foreground="LightGray"/>
                 <StackPanel Name="Player1Space" HorizontalAlignment="Center" Orientation="Horizontal"/>
             </StackPanel>
         </Viewbox>
@@ -45,7 +44,7 @@
                 <StackPanel.RenderTransform>
                     <ScaleTransform ScaleX="-1" ScaleY="-1"/>
                 </StackPanel.RenderTransform>
-                <TextBlock Text="Player 2" Margin="0,0,0,5"/>
+                <TextBlock Name="Player2Text" Text="Player 2" Foreground="LightGray"/>
                 <StackPanel Name="Player2Space" Orientation="Horizontal"/>
             </StackPanel>
         </Viewbox>
@@ -55,7 +54,7 @@
                 <StackPanel.RenderTransform>
                     <RotateTransform Angle="270"/>
                 </StackPanel.RenderTransform>
-                <TextBlock Text="Player 3"/>
+                <TextBlock Name="Player3Text" Text="Player 3" Foreground="LightGray"/>
                 <StackPanel Name="Player3Space" Orientation="Horizontal"/>
             </StackPanel>
         </Viewbox>
@@ -65,7 +64,7 @@
                 <StackPanel.RenderTransform>
                     <RotateTransform Angle="90"/>
                 </StackPanel.RenderTransform>
-                <TextBlock Text="Player 4"/>
+                <TextBlock Name="Player4Text" Text="Player 4" Foreground="LightGray"/>
                 <StackPanel Name="Player4Space" Orientation="Horizontal"/>
             </StackPanel>
         </Viewbox>

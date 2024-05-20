@@ -28,6 +28,7 @@ public partial class MainWindow : Window, INotifyPropertyChanged
     int remainingCardsInPile;
     string[] colors = ["green", "red", "blue", "yellow"];
     string currentColor;
+    string currentNumber;
     string setCard;
     bool isGameActive = false;
     bool isClockWise;
@@ -59,6 +60,17 @@ public partial class MainWindow : Window, INotifyPropertyChanged
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CurrentColor)));
         }
     }
+
+    public string CurrentNumber
+    {
+        get => currentNumber;
+        set
+        {
+            currentNumber = value;
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CurrentNumber)));
+        }
+    }
+
     public string SetCard
     {
         get => setCard;
@@ -75,31 +87,49 @@ public partial class MainWindow : Window, INotifyPropertyChanged
         set
         {
             activePlayer = value;
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CurrentPlayerTurn)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ActivePlayer)));
         }
     }
-    public string CurrentPlayerTurn =>
-            ActivePlayer == Player1Space ? $"Player 1"
-            : ActivePlayer == Player2Space ? $"Player 2"
-            : ActivePlayer == Player3Space ? $"Player 3"
-            : ActivePlayer == Player4Space ? $"Player 4"
-            : "";
    
+    private void HighlightPlayerText(TextBlock playerText) 
+    {
+        playerText.FontSize = 16;
+        playerText.FontWeight = FontWeights.Bold;
+        playerText.Foreground = Brushes.Black;
+    }
+    private void ResetPlayerText() 
+    {
+        for (int i = 1; i <= 4; i++)
+        {
+            TextBlock playerText = FindName($"Player{i}Text") as TextBlock;
+            if (playerText != null)
+            {
+                playerText.FontSize = 12;
+                playerText.FontWeight = FontWeights.Regular;
+                playerText.Foreground = Brushes.LightGray;
+            }
+        }
+    }
+
     private void HandleActivePlayerChanged(object? sender, PropertyChangedEventArgs e)
     {
         switch (ActivePlayer.Name)
         {
             case "Player1Space":
-
+                ResetPlayerText();
+                HighlightPlayerText(Player1Text);
                 break;
             case "Player2Space":
-
+                ResetPlayerText();
+                HighlightPlayerText(Player2Text);
                 break;
             case "Player3Space":
-
+                ResetPlayerText();
+                HighlightPlayerText(Player3Text);
                 break;
             case "Player4Space":
-
+                ResetPlayerText();
+                HighlightPlayerText(Player4Text);
                 break;
         }
     }
@@ -143,6 +173,7 @@ public partial class MainWindow : Window, INotifyPropertyChanged
         UpCard.Source = new BitmapImage(new Uri($@"\Resources\{setCard}.png", UriKind.Relative));
         remainingCardsInPile -= 1;
         CurrentColor = FindCurrentColor(SetCard);
+        CurrentNumber = FindCurrentNumber(SetCard);
         PlayerSelectionWindow.Visibility = Visibility.Collapsed;
     }
 
@@ -150,7 +181,12 @@ public partial class MainWindow : Window, INotifyPropertyChanged
     {
         int underscoreIndex = setCard.IndexOf('_');
         string color = SetCard.Substring(underscoreIndex + 1);
-        return color[0].ToString().ToUpper() + color.Substring(1); ;
+        return color[0].ToString().ToUpper() + color.Substring(1);
+    }
+    private string FindCurrentNumber(string setCard)
+    {
+        int underscoreIndex = setCard.IndexOf('_');
+        return SetCard.Substring(0,underscoreIndex);
     }
 
     private void CardsDeal(StackPanel playerHand, string[] playerDeck)
@@ -240,12 +276,15 @@ public partial class MainWindow : Window, INotifyPropertyChanged
         }
 
         Button button = sender as Button;
-        if (!button.Uid.Contains(CurrentColor.ToLower()))
+        if (!button.Uid.Contains(CurrentColor.ToLower()) && !button.Uid.Contains(CurrentNumber))
         {
             return;
         }
         Image buttonImage = (Image)button.Content;
         UpCard.Source = buttonImage.Source;
+        SetCard = button.Uid;
+        CurrentColor = FindCurrentColor(SetCard);
+        CurrentNumber = FindCurrentNumber(SetCard);
         Player1Space.Children.Remove(button);
         ActivePlayer = isClockWise ? Player4Space : Player3Space;
         if (ActivePlayer != Player1Space)
@@ -277,9 +316,12 @@ public partial class MainWindow : Window, INotifyPropertyChanged
 
             foreach (Image card in playersPanel.Children.OfType<Image>())
             {
-                if (card.Uid.Contains(CurrentColor.ToLower()))
+                if (card.Uid.Contains(CurrentColor.ToLower()) || card.Uid.Contains(CurrentNumber))
                 {
                     UpCard.Source = new BitmapImage(new Uri($@"\Resources\{card.Uid}.png", UriKind.Relative));
+                    SetCard = card.Uid;
+                    CurrentColor = FindCurrentColor(SetCard);
+                    CurrentNumber =FindCurrentNumber(SetCard);
                     playersPanel.Children.Remove(card);
                     break;
                 }
