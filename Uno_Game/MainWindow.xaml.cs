@@ -36,6 +36,20 @@ public partial class MainWindow : Window, INotifyPropertyChanged
     string[] player3Deck = new string[7];
     string[] player4Deck = new string[7];
 
+    public MainWindow()
+    {
+        InitializeComponent();
+
+        InitializeDeck();
+
+        GameBoard.DataContext = this;
+
+        PlayerSelectionWindow.PlayerNumberSelected += HandlePlayerNumberSelected;
+        PropertyChanged += HandleActivePlayerChanged;
+
+        GameStart();
+    }
+
     public string CurrentColor
     {
         get => currentColor;
@@ -70,47 +84,22 @@ public partial class MainWindow : Window, INotifyPropertyChanged
             : ActivePlayer == Player3Space ? $"Player 3"
             : ActivePlayer == Player4Space ? $"Player 4"
             : "";
-    public MainWindow()
-    {
-        InitializeComponent();
-
-        InitializeDeck();
-
-        GameBoard.DataContext = this;
-
-        PlayerSelectionWindow.PlayerNumberSelected += HandlePlayerNumberSelected;
-        PropertyChanged += HandleActivePlayerChanged;
-
-        GameStart();
-    }
-
+   
     private void HandleActivePlayerChanged(object? sender, PropertyChangedEventArgs e)
     {
         switch (ActivePlayer.Name)
         {
             case "Player1Space":
-                Player1Border.BorderThickness = new Thickness(1);
-                Player2Border.BorderThickness = new Thickness(0);
-                Player3Border.BorderThickness = new Thickness(0);
-                Player4Border.BorderThickness = new Thickness(0);
+
                 break;
             case "Player2Space":
-                Player1Border.BorderThickness = new Thickness(0);
-                Player2Border.BorderThickness = new Thickness(1);
-                Player3Border.BorderThickness = new Thickness(0);
-                Player4Border.BorderThickness = new Thickness(0);
+
                 break;
             case "Player3Space":
-                Player1Border.BorderThickness = new Thickness(0);
-                Player2Border.BorderThickness = new Thickness(0);
-                Player3Border.BorderThickness = new Thickness(1);
-                Player4Border.BorderThickness = new Thickness(0);
+
                 break;
             case "Player4Space":
-                Player1Border.BorderThickness = new Thickness(0);
-                Player2Border.BorderThickness = new Thickness(0);
-                Player3Border.BorderThickness = new Thickness(0);
-                Player4Border.BorderThickness = new Thickness(1);
+
                 break;
         }
     }
@@ -164,69 +153,36 @@ public partial class MainWindow : Window, INotifyPropertyChanged
         return color[0].ToString().ToUpper() + color.Substring(1); ;
     }
 
+    private void CardsDeal(StackPanel playerHand, string[] playerDeck)
+    {
+        for (int i = 0; i < 7; i++)
+        {
+            Image cardImage = new Image()
+            {
+                Uid = deck[remainingCardsInPile - 1],
+                Source = new BitmapImage(new Uri(@"\Resources\card_back.png", UriKind.Relative)),
+                Height = 100,
+                Width = 50,
+                Margin = new Thickness(0, 0, -15, 0),
+            };
+            playerHand.Children.Add(cardImage);
+
+            playerDeck[i] = deck[remainingCardsInPile - 1];
+            remainingCardsInPile -= 1;
+        }
+    }
     private void SetPlayerSpace(string player)
     {
         switch (player)
         {
             case "player2":
-                for (int i = 0; i < 7; i++)
-                {
-                    Image cardImage = new Image()
-                    {
-                        Uid = deck[remainingCardsInPile - 1],
-                        Source = new BitmapImage(new Uri(@"\Resources\card_back.png", UriKind.Relative)),
-                        Height = 100,
-                        Width = 50,
-                        Margin = new Thickness(0, 0, -15, 0),
-                    };
-                    cardImage.RenderTransformOrigin = new Point(0.5, 0.5);
-                    ScaleTransform flipTrans = new ScaleTransform();
-                    flipTrans.ScaleX = -1;
-                    flipTrans.ScaleY = -1;
-                    cardImage.RenderTransform = flipTrans;
-                    Player2Space.Children.Add(cardImage);
-
-                    player2Deck[i] = deck[remainingCardsInPile - 1];
-                    remainingCardsInPile -= 1;
-                }
+                CardsDeal(Player2Space, player2Deck);
                 break;
             case "player3":
-                for (int i = 0; i < 7; i++)
-                {
-                    Image cardImage = new Image()
-                    {
-                        Uid = deck[remainingCardsInPile - 1],
-                        Source = new BitmapImage(new Uri(@"\Resources\card_back.png", UriKind.Relative)),
-                        Height = 100,
-                        Width = 50,
-                        Margin = new Thickness(0, -65, 0, 0),
-                        RenderTransformOrigin = new Point(0.5, 0.5),
-                        RenderTransform = new RotateTransform(270)
-                    };
-                    Player3Space.Children.Add(cardImage);
-
-                    player3Deck[i] = deck[remainingCardsInPile - 1];
-                    remainingCardsInPile -= 1;
-                }
+                CardsDeal(Player3Space, player3Deck);
                 break;
             case "player4":
-                for (int i = 0; i < 7; i++)
-                {
-                    Image cardImage = new Image()
-                    {
-                        Uid = deck[remainingCardsInPile - 1],
-                        Source = new BitmapImage(new Uri(@"\Resources\card_back.png", UriKind.Relative)),
-                        Height = 100,
-                        Width = 50,
-                        Margin = new Thickness(0, -65, 0, 0),
-                        RenderTransformOrigin = new Point(0.5, 0.5),
-                        RenderTransform = new RotateTransform(90)
-                    };
-                    Player4Space.Children.Add(cardImage);
-
-                    player4Deck[i] = deck[remainingCardsInPile - 1];
-                    remainingCardsInPile -= 1;
-                }
+                CardsDeal(Player4Space, player4Deck);
                 break;
             default:
                 break;
@@ -244,8 +200,8 @@ public partial class MainWindow : Window, INotifyPropertyChanged
             deck.Add($"skip_{colors[i]}");
             deck.Add($"reverse_{colors[i]}");
             deck.Add($"reverse_{colors[i]}");
-            deck.Add($"+4_");
-            deck.Add($"wild_");
+            deck.Add($"+4_black");
+            deck.Add($"wild_black");
         }
 
         for (int i = 1; i <= 9; i++)
@@ -319,7 +275,7 @@ public partial class MainWindow : Window, INotifyPropertyChanged
         {
             timer.Stop();
 
-            foreach (Image card in playersPanel.Children)
+            foreach (Image card in playersPanel.Children.OfType<Image>())
             {
                 if (card.Uid.Contains(CurrentColor.ToLower()))
                 {
@@ -328,25 +284,25 @@ public partial class MainWindow : Window, INotifyPropertyChanged
                     break;
                 }
             }
+
+            switch (ActivePlayer.Name)
+            {
+                case "Player2Space":
+                    ActivePlayer = isClockWise ? Player3Space : Player4Space;
+                    break;
+                case "Player3Space":
+                    ActivePlayer = isClockWise ? Player1Space : Player2Space;
+                    break;
+                case "Player4Space":
+                    ActivePlayer = isClockWise ? Player2Space : Player1Space;
+                    break;
+            }
+
+            if (ActivePlayer != Player1Space)
+            {
+                ComputerMove(ActivePlayer);
+            }
         };
         timer.Start();
-
-        switch (ActivePlayer.Name)
-        {
-            case "Player2Space":
-                ActivePlayer = isClockWise ? Player3Space : Player4Space;
-                break;
-            case "Player3Space":
-                ActivePlayer = isClockWise ? Player1Space : Player2Space;
-                break;
-            case "Player4Space":
-                ActivePlayer = isClockWise ? Player2Space : Player1Space;
-                break;
-        }
-
-        if (ActivePlayer != Player1Space)
-        {
-            ComputerMove(ActivePlayer);
-        }
     }
 }

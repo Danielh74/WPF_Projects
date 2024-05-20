@@ -22,10 +22,10 @@
 
         <Viewbox Grid.Row="1" Grid.Column="1">
             <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                <Button Grid.Column="1" Grid.Row="1" BorderThickness="0" Background="Transparent" Height="75" Width="25">
+                <Button BorderThickness="0" Background="Transparent" Height="75" Width="25">
                     <Image Source="/Resources/card_back.png" Cursor="Hand"/>
                 </Button>
-                <Image Name="UpCard" Grid.Column="1" Grid.Row="1" Margin="0,0,10,0" Height="75" Width="25"/>
+                <Image Name="UpCard" Margin="0,0,10,0" Height="75" Width="25"/>
                 <StackPanel VerticalAlignment="Center">
                     <TextBlock Text="{Binding CurrentPlayerTurn}" FontWeight="Bold" Margin="5"/>
                     <Border CornerRadius="20" BorderThickness="0.5" BorderBrush="Black" Background="{Binding CurrentColor}" Height="15" Width="15"/>
@@ -33,34 +33,42 @@
             </StackPanel>
         </Viewbox>
 
-        <Border Name="Player1Border" Grid.Row="2" Grid.Column="1" BorderBrush="Black">
-            <Viewbox >
-                <StackPanel Name="Player1Space" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal"/>
-            </Viewbox>
-        </Border>
+        <Viewbox Grid.Row="2" Grid.Column="1">
+            <StackPanel HorizontalAlignment="Center">
+                <TextBlock Text="Player 1"/>
+                <StackPanel Name="Player1Space" HorizontalAlignment="Center" Orientation="Horizontal"/>
+            </StackPanel>
+        </Viewbox>
 
-        <Border Name="Player2Border" Grid.Row="0" Grid.Column="1" BorderBrush="Black">
-            <Viewbox>
-                <StackPanel Name="Player2Space" HorizontalAlignment="Center" VerticalAlignment="Bottom" Orientation="Horizontal" />
-            </Viewbox>
-        </Border>
+        <Viewbox Grid.Row="0" Grid.Column="1">
+            <StackPanel RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Center">
+                <StackPanel.RenderTransform>
+                    <ScaleTransform ScaleX="-1" ScaleY="-1"/>
+                </StackPanel.RenderTransform>
+                <TextBlock Text="Player 2" Margin="0,0,0,5"/>
+                <StackPanel Name="Player2Space" Orientation="Horizontal"/>
+            </StackPanel>
+        </Viewbox>
 
-        <Border Name="Player3Border" Grid.Row="1" Grid.Column="2" BorderBrush="Black">
-            <Viewbox>
-                <StackPanel Name="Player3Space" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,5,5,5"/>
-            </Viewbox>
-        </Border>
+        <Viewbox Grid.Row="1" Grid.Column="2">
+            <StackPanel RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,5,0">
+                <StackPanel.RenderTransform>
+                    <RotateTransform Angle="270"/>
+                </StackPanel.RenderTransform>
+                <TextBlock Text="Player 3"/>
+                <StackPanel Name="Player3Space" Orientation="Horizontal"/>
+            </StackPanel>
+        </Viewbox>
 
-        <Border Name="Player4Border" Grid.Row="1" Grid.Column="0" BorderBrush="Black">
-            <Viewbox>
-                <StackPanel Name="Player4Space" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5,5,0,5"/>
-            </Viewbox>
-        </Border>
-
-
-
-
-
+        <Viewbox Grid.Row="1" Grid.Column="0">
+            <StackPanel RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5,0,0,0">
+                <StackPanel.RenderTransform>
+                    <RotateTransform Angle="90"/>
+                </StackPanel.RenderTransform>
+                <TextBlock Text="Player 4"/>
+                <StackPanel Name="Player4Space" Orientation="Horizontal"/>
+            </StackPanel>
+        </Viewbox>
 
         <controls:PlayerSelectionControl x:Name="PlayerSelectionWindow" Grid.ColumnSpan="3" Grid.RowSpan="3"/>
     </Grid>
