@@ -32,10 +32,15 @@ public partial class MainWindow : Window, INotifyPropertyChanged
     string setCard;
     bool isGameActive = false;
     bool isClockWise;
-    StackPanel activePlayer;
-    string[] player2Deck = new string[7];
-    string[] player3Deck = new string[7];
-    string[] player4Deck = new string[7];
+    Player activePlayer;
+    Player playerOne;
+    Player playerTwo;
+    Player playerThree;
+    Player playerFour;
+    //StackPanel activePlayer;
+    List<string> player2Deck = new List<string>();
+    List<string> player3Deck = new List<string>();
+    List<string> player4Deck = new List<string>();
 
     public MainWindow()
     {
@@ -47,8 +52,6 @@ public partial class MainWindow : Window, INotifyPropertyChanged
 
         PlayerSelectionWindow.PlayerNumberSelected += HandlePlayerNumberSelected;
         PropertyChanged += HandleActivePlayerChanged;
-
-        GameStart();
     }
 
     public string CurrentColor
@@ -81,7 +84,7 @@ public partial class MainWindow : Window, INotifyPropertyChanged
         }
     }
 
-    public StackPanel ActivePlayer
+    public Player ActivePlayer
     {
         get => activePlayer;
         set
@@ -90,14 +93,14 @@ public partial class MainWindow : Window, INotifyPropertyChanged
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(ActivePlayer)));
         }
     }
-   
-    private void HighlightPlayerText(TextBlock playerText) 
+
+    private void HighlightPlayerText(TextBlock playerText)
     {
         playerText.FontSize = 16;
         playerText.FontWeight = FontWeights.Bold;
         playerText.Foreground = Brushes.Black;
     }
-    private void ResetPlayerText() 
+    private void ResetPlayerText()
     {
         for (int i = 1; i <= 4; i++)
         {
@@ -115,19 +118,19 @@ public partial class MainWindow : Window, INotifyPropertyChanged
     {
         switch (ActivePlayer.Name)
         {
-            case "Player1Space":
+            case "Player 1":
                 ResetPlayerText();
                 HighlightPlayerText(Player1Text);
                 break;
-            case "Player2Space":
+            case "Player 2":
                 ResetPlayerText();
                 HighlightPlayerText(Player2Text);
                 break;
-            case "Player3Space":
+            case "Player 3":
                 ResetPlayerText();
                 HighlightPlayerText(Player3Text);
                 break;
-            case "Player4Space":
+            case "Player 4":
                 ResetPlayerText();
                 HighlightPlayerText(Player4Text);
                 break;
@@ -136,6 +139,7 @@ public partial class MainWindow : Window, INotifyPropertyChanged
 
     private void HandlePlayerNumberSelected(object? sender, PlayerSelectionEventArgs e)
     {
+        playerOne = new Player("Player 1", Player1Space, null);
         for (int j = 0; j < 7; j++)
         {
             Button card = new Button()
@@ -150,31 +154,41 @@ public partial class MainWindow : Window, INotifyPropertyChanged
                 Content = new Image() { Source = new BitmapImage(new Uri($@"\Resources\{deck[remainingCardsInPile - 1]}.png", UriKind.Relative)) }
             };
             card.Click += PlayerTurn;
-            Player1Space.Children.Add(card);
+            playerOne.Hand.Children.Add(card);
             remainingCardsInPile -= 1;
         }
 
         switch (e.PlayerMode)
         {
             case NumOfPlayers.Two:
-                SetPlayerSpace("player2");
+                playerTwo = new Player("Player 2", Player2Space, player2Deck);
+                CardsDeal(playerTwo);
                 break;
             case NumOfPlayers.Three:
-                SetPlayerSpace("player2");
-                SetPlayerSpace("player3");
+                playerTwo = new Player("Player 2", Player2Space, player2Deck);
+                playerThree = new Player("Player 3", Player3Space, player3Deck);
+                CardsDeal(playerTwo);
+                CardsDeal(playerThree);
                 break;
             case NumOfPlayers.Four:
-                SetPlayerSpace("player2");
-                SetPlayerSpace("player3");
-                SetPlayerSpace("player4");
+                playerTwo = new Player("Player 2", Player2Space, player2Deck);
+                playerThree = new Player("Player 3", Player3Space, player3Deck);
+                playerFour = new Player("Player 4", Player4Space, player4Deck);
+                CardsDeal(playerTwo);
+                CardsDeal(playerThree);
+                CardsDeal(playerFour);
                 break;
         }
+        activePlayer = playerTwo;
+
         setCard = deck[remainingCardsInPile - 1];
         UpCard.Source = new BitmapImage(new Uri($@"\Resources\{setCard}.png", UriKind.Relative));
         remainingCardsInPile -= 1;
         CurrentColor = FindCurrentColor(SetCard);
         CurrentNumber = FindCurrentNumber(SetCard);
         PlayerSelectionWindow.Visibility = Visibility.Collapsed;
+
+        GameStart();
     }
 
     private string FindCurrentColor(string setCard)
@@ -186,10 +200,10 @@ public partial class MainWindow : Window, INotifyPropertyChanged
     private string FindCurrentNumber(string setCard)
     {
         int underscoreIndex = setCard.IndexOf('_');
-        return SetCard.Substring(0,underscoreIndex);
+        return SetCard.Substring(0, underscoreIndex);
     }
 
-    private void CardsDeal(StackPanel playerHand, string[] playerDeck)
+    private void CardsDeal(Player player)
     {
         for (int i = 0; i < 7; i++)
         {
@@ -201,27 +215,9 @@ public partial class MainWindow : Window, INotifyPropertyChanged
                 Width = 50,
                 Margin = new Thickness(0, 0, -15, 0),
             };
-            playerHand.Children.Add(cardImage);
-
-            playerDeck[i] = deck[remainingCardsInPile - 1];
+            player.Hand.Children.Add(cardImage);
+            player.Deck.Add(deck[remainingCardsInPile - 1]);
             remainingCardsInPile -= 1;
-        }
-    }
-    private void SetPlayerSpace(string player)
-    {
-        switch (player)
-        {
-            case "player2":
-                CardsDeal(Player2Space, player2Deck);
-                break;
-            case "player3":
-                CardsDeal(Player3Space, player3Deck);
-                break;
-            case "player4":
-                CardsDeal(Player4Space, player4Deck);
-                break;
-            default:
-                break;
         }
     }
 
@@ -270,7 +266,7 @@ public partial class MainWindow : Window, INotifyPropertyChanged
 
     private void PlayerTurn(object sender, RoutedEventArgs e)
     {
-        if (!isGameActive || activePlayer != Player1Space)
+        if (!isGameActive || activePlayer != playerOne)
         {
             return;
         }
@@ -286,8 +282,9 @@ public partial class MainWindow : Window, INotifyPropertyChanged
         CurrentColor = FindCurrentColor(SetCard);
         CurrentNumber = FindCurrentNumber(SetCard);
         Player1Space.Children.Remove(button);
-        ActivePlayer = isClockWise ? Player4Space : Player3Space;
-        if (ActivePlayer != Player1Space)
+
+        ActivePlayer = isClockWise ? playerFour : playerThree;
+        if (ActivePlayer != playerOne)
         {
             ComputerMove(ActivePlayer);
         }
@@ -297,14 +294,11 @@ public partial class MainWindow : Window, INotifyPropertyChanged
     {
         isGameActive = true;
         isClockWise = true;
-        ActivePlayer = Player2Space;
-        if (ActivePlayer != Player1Space)
-        {
-            ComputerMove(ActivePlayer);
-        }
+        ActivePlayer = playerTwo;
+        ComputerMove(ActivePlayer);
     }
 
-    private void ComputerMove(StackPanel playersPanel)
+    private void ComputerMove(Player player)
     {
         DispatcherTimer timer = new DispatcherTimer()
         {
@@ -314,33 +308,46 @@ public partial class MainWindow : Window, INotifyPropertyChanged
         {
             timer.Stop();
 
-            foreach (Image card in playersPanel.Children.OfType<Image>())
+            var card = player.Deck.Find(c => c.Contains(CurrentColor.ToLower()) || c.Contains(CurrentNumber));
+
+            if (card != null)
             {
-                if (card.Uid.Contains(CurrentColor.ToLower()) || card.Uid.Contains(CurrentNumber))
+                UpCard.Source = new BitmapImage(new Uri($@"\Resources\{card}.png", UriKind.Relative));
+                SetCard = card;
+                CurrentColor = FindCurrentColor(SetCard);
+                CurrentNumber = FindCurrentNumber(SetCard);
+                player.Hand.Children.RemoveAt(player.Hand.Children.Count - 1);
+                player.Deck.Remove(card);
+            }
+            else
+            {
+                Image cardImage = new Image()
                 {
-                    UpCard.Source = new BitmapImage(new Uri($@"\Resources\{card.Uid}.png", UriKind.Relative));
-                    SetCard = card.Uid;
-                    CurrentColor = FindCurrentColor(SetCard);
-                    CurrentNumber =FindCurrentNumber(SetCard);
-                    playersPanel.Children.Remove(card);
-                    break;
-                }
+                    Uid = deck[remainingCardsInPile - 1],
+                    Source = new BitmapImage(new Uri(@"\Resources\card_back.png", UriKind.Relative)),
+                    Height = 100,
+                    Width = 50,
+                    Margin = new Thickness(0, 0, -15, 0),
+                };
+                player.Hand.Children.Add(cardImage);
+                player.Deck.Add(deck[remainingCardsInPile - 1]);
+                remainingCardsInPile -= 1;
             }
 
             switch (ActivePlayer.Name)
             {
-                case "Player2Space":
-                    ActivePlayer = isClockWise ? Player3Space : Player4Space;
+                case "Player 2":
+                    ActivePlayer = isClockWise ? playerThree : playerFour;
                     break;
-                case "Player3Space":
-                    ActivePlayer = isClockWise ? Player1Space : Player2Space;
+                case "Player 3":
+                    ActivePlayer = isClockWise ? playerOne : playerTwo;
                     break;
-                case "Player4Space":
-                    ActivePlayer = isClockWise ? Player2Space : Player1Space;
+                case "Player 4":
+                    ActivePlayer = isClockWise ? playerTwo : playerOne;
                     break;
             }
 
-            if (ActivePlayer != Player1Space)
+            if (ActivePlayer != playerOne)
             {
                 ComputerMove(ActivePlayer);
             }
