@@ -13,7 +13,7 @@
     <None Remove="Resources\+2_green.png" />
     <None Remove="Resources\+2_red.png" />
     <None Remove="Resources\+2_yellow.png" />
-    <None Remove="Resources\+4_.png" />
+    <None Remove="Resources\+4_black.png" />
     <None Remove="Resources\0_blue.png" />
     <None Remove="Resources\0_green.png" />
     <None Remove="Resources\0_red.png" />
@@ -63,7 +63,7 @@
     <None Remove="Resources\skip_green.png" />
     <None Remove="Resources\skip_red.png" />
     <None Remove="Resources\skip_yellow.png" />
-    <None Remove="Resources\wild_.png" />
+    <None Remove="Resources\wild_black.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -87,7 +87,7 @@
     <Resource Include="Resources\+2_green.png" />
     <Resource Include="Resources\+2_red.png" />
     <Resource Include="Resources\+2_yellow.png" />
-    <Resource Include="Resources\+4_.png" />
+    <Resource Include="Resources\+4_black.png" />
     <Resource Include="Resources\0_blue.png" />
     <Resource Include="Resources\0_green.png" />
     <Resource Include="Resources\0_red.png" />
@@ -131,7 +131,7 @@
     <Resource Include="Resources\reverse_green.png" />
     <Resource Include="Resources\reverse_red.png" />
     <Resource Include="Resources\reverse_yellow.png" />
-    <Resource Include="Resources\wild_.png" />
+    <Resource Include="Resources\wild_black.png" />
   </ItemGroup>
 
 </Project>
