@@ -22,10 +22,10 @@
 
         <Viewbox Grid.Row="1" Grid.Column="1">
             <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                <Button BorderThickness="0" Background="Transparent" Height="75" Width="25">
+                <Button Name="DrawPile" BorderThickness="0" Background="Transparent" Height="75" Width="25">
                     <Image Source="/Resources/card_back.png" Cursor="Hand"/>
                 </Button>
-                <Image Name="UpCard" Margin="0,0,10,0" Height="75" Width="25"/>
+                <Image Name="UpCardImage" Margin="0,0,10,0" Height="75" Width="25"/>
                 <StackPanel VerticalAlignment="Center">
                     <Border CornerRadius="20" BorderThickness="0.5" BorderBrush="Black" Background="{Binding CurrentColor}" Height="15" Width="15"/>
                 </StackPanel>
