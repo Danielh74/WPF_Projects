@@ -35,16 +35,16 @@
         <Viewbox Grid.Row="2" Grid.Column="1">
             <StackPanel HorizontalAlignment="Center">
                 <StackPanel Name="Player1Space" HorizontalAlignment="Center" Orientation="Horizontal">
-                    <Button Name="Green" Click="ColorChoose">
+                    <Button Name="Green" Click="ColorChange">
                         <Border CornerRadius="20" BorderThickness="0.5" BorderBrush="Black" Background="Green" Height="15" Width="15"/>
                     </Button>
-                    <Button Name="Blue" Click="ColorChoose">
+                    <Button Name="Blue" Click="ColorChange">
                         <Border CornerRadius="20" BorderThickness="0.5" BorderBrush="Black" Background="Blue" Height="15" Width="15"/>
                     </Button>
-                    <Button Name="Red" Click="ColorChoose">
+                    <Button Name="Red" Click="ColorChange">
                         <Border CornerRadius="20" BorderThickness="0.5" BorderBrush="Black" Background="Red" Height="15" Width="15"/>
                     </Button>
-                    <Button Name="Yellow" Click="ColorChoose">
+                    <Button Name="Yellow" Click="ColorChange">
                         <Border CornerRadius="20" BorderThickness="0.5" BorderBrush="Black" Background="Yellow" Height="15" Width="15"/>
                     </Button>
                 </StackPanel>

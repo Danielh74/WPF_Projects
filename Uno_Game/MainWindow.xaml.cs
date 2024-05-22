@@ -27,7 +27,7 @@ public partial class MainWindow : Window, INotifyPropertyChanged
 
     List<string> deck = new List<string>();
     int remainingCardsInPile;
-    string[] colors = ["green", "red", "blue", "yellow"];
+    readonly string[] colors = ["green", "red", "blue", "yellow"];
     string currentColor;
     string currentNumber;
     string upCardName;
@@ -525,7 +525,7 @@ public partial class MainWindow : Window, INotifyPropertyChanged
         }
     }
 
-    private void ColorChoose(object sender, RoutedEventArgs e)
+    private void ColorChange(object sender, RoutedEventArgs e)
     {
         Button colorBtn = sender as Button;
         CurrentColor = colorBtn.Name.ToString();
