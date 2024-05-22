@@ -34,7 +34,7 @@
 
         <Viewbox Grid.Row="2" Grid.Column="1">
             <StackPanel HorizontalAlignment="Center">
-                <StackPanel Name="Player1Space" Orientation="Horizontal">
+                <StackPanel Name="Player1Space" HorizontalAlignment="Center" Orientation="Horizontal">
                     <Button Name="Green" Click="ColorChoose">
                         <Border CornerRadius="20" BorderThickness="0.5" BorderBrush="Black" Background="Green" Height="15" Width="15"/>
                     </Button>
