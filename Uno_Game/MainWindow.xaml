@@ -34,8 +34,22 @@
 
         <Viewbox Grid.Row="2" Grid.Column="1">
             <StackPanel HorizontalAlignment="Center">
+                <StackPanel Name="Player1Space" Orientation="Horizontal">
+                    <Button Name="Green" Click="ColorChoose">
+                        <Border CornerRadius="20" BorderThickness="0.5" BorderBrush="Black" Background="Green" Height="15" Width="15"/>
+                    </Button>
+                    <Button Name="Blue" Click="ColorChoose">
+                        <Border CornerRadius="20" BorderThickness="0.5" BorderBrush="Black" Background="Blue" Height="15" Width="15"/>
+                    </Button>
+                    <Button Name="Red" Click="ColorChoose">
+                        <Border CornerRadius="20" BorderThickness="0.5" BorderBrush="Black" Background="Red" Height="15" Width="15"/>
+                    </Button>
+                    <Button Name="Yellow" Click="ColorChoose">
+                        <Border CornerRadius="20" BorderThickness="0.5" BorderBrush="Black" Background="Yellow" Height="15" Width="15"/>
+                    </Button>
+                </StackPanel>
                 <TextBlock Name="Player1Text" Text="Player 1" Foreground="LightGray"/>
-                <StackPanel Name="Player1Space" HorizontalAlignment="Center" Orientation="Horizontal"/>
+                <StackPanel Name="Player1Hand" HorizontalAlignment="Center" Orientation="Horizontal"/>
             </StackPanel>
         </Viewbox>
 
@@ -45,7 +59,7 @@
                     <ScaleTransform ScaleX="-1" ScaleY="-1"/>
                 </StackPanel.RenderTransform>
                 <TextBlock Name="Player2Text" Text="Player 2" Foreground="LightGray"/>
-                <StackPanel Name="Player2Space" Orientation="Horizontal"/>
+                <StackPanel Name="Player2Hand" Orientation="Horizontal"/>
             </StackPanel>
         </Viewbox>
 
@@ -55,7 +69,7 @@
                     <RotateTransform Angle="270"/>
                 </StackPanel.RenderTransform>
                 <TextBlock Name="Player3Text" Text="Player 3" Foreground="LightGray"/>
-                <StackPanel Name="Player3Space" Orientation="Horizontal"/>
+                <StackPanel Name="Player3Hand" Orientation="Horizontal"/>
             </StackPanel>
         </Viewbox>
 
@@ -65,7 +79,7 @@
                     <RotateTransform Angle="90"/>
                 </StackPanel.RenderTransform>
                 <TextBlock Name="Player4Text" Text="Player 4" Foreground="LightGray"/>
-                <StackPanel Name="Player4Space" Orientation="Horizontal"/>
+                <StackPanel Name="Player4Hand" Orientation="Horizontal"/>
             </StackPanel>
         </Viewbox>
 

@@ -51,6 +51,8 @@ public partial class MainWindow : Window, INotifyPropertyChanged
 
         InitializeDeck();
 
+        Player1Space.Visibility = Visibility.Collapsed;
+
         GameBoard.DataContext = this;
 
         PlayerSelectionWindow.PlayerNumberSelected += HandlePlayerNumberSelected;
@@ -143,7 +145,7 @@ public partial class MainWindow : Window, INotifyPropertyChanged
     private void HandlePlayerNumberSelected(object? sender, PlayerSelectionEventArgs e)
     {
         player1Deck = new List<string>();
-        playerOne = new Player("Player 1", Player1Space, player1Deck);
+        playerOne = new Player("Player 1", Player1Hand, player1Deck);
         for (int j = 0; j < 7; j++)
         {
             Button card = new Button()
@@ -167,15 +169,15 @@ public partial class MainWindow : Window, INotifyPropertyChanged
         {
             case NumOfPlayers.Two:
                 player2Deck = new List<string>();
-                playerTwo = new Player("Player 2", Player2Space, player2Deck);
+                playerTwo = new Player("Player 2", Player2Hand, player2Deck);
                 CardsDeal(playerTwo);
                 turns = [playerTwo, playerOne];
                 break;
             case NumOfPlayers.Three:
                 player2Deck = new List<string>();
                 player3Deck = new List<string>();
-                playerTwo = new Player("Player 2", Player2Space, player2Deck);
-                playerThree = new Player("Player 3", Player3Space, player3Deck);
+                playerTwo = new Player("Player 2", Player2Hand, player2Deck);
+                playerThree = new Player("Player 3", Player3Hand, player3Deck);
                 CardsDeal(playerTwo);
                 CardsDeal(playerThree);
                 turns = [playerTwo, playerThree, playerOne];
@@ -184,9 +186,9 @@ public partial class MainWindow : Window, INotifyPropertyChanged
                 player2Deck = new List<string>();
                 player3Deck = new List<string>();
                 player4Deck = new List<string>();
-                playerTwo = new Player("Player 2", Player2Space, player2Deck);
-                playerThree = new Player("Player 3", Player3Space, player3Deck);
-                playerFour = new Player("Player 4", Player4Space, player4Deck);
+                playerTwo = new Player("Player 2", Player2Hand, player2Deck);
+                playerThree = new Player("Player 3", Player3Hand, player3Deck);
+                playerFour = new Player("Player 4", Player4Hand, player4Deck);
                 CardsDeal(playerTwo);
                 CardsDeal(playerThree);
                 CardsDeal(playerFour);
@@ -209,7 +211,7 @@ public partial class MainWindow : Window, INotifyPropertyChanged
     {
         int underscoreIndex = UpCardName.IndexOf('_');
         string color = UpCardName.Substring(underscoreIndex + 1);
-        return color[0].ToString().ToUpper() + color.Substring(1);
+        return char.ToUpper(color[0]) + color.Substring(1);
     }
     private string FindCurrentNumber()
     {
@@ -296,7 +298,7 @@ public partial class MainWindow : Window, INotifyPropertyChanged
             UpCardName = button.Uid;
             CurrentColor = FindCurrentColor();
             CurrentNumber = FindCurrentNumber();
-            Player1Space.Children.Remove(button);
+            Player1Hand.Children.Remove(button);
             playerOne.Deck.Remove(button.Uid);
 
             currentTurn = turns.IndexOf(ActivePlayer);
@@ -356,11 +358,38 @@ public partial class MainWindow : Window, INotifyPropertyChanged
         }
         else if (currentNumber == "plus2")
         {
+            SpecialCardDraw(2);
+
             nextTurn = AdvanceTurn(2);
         }
         else if (currentNumber == "plus4")
         {
-            nextTurn = AdvanceTurn(2);
+            SpecialCardDraw(4);
+            if (activePlayer != playerOne)
+            {
+                Random rnd = new Random();
+                string color = colors[rnd.Next(colors.Length)];
+                CurrentColor = char.ToUpper(color[0]) + color.Substring(1);
+                nextTurn = AdvanceTurn(2);
+            }
+            else
+            {
+                Player1Space.Visibility = Visibility.Visible;
+            }
+        }
+        else if (currentNumber == "wild")
+        {
+            if (activePlayer != playerOne)
+            {
+                Random rnd = new Random();
+                string color = colors[rnd.Next(colors.Length)];
+                CurrentColor = char.ToUpper(color[0]) + color.Substring(1);
+                nextTurn = AdvanceTurn(1);
+            }
+            else
+            {
+                Player1Space.Visibility = Visibility.Visible;
+            }
         }
     }
 
@@ -382,7 +411,10 @@ public partial class MainWindow : Window, INotifyPropertyChanged
         {
             timer.Stop();
 
-            var card = player.Deck.Find(c => c.Contains(CurrentColor.ToLower()) || c.Contains(CurrentNumber));
+            var card = player.Deck.Find(c =>
+            c.Contains(CurrentColor.ToLower()) ||
+            c.Contains(CurrentNumber) ||
+            c.Contains("black"));
 
             if (card != null)
             {
@@ -428,7 +460,7 @@ public partial class MainWindow : Window, INotifyPropertyChanged
             }
             else
             {
-                if(player1Deck.Find(c => c.Contains(CurrentColor.ToLower()) || c.Contains(CurrentNumber)) == null)
+                if (player1Deck.Find(c => c.Contains(CurrentColor.ToLower()) || c.Contains(CurrentNumber)) == null)
                 {
                     DrawPile.Click += DrawFromPile;
                 }
@@ -460,5 +492,75 @@ public partial class MainWindow : Window, INotifyPropertyChanged
         nextTurn = AdvanceTurn(1);
         ActivePlayer = turns[nextTurn];
         currentTurn = nextTurn;
+    }
+
+    private void SpecialCardDraw(int times)
+    {
+        if (turns[AdvanceTurn(1)] != playerOne)
+        {
+            for (int i = 0; i < times; i++)
+            {
+                Image cardImage = new Image()
+                {
+                    Uid = deck[remainingCardsInPile - 1],
+                    Source = new BitmapImage(new Uri(@"\Resources\card_back.png", UriKind.Relative)),
+                    Height = 100,
+                    Width = 50,
+                    Margin = new Thickness(0, 0, -15, 0),
+                };
+                turns[AdvanceTurn(1)].Hand.Children.Add(cardImage);
+                turns[AdvanceTurn(1)].Deck.Add(deck[remainingCardsInPile - 1]);
+                remainingCardsInPile -= 1;
+            }
+        }
+        else
+        {
+            for (int i = 0; i < times; i++)
+            {
+                Button card = new Button()
+                {
+                    Uid = deck[remainingCardsInPile - 1],
+                    Background = Brushes.Transparent,
+                    BorderThickness = new Thickness(1),
+                    Margin = new Thickness(0, 0, -40, 0),
+                    BorderBrush = new SolidColorBrush(Colors.Transparent),
+                    Height = 125,
+                    Width = 75,
+                    Content = new Image() { Source = new BitmapImage(new Uri($@"\Resources\{deck[remainingCardsInPile - 1]}.png", UriKind.Relative)) }
+                };
+                card.Click += PlayerTurn;
+                playerOne.Hand.Children.Add(card);
+                playerOne.Deck.Add(deck[remainingCardsInPile - 1]);
+                remainingCardsInPile -= 1;
+            }
+        }
+    }
+
+    private void ColorChoose(object sender, RoutedEventArgs e)
+    {
+        Button colorBtn = sender as Button;
+        CurrentColor = colorBtn.Name.ToString();
+        Player1Space.Visibility = Visibility.Collapsed;
+        if (currentNumber == "plus4")
+        {
+            nextTurn = AdvanceTurn(2);
+            ActivePlayer = turns[nextTurn];
+            currentTurn = nextTurn;
+            if(ActivePlayer != playerOne)
+            {
+                ComputerMove(ActivePlayer);
+            }
+        }
+        else
+        {
+            nextTurn = AdvanceTurn(1);
+            ActivePlayer = turns[nextTurn];
+            currentTurn = nextTurn;
+            if (ActivePlayer != playerOne)
+            {
+                ComputerMove(ActivePlayer);
+            }
+        }
+
     }
 }
