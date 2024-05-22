@@ -100,49 +100,6 @@ public partial class MainWindow : Window, INotifyPropertyChanged
         }
     }
 
-    private void HighlightPlayerText(TextBlock playerText)
-    {
-        playerText.FontSize = 16;
-        playerText.FontWeight = FontWeights.Bold;
-        playerText.Foreground = Brushes.Black;
-    }
-    private void ResetPlayerText()
-    {
-        for (int i = 1; i <= 4; i++)
-        {
-            TextBlock playerText = FindName($"Player{i}Text") as TextBlock;
-            if (playerText != null)
-            {
-                playerText.FontSize = 12;
-                playerText.FontWeight = FontWeights.Regular;
-                playerText.Foreground = Brushes.LightGray;
-            }
-        }
-    }
-
-    private void HandleActivePlayerChanged(object? sender, PropertyChangedEventArgs e)
-    {
-        switch (ActivePlayer.Name)
-        {
-            case "Player 1":
-                ResetPlayerText();
-                HighlightPlayerText(Player1Text);
-                break;
-            case "Player 2":
-                ResetPlayerText();
-                HighlightPlayerText(Player2Text);
-                break;
-            case "Player 3":
-                ResetPlayerText();
-                HighlightPlayerText(Player3Text);
-                break;
-            case "Player 4":
-                ResetPlayerText();
-                HighlightPlayerText(Player4Text);
-                break;
-        }
-    }
-
     private void HandlePlayerNumberSelected(object? sender, PlayerSelectionEventArgs e)
     {
         player1Deck = new List<string>();
@@ -208,24 +165,6 @@ public partial class MainWindow : Window, INotifyPropertyChanged
         GameStart();
     }
 
-    private void CardsDeal(Player player)
-    {
-        for (int i = 0; i < 7; i++)
-        {
-            Image cardImage = new Image()
-            {
-                Uid = deck[remainingCardsInPile - 1],
-                Source = new BitmapImage(new Uri(@"\Resources\card_back.png", UriKind.Relative)),
-                Height = 100,
-                Width = 50,
-                Margin = new Thickness(0, 0, -15, 0),
-            };
-            player.Hand.Children.Add(cardImage);
-            player.Deck.Add(deck[remainingCardsInPile - 1]);
-            remainingCardsInPile -= 1;
-        }
-    }
-
     private void InitializeDeck()
     {
         for (int i = 0; i < 4; i++)
@@ -269,116 +208,21 @@ public partial class MainWindow : Window, INotifyPropertyChanged
         }
     }
 
-    private void PlayerTurn(object sender, RoutedEventArgs e)
+    private void CardsDeal(Player player)
     {
-        if (!isGameActive || activePlayer != playerOne)
+        for (int i = 0; i < 7; i++)
         {
-            return;
-        }
-
-        Button button = sender as Button;
-        if (button.Uid.Contains(CurrentColor.ToLower()) ||
-            button.Uid.Contains(CurrentNumber) ||
-            button.Uid.Contains("plus4") ||
-            button.Uid.Contains("wild"))
-        {
-            Image buttonImage = (Image)button.Content;
-            UpCardImage.Source = buttonImage.Source;
-            UpCardName = button.Uid;
-            CurrentColor = Utils.FindCurrentColor(UpCardName);
-            CurrentNumber = Utils.FindCurrentNumber(UpCardName);
-            Player1Hand.Children.Remove(button);
-            playerOne.Deck.Remove(button.Uid);
-
-            currentTurn = turns.IndexOf(ActivePlayer);
-
-            if (!int.TryParse(currentNumber, out int numberCard))
+            Image cardImage = new Image()
             {
-                HandleSpecialCardSet();
-            }
-            else
-            {
-                nextTurn = AdvanceTurn(1);
-            }
-
-            ActivePlayer = turns[nextTurn];
-            currentTurn = nextTurn;
-
-            if (ActivePlayer != playerOne)
-            {
-                ComputerMove(ActivePlayer);
-            }
-        }
-        else
-        {
-            return;
-        }
-    }
-    private int AdvanceTurn(int amount)
-    {
-        if (isClockWise)
-        {
-            return (currentTurn + amount) % turns.Count;
-        }
-        else
-        {
-            if ((currentTurn - amount) % turns.Count < 0)
-            {
-                return ((currentTurn - amount) % turns.Count) + turns.Count;
-            }
-            else
-            {
-                return (currentTurn - amount) % turns.Count;
-            }
-        }
-    }
-
-    private void HandleSpecialCardSet()
-    {
-        if (currentNumber == "skip")
-        {
-            nextTurn = AdvanceTurn(2);
-        }
-        else if (currentNumber == "reverse")
-        {
-            isClockWise = !isClockWise;
-
-            nextTurn = AdvanceTurn(1);
-        }
-        else if (currentNumber == "plus2")
-        {
-            SpecialCardDraw(2);
-
-            nextTurn = AdvanceTurn(2);
-        }
-        else if (currentNumber == "plus4")
-        {
-            SpecialCardDraw(4);
-            if (activePlayer != playerOne)
-            {
-                Random rnd = new Random();
-                string color = colors[rnd.Next(colors.Length)];
-                CurrentColor = char.ToUpper(color[0]) + color.Substring(1);
-                nextTurn = AdvanceTurn(2);
-            }
-            else
-            {
-                Player1Space.Visibility = Visibility.Visible;
-            }
-        }
-        else if (currentNumber == "wild")
-        {
-            if (activePlayer != playerOne)
-            {
-                Random rnd = new Random();
-                string color = colors[rnd.Next(colors.Length)];
-                CurrentColor = char.ToUpper(color[0]) + color.Substring(1);
-                nextTurn = AdvanceTurn(1);
-            }
-            else
-            {
-                Player1Space.Visibility = Visibility.Visible;
-            }
+                Uid = deck[remainingCardsInPile - 1],
+                Source = new BitmapImage(new Uri(@"\Resources\card_back.png", UriKind.Relative)),
+                Height = 100,
+                Width = 50,
+                Margin = new Thickness(0, 0, -15, 0),
+            };
+            player.Hand.Children.Add(cardImage);
+            player.Deck.Add(deck[remainingCardsInPile - 1]);
+            remainingCardsInPile -= 1;
         }
     }
 
@@ -458,6 +302,164 @@ public partial class MainWindow : Window, INotifyPropertyChanged
         timer.Start();
     }
 
+    private void HandleActivePlayerChanged(object? sender, PropertyChangedEventArgs e)
+    {
+        switch (ActivePlayer.Name)
+        {
+            case "Player 1":
+                ResetPlayerText();
+                HighlightPlayerText(Player1Text);
+                break;
+            case "Player 2":
+                ResetPlayerText();
+                HighlightPlayerText(Player2Text);
+                break;
+            case "Player 3":
+                ResetPlayerText();
+                HighlightPlayerText(Player3Text);
+                break;
+            case "Player 4":
+                ResetPlayerText();
+                HighlightPlayerText(Player4Text);
+                break;
+        }
+    }
+
+    private void HighlightPlayerText(TextBlock playerText)
+    {
+        playerText.FontSize = 16;
+        playerText.FontWeight = FontWeights.Bold;
+        playerText.Foreground = Brushes.Black;
+    }
+
+    private void ResetPlayerText()
+    {
+        for (int i = 1; i <= 4; i++)
+        {
+            TextBlock playerText = FindName($"Player{i}Text") as TextBlock;
+            if (playerText != null)
+            {
+                playerText.FontSize = 12;
+                playerText.FontWeight = FontWeights.Regular;
+                playerText.Foreground = Brushes.LightGray;
+            }
+        }
+    }
+
+    private int AdvanceTurn(int amount)
+    {
+        if (isClockWise)
+        {
+            return (currentTurn + amount) % turns.Count;
+        }
+        else
+        {
+            if ((currentTurn - amount) % turns.Count < 0)
+            {
+                return ((currentTurn - amount) % turns.Count) + turns.Count;
+            }
+            else
+            {
+                return (currentTurn - amount) % turns.Count;
+            }
+        }
+    }
+
+    private void PlayerTurn(object sender, RoutedEventArgs e)
+    {
+        if (!isGameActive || activePlayer != playerOne)
+        {
+            return;
+        }
+
+        Button button = sender as Button;
+        if (button.Uid.Contains(CurrentColor.ToLower()) ||
+            button.Uid.Contains(CurrentNumber) ||
+            button.Uid.Contains("plus4") ||
+            button.Uid.Contains("wild"))
+        {
+            Image buttonImage = (Image)button.Content;
+            UpCardImage.Source = buttonImage.Source;
+            UpCardName = button.Uid;
+            CurrentColor = Utils.FindCurrentColor(UpCardName);
+            CurrentNumber = Utils.FindCurrentNumber(UpCardName);
+            Player1Hand.Children.Remove(button);
+            playerOne.Deck.Remove(button.Uid);
+
+            currentTurn = turns.IndexOf(ActivePlayer);
+
+            if (!int.TryParse(currentNumber, out int numberCard))
+            {
+                HandleSpecialCardSet();
+            }
+            else
+            {
+                nextTurn = AdvanceTurn(1);
+            }
+
+            ActivePlayer = turns[nextTurn];
+            currentTurn = nextTurn;
+
+            if (ActivePlayer != playerOne)
+            {
+                ComputerMove(ActivePlayer);
+            }
+        }
+        else
+        {
+            return;
+        }
+    }
+
+    private void HandleSpecialCardSet()
+    {
+        if (currentNumber == "skip")
+        {
+            nextTurn = AdvanceTurn(2);
+        }
+        else if (currentNumber == "reverse")
+        {
+            isClockWise = !isClockWise;
+
+            nextTurn = AdvanceTurn(1);
+        }
+        else if (currentNumber == "plus2")
+        {
+            SpecialCardDraw(2);
+
+            nextTurn = AdvanceTurn(2);
+        }
+        else if (currentNumber == "plus4")
+        {
+            SpecialCardDraw(4);
+            if (activePlayer != playerOne)
+            {
+                Random rnd = new Random();
+                string color = colors[rnd.Next(colors.Length)];
+                CurrentColor = char.ToUpper(color[0]) + color.Substring(1);
+                nextTurn = AdvanceTurn(2);
+            }
+            else
+            {
+                Player1Space.Visibility = Visibility.Visible;
+            }
+        }
+        else if (currentNumber == "wild")
+        {
+            if (activePlayer != playerOne)
+            {
+                Random rnd = new Random();
+                string color = colors[rnd.Next(colors.Length)];
+                CurrentColor = char.ToUpper(color[0]) + color.Substring(1);
+                nextTurn = AdvanceTurn(1);
+            }
+            else
+            {
+                Player1Space.Visibility = Visibility.Visible;
+            }
+        }
+    }
+
     private void DrawFromPile(object sender, RoutedEventArgs e)
     {
         Button card = new Button()
@@ -535,7 +537,7 @@ public partial class MainWindow : Window, INotifyPropertyChanged
             nextTurn = AdvanceTurn(2);
             ActivePlayer = turns[nextTurn];
             currentTurn = nextTurn;
-            if(ActivePlayer != playerOne)
+            if (ActivePlayer != playerOne)
             {
                 ComputerMove(ActivePlayer);
             }
