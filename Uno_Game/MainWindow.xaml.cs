@@ -14,6 +14,7 @@ using System.Windows.Threading;
 using System.Xml.Linq;
 using Uno_Game.CustomEventArgs;
 using Uno_Game.Enums;
+using Uno_Game.Helpers;
 
 namespace Uno_Game;
 
@@ -200,23 +201,11 @@ public partial class MainWindow : Window, INotifyPropertyChanged
         UpCardName = deck[remainingCardsInPile - 1];
         UpCardImage.Source = new BitmapImage(new Uri($@"\Resources\{upCardName}.png", UriKind.Relative));
         remainingCardsInPile -= 1;
-        CurrentColor = FindCurrentColor();
-        CurrentNumber = FindCurrentNumber();
+        CurrentColor = Utils.FindCurrentColor(UpCardName);
+        CurrentNumber = Utils.FindCurrentNumber(UpCardName);
         PlayerSelectionWindow.Visibility = Visibility.Collapsed;
 
         GameStart();
-    }
-
-    private string FindCurrentColor()
-    {
-        int underscoreIndex = UpCardName.IndexOf('_');
-        string color = UpCardName.Substring(underscoreIndex + 1);
-        return char.ToUpper(color[0]) + color.Substring(1);
-    }
-    private string FindCurrentNumber()
-    {
-        int underscoreIndex = UpCardName.IndexOf('_');
-        return UpCardName.Substring(0, underscoreIndex);
     }
 
     private void CardsDeal(Player player)
@@ -296,8 +285,8 @@ public partial class MainWindow : Window, INotifyPropertyChanged
             Image buttonImage = (Image)button.Content;
             UpCardImage.Source = buttonImage.Source;
             UpCardName = button.Uid;
-            CurrentColor = FindCurrentColor();
-            CurrentNumber = FindCurrentNumber();
+            CurrentColor = Utils.FindCurrentColor(UpCardName);
+            CurrentNumber = Utils.FindCurrentNumber(UpCardName);
             Player1Hand.Children.Remove(button);
             playerOne.Deck.Remove(button.Uid);
 
@@ -420,8 +409,8 @@ public partial class MainWindow : Window, INotifyPropertyChanged
             {
                 UpCardImage.Source = new BitmapImage(new Uri($@"\Resources\{card}.png", UriKind.Relative));
                 UpCardName = card;
-                CurrentColor = FindCurrentColor();
-                CurrentNumber = FindCurrentNumber();
+                CurrentColor = Utils.FindCurrentColor(UpCardName);
+                CurrentNumber = Utils.FindCurrentNumber(UpCardName);
                 player.Hand.Children.RemoveAt(player.Hand.Children.Count - 1);
                 player.Deck.Remove(card);
 
