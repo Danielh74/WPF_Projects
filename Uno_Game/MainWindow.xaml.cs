@@ -102,6 +102,8 @@ public partial class MainWindow : Window, INotifyPropertyChanged
 
     private void HandlePlayerNumberSelected(object? sender, PlayerSelectionEventArgs e)
     {
+        PlayerSelectionWindow.Visibility = Visibility.Collapsed;
+
         player1Deck = new List<string>();
         playerOne = new Player("Player 1", Player1Hand, player1Deck);
         for (int j = 0; j < 7; j++)
@@ -160,9 +162,8 @@ public partial class MainWindow : Window, INotifyPropertyChanged
         remainingCardsInPile -= 1;
         CurrentColor = Utils.FindCurrentColor(UpCardName);
         CurrentNumber = Utils.FindCurrentNumber(UpCardName);
-        PlayerSelectionWindow.Visibility = Visibility.Collapsed;
 
-        GameStart();
+       GameStart();
     }
 
     private void InitializeDeck()
