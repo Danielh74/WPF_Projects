@@ -84,6 +84,7 @@ namespace PhotoGallery
                 GalleryPanel.Visibility = Visibility.Visible;
                 currentUserIndex = userList.IndexOf(currentUser);
                 MainPanel.Visibility = Visibility.Visible;
+                DataContext = currentUser;
                 LoadWindow("home");
             }
             else
@@ -310,9 +311,6 @@ namespace PhotoGallery
                 case "FavBtn":
                     currentType = WindowType.Favorites;
                     LoadWindow("favorites");
-                    break;
-                case "AboutBtn":
-                    LoadWindow("about");
                     break;
                 case "LogOutBtn":
                     currentUser = null;

@@ -10,9 +10,13 @@
         <DockPanel Name="MainPanel">
             <Border BorderBrush="Black" BorderThickness="0,0,0.5,0" Margin="0,5,5,5">
                 <StackPanel DockPanel.Dock="Left" >
+                    <TextBlock Margin="5" FontWeight="DemiBold">
+                        <Run Text="Hello, "/>
+                        <Run Text="{Binding UserName}"/>
+                    </TextBlock>
                     <Button
                         HorizontalAlignment="Center" 
-                        Margin="0,0,0,5"
+                        Margin="0,5,0,5"
                         Padding="2" 
                         Height="25"
                         Width="25"
@@ -22,7 +26,6 @@
                     </Button>
                     <Button Content="Home" Name="HomeBtn" FontWeight="DemiBold" Margin="5" Padding="5" Background="Transparent" BorderThickness="0" Click="ChangeWindow_Click"/>
                     <Button Content="Favorites" Name="FavBtn" FontWeight="DemiBold" Margin="5" Padding="5" Background="Transparent" BorderThickness="0" Click="ChangeWindow_Click"/>
-                    <Button Content="About" Name="AboutBtn" FontWeight="DemiBold" Margin="5" Padding="5" Background="Transparent" BorderThickness="0" Click="ChangeWindow_Click"/>
                     <Button Content="Log out" Name="LogOutBtn" FontWeight="DemiBold" Margin="5" Padding="5" Background="Transparent" BorderThickness="0" Click="ChangeWindow_Click"/>
                 </StackPanel>
             </Border>
