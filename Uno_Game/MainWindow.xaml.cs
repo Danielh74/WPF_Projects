@@ -120,7 +120,7 @@ public partial class MainWindow : Window, INotifyPropertyChanged
                 BorderBrush = new SolidColorBrush(Colors.Transparent),
                 Height = 125,
                 Width = 75,
-                Content = new Image() { Source = new BitmapImage(new Uri($@"\Resources\{deck[remainingCardsInPile - 1]}.png", UriKind.Relative)) }
+                Content = new Image() { Source = new BitmapImage(new Uri($@".\Resources\{deck[remainingCardsInPile - 1]}.png", UriKind.Relative)) }
             };
             card.Click += PlayerTurn;
             playerOne.Hand.Children.Add(card);
@@ -163,7 +163,7 @@ public partial class MainWindow : Window, INotifyPropertyChanged
         }
         while (deck[remainingCardsInPile - 1].Contains("black"));
 
-        UpCardImage.Source = new BitmapImage(new Uri($@"\Resources\{upCardName}.png", UriKind.Relative));
+        UpCardImage.Source = new BitmapImage(new Uri($@".\Resources\{upCardName}.png", UriKind.Relative));
         remainingCardsInPile -= 1;
         CurrentColor = Utils.FindCurrentColor(UpCardName);
         CurrentNumber = Utils.FindCurrentNumber(UpCardName);
@@ -233,7 +233,7 @@ public partial class MainWindow : Window, INotifyPropertyChanged
                 Image cardImage = new Image()
                 {
                     Uid = deck[remainingCardsInPile - 1],
-                    Source = new BitmapImage(new Uri(@"\Resources\card_back.png", UriKind.Relative)),
+                    Source = new BitmapImage(new Uri(@".\Resources\card_back.png", UriKind.Relative)),
                     Height = 100,
                     Width = 50,
                     Margin = new Thickness(0, 0, -15, 0),
@@ -269,7 +269,7 @@ public partial class MainWindow : Window, INotifyPropertyChanged
 
             if (card != null)
             {
-                UpCardImage.Source = new BitmapImage(new Uri($@"\Resources\{card}.png", UriKind.Relative));
+                UpCardImage.Source = new BitmapImage(new Uri($@".\Resources\{card}.png", UriKind.Relative));
                 UpCardName = card;
                 CurrentColor = Utils.FindCurrentColor(UpCardName);
                 CurrentNumber = Utils.FindCurrentNumber(UpCardName);
@@ -292,7 +292,7 @@ public partial class MainWindow : Window, INotifyPropertyChanged
                 Image cardImage = new Image()
                 {
                     Uid = deck[remainingCardsInPile - 1],
-                    Source = new BitmapImage(new Uri(@"\Resources\card_back.png", UriKind.Relative)),
+                    Source = new BitmapImage(new Uri(@".\Resources\card_back.png", UriKind.Relative)),
                     Height = 100,
                     Width = 50,
                     Margin = new Thickness(0, 0, -15, 0),
@@ -512,7 +512,7 @@ public partial class MainWindow : Window, INotifyPropertyChanged
             BorderBrush = new SolidColorBrush(Colors.Transparent),
             Height = 125,
             Width = 75,
-            Content = new Image() { Source = new BitmapImage(new Uri($@"\Resources\{deck[remainingCardsInPile - 1]}.png", UriKind.Relative)) }
+            Content = new Image() { Source = new BitmapImage(new Uri($@".\Resources\{deck[remainingCardsInPile - 1]}.png", UriKind.Relative)) }
         };
         card.Click += PlayerTurn;
         playerOne.Hand.Children.Add(card);
@@ -535,7 +535,7 @@ public partial class MainWindow : Window, INotifyPropertyChanged
                 Image cardImage = new Image()
                 {
                     Uid = deck[remainingCardsInPile - 1],
-                    Source = new BitmapImage(new Uri(@"\Resources\card_back.png", UriKind.Relative)),
+                    Source = new BitmapImage(new Uri(@".\Resources\card_back.png", UriKind.Relative)),
                     Height = 100,
                     Width = 50,
                     Margin = new Thickness(0, 0, -15, 0),
@@ -558,7 +558,7 @@ public partial class MainWindow : Window, INotifyPropertyChanged
                     BorderBrush = new SolidColorBrush(Colors.Transparent),
                     Height = 125,
                     Width = 75,
-                    Content = new Image() { Source = new BitmapImage(new Uri($@"\Resources\{deck[remainingCardsInPile - 1]}.png", UriKind.Relative)) }
+                    Content = new Image() { Source = new BitmapImage(new Uri($@".\Resources\{deck[remainingCardsInPile - 1]}.png", UriKind.Relative)) }
                 };
                 card.Click += PlayerTurn;
                 playerOne.Hand.Children.Add(card);

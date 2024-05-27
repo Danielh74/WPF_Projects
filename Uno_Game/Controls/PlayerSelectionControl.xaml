@@ -8,11 +8,17 @@
              d:DesignHeight="450" d:DesignWidth="800">
 
     <StackPanel Background="Black">
-        <TextBlock Text="SELECT THE NUMBER OF PLAYERS" HorizontalAlignment="Center" Foreground="White" FontSize="25" FontWeight="DemiBold" Margin="0,150,0,50"/>
+        <TextBlock Text="SELECT THE NUMBER OF PLAYERS" HorizontalAlignment="Center" Foreground="White" FontSize="25" FontWeight="DemiBold" Margin="0,150,0,25"/>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button Name="TwoPlayersBtn" Content="Two players" Margin="5" Click="PlayerModeSelection"/>
-            <Button Name="ThreePlayersBtn" Content="Three players" Margin="5" Click="PlayerModeSelection"/>
-            <Button Name="FourPlayersBtn" Content="Four players" Margin="5" Click="PlayerModeSelection"/>
+            <Button Name="TwoPlayersBtn" BorderThickness="0" Background="Transparent" Margin="10" Click="PlayerModeSelection">
+                <Image Source="../Resources/twoplayers.jpeg" Height="50" Width="50"/>
+            </Button>
+            <Button Name="ThreePlayersBtn" BorderThickness="0" Background="Transparent" Margin="10" Click="PlayerModeSelection">
+                <Image Source="../Resources/threeplayers.jpeg" Height="50" Width="50"/>
+            </Button>
+            <Button Name="FourPlayersBtn" BorderThickness="0" Background="Transparent" Margin="10" Click="PlayerModeSelection">
+                <Image Source="../Resources/fourplayers.jpeg" Height="50" Width="50"/>
+            </Button>
         </StackPanel>
     </StackPanel>
 
