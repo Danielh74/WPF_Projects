@@ -21,6 +21,7 @@ namespace Uno_Game.Controls
     public partial class EndGameControl : UserControl
     {
         public event EventHandler<EventArgs> GameRestart;
+        public event EventHandler<EventArgs> GameClosed;
         public EndGameControl()
         {
             InitializeComponent();
@@ -31,6 +32,11 @@ namespace Uno_Game.Controls
             EndGamePanel.Visibility = Visibility.Collapsed;
            
            GameRestart?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void CloseGame(object sender, RoutedEventArgs e)
+        {
+            GameClosed?.Invoke(this, EventArgs.Empty);
         }
     }
 }

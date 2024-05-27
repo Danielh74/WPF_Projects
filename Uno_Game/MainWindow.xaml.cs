@@ -31,7 +31,6 @@ public partial class MainWindow : Window, INotifyPropertyChanged
     string currentColor;
     string currentNumber;
     string upCardName;
-    bool isGameActive = false;
     bool isClockWise = true;
     Player activePlayer;
     Player playerOne;
@@ -57,6 +56,7 @@ public partial class MainWindow : Window, INotifyPropertyChanged
 
         PlayerSelectionWindow.PlayerNumberSelected += HandlePlayerNumberSelected;
         GameEndWindow.GameRestart += HandleGameRestart;
+        GameEndWindow.GameClosed += (object? sender, EventArgs e) => { Close(); };
         PropertyChanged += HandleActivePlayerChanged;
     }
 
@@ -157,7 +157,12 @@ public partial class MainWindow : Window, INotifyPropertyChanged
         }
         activePlayer = playerTwo;
 
-        UpCardName = deck[remainingCardsInPile - 1];
+        do
+        {
+            UpCardName = deck[remainingCardsInPile - 1];
+        }
+        while (deck[remainingCardsInPile - 1].Contains("black"));
+
         UpCardImage.Source = new BitmapImage(new Uri($@"\Resources\{upCardName}.png", UriKind.Relative));
         remainingCardsInPile -= 1;
         CurrentColor = Utils.FindCurrentColor(UpCardName);
@@ -242,7 +247,6 @@ public partial class MainWindow : Window, INotifyPropertyChanged
 
     private void GameStart()
     {
-        isGameActive = true;
         isClockWise = true;
         ActivePlayer = playerTwo;
         ComputerMove(ActivePlayer);
@@ -390,7 +394,7 @@ public partial class MainWindow : Window, INotifyPropertyChanged
 
     private void PlayerTurn(object sender, RoutedEventArgs e)
     {
-        if (!isGameActive || activePlayer != playerOne)
+        if (activePlayer != playerOne)
         {
             return;
         }
