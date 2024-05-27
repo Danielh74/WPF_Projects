@@ -8,6 +8,12 @@
         Title="MainWindow" Height="450" Width="800">
 
     <Grid Name="GameBoard">
+        <Grid.Background>
+            <RadialGradientBrush>
+                <GradientStop Color="#FFB88080"/>
+                <GradientStop Color="#FFE50606" Offset="1"/>
+            </RadialGradientBrush>
+        </Grid.Background>
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
