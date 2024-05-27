@@ -84,5 +84,6 @@
         </Viewbox>
 
         <controls:PlayerSelectionControl x:Name="PlayerSelectionWindow" Grid.ColumnSpan="3" Grid.RowSpan="3"/>
+        <controls:EndGameControl x:Name="GameEndWindow" Grid.ColumnSpan="3" Grid.RowSpan="3"/>
     </Grid>
 </Window>

@@ -50,13 +50,13 @@ public partial class MainWindow : Window, INotifyPropertyChanged
     {
         InitializeComponent();
 
-        InitializeDeck();
-
         Player1Space.Visibility = Visibility.Collapsed;
+        GameEndWindow.Visibility = Visibility.Collapsed;
 
         GameBoard.DataContext = this;
 
         PlayerSelectionWindow.PlayerNumberSelected += HandlePlayerNumberSelected;
+        GameEndWindow.GameRestart += HandleGameRestart;
         PropertyChanged += HandleActivePlayerChanged;
     }
 
@@ -102,10 +102,13 @@ public partial class MainWindow : Window, INotifyPropertyChanged
 
     private void HandlePlayerNumberSelected(object? sender, PlayerSelectionEventArgs e)
     {
+        InitializeDeck();
+
         PlayerSelectionWindow.Visibility = Visibility.Collapsed;
 
         player1Deck = new List<string>();
         playerOne = new Player("Player 1", Player1Hand, player1Deck);
+        InitializePlayerDeck(playerOne);
         for (int j = 0; j < 7; j++)
         {
             Button card = new Button()
@@ -138,8 +141,7 @@ public partial class MainWindow : Window, INotifyPropertyChanged
                 player3Deck = new List<string>();
                 playerTwo = new Player("Player 2", Player2Hand, player2Deck);
                 playerThree = new Player("Player 3", Player3Hand, player3Deck);
-                CardsDeal(playerTwo);
-                CardsDeal(playerThree);
+                CardsDeal(playerTwo, playerThree);
                 turns = [playerTwo, playerThree, playerOne];
                 break;
             case NumOfPlayers.Four:
@@ -149,9 +151,7 @@ public partial class MainWindow : Window, INotifyPropertyChanged
                 playerTwo = new Player("Player 2", Player2Hand, player2Deck);
                 playerThree = new Player("Player 3", Player3Hand, player3Deck);
                 playerFour = new Player("Player 4", Player4Hand, player4Deck);
-                CardsDeal(playerTwo);
-                CardsDeal(playerThree);
-                CardsDeal(playerFour);
+                CardsDeal(playerTwo, playerThree, playerFour);
                 turns = [playerTwo, playerThree, playerOne, playerFour];
                 break;
         }
@@ -163,11 +163,19 @@ public partial class MainWindow : Window, INotifyPropertyChanged
         CurrentColor = Utils.FindCurrentColor(UpCardName);
         CurrentNumber = Utils.FindCurrentNumber(UpCardName);
 
-       GameStart();
+        GameStart();
+    }
+
+    private void InitializePlayerDeck(Player player)
+    {
+        player.Deck.Clear();
+        player.Hand.Children.Clear();
     }
 
     private void InitializeDeck()
     {
+        deck.Clear();
+
         for (int i = 0; i < 4; i++)
         {
             deck.Add($"0_{colors[i]}");
@@ -209,21 +217,26 @@ public partial class MainWindow : Window, INotifyPropertyChanged
         }
     }
 
-    private void CardsDeal(Player player)
+    private void CardsDeal(params Player[] players)
     {
-        for (int i = 0; i < 7; i++)
+        foreach (Player player in players)
         {
-            Image cardImage = new Image()
+            InitializePlayerDeck(player);
+
+            for (int i = 0; i < 7; i++)
             {
-                Uid = deck[remainingCardsInPile - 1],
-                Source = new BitmapImage(new Uri(@"\Resources\card_back.png", UriKind.Relative)),
-                Height = 100,
-                Width = 50,
-                Margin = new Thickness(0, 0, -15, 0),
-            };
-            player.Hand.Children.Add(cardImage);
-            player.Deck.Add(deck[remainingCardsInPile - 1]);
-            remainingCardsInPile -= 1;
+                Image cardImage = new Image()
+                {
+                    Uid = deck[remainingCardsInPile - 1],
+                    Source = new BitmapImage(new Uri(@"\Resources\card_back.png", UriKind.Relative)),
+                    Height = 100,
+                    Width = 50,
+                    Margin = new Thickness(0, 0, -15, 0),
+                };
+                player.Hand.Children.Add(cardImage);
+                player.Deck.Add(deck[remainingCardsInPile - 1]);
+                remainingCardsInPile -= 1;
+            }
         }
     }
 
@@ -270,6 +283,8 @@ public partial class MainWindow : Window, INotifyPropertyChanged
             }
             else
             {
+                ChackPileEmpty(1);
+
                 Image cardImage = new Image()
                 {
                     Uid = deck[remainingCardsInPile - 1],
@@ -285,6 +300,13 @@ public partial class MainWindow : Window, INotifyPropertyChanged
                 nextTurn = AdvanceTurn(1);
             }
 
+            if (Utils.ChackGameWon(activePlayer))
+            {
+                GameEndWindow.DataContext = activePlayer;
+                GameEndWindow.Visibility = Visibility.Visible;
+                return;
+            }
+
             ActivePlayer = turns[nextTurn];
             currentTurn = nextTurn;
 
@@ -296,7 +318,7 @@ public partial class MainWindow : Window, INotifyPropertyChanged
             {
                 if (player1Deck.Find(c => c.Contains(CurrentColor.ToLower()) || c.Contains(CurrentNumber)) == null)
                 {
-                    DrawPile.Click += DrawFromPile;
+                    DrawPile.Click += HumanPlayerDraw;
                 }
             }
         };
@@ -398,6 +420,13 @@ public partial class MainWindow : Window, INotifyPropertyChanged
                 nextTurn = AdvanceTurn(1);
             }
 
+            if (Utils.ChackGameWon(activePlayer))
+            {
+                GameEndWindow.DataContext = activePlayer;
+                GameEndWindow.Visibility = Visibility.Visible;
+                return;
+            }
+
             ActivePlayer = turns[nextTurn];
             currentTurn = nextTurn;
 
@@ -426,13 +455,18 @@ public partial class MainWindow : Window, INotifyPropertyChanged
         }
         else if (currentNumber == "plus2")
         {
+            ChackPileEmpty(2);
+
             SpecialCardDraw(2);
 
             nextTurn = AdvanceTurn(2);
         }
         else if (currentNumber == "plus4")
         {
+            ChackPileEmpty(4);
+
             SpecialCardDraw(4);
+
             if (activePlayer != playerOne)
             {
                 Random rnd = new Random();
@@ -461,8 +495,10 @@ public partial class MainWindow : Window, INotifyPropertyChanged
         }
     }
 
-    private void DrawFromPile(object sender, RoutedEventArgs e)
+    private void HumanPlayerDraw(object sender, RoutedEventArgs e)
     {
+        ChackPileEmpty(1);
+
         Button card = new Button()
         {
             Uid = deck[remainingCardsInPile - 1],
@@ -479,7 +515,7 @@ public partial class MainWindow : Window, INotifyPropertyChanged
         playerOne.Deck.Add(deck[remainingCardsInPile - 1]);
         remainingCardsInPile -= 1;
 
-        DrawPile.Click -= DrawFromPile;
+        DrawPile.Click -= HumanPlayerDraw;
 
         nextTurn = AdvanceTurn(1);
         ActivePlayer = turns[nextTurn];
@@ -554,5 +590,19 @@ public partial class MainWindow : Window, INotifyPropertyChanged
             }
         }
 
+    }
+
+    private void ChackPileEmpty(int condition)
+    {
+        if (remainingCardsInPile < condition)
+        {
+            InitializeDeck();
+        }
+    }
+
+    private void HandleGameRestart(object? sender, EventArgs e)
+    {
+        Player1Space.Visibility = Visibility.Collapsed;
+        PlayerSelectionWindow.Visibility = Visibility.Visible;
     }
 }

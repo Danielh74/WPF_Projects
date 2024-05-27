@@ -19,5 +19,17 @@ namespace Uno_Game.Helpers
             int underscoreIndex = upCardName.IndexOf('_');
             return upCardName.Substring(0, underscoreIndex);
         }
+        public static bool ChackGameWon(Player activePlayer)
+        {
+            if (activePlayer.Deck.Count == 0)
+            {
+
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }
