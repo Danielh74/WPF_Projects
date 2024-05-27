@@ -51,7 +51,6 @@
     <None Remove="Resources\9_yellow.png" />
     <None Remove="Resources\card_back.png" />
     <None Remove="Resources\fourplayers.jpeg" />
-    <None Remove="Resources\game_background.jpg" />
     <None Remove="Resources\plus2_blue.png" />
     <None Remove="Resources\plus2_green.png" />
     <None Remove="Resources\plus2_red.png" />
@@ -73,7 +72,6 @@
   <ItemGroup>
     <Resource Include="Resources\card_back.png" />
     <Resource Include="Resources\fourplayers.jpeg" />
-    <Resource Include="Resources\game_background.jpg" />
     <Resource Include="Resources\skip_blue.png" />
     <Resource Include="Resources\skip_green.png" />
     <Resource Include="Resources\skip_red.png" />
