@@ -9,7 +9,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\api.png" />
+    <None Remove="Resources\c-sharp.png" />
     <None Remove="Resources\joke.png" />
+    <None Remove="Resources\json.png" />
+    <None Remove="Resources\oop.png" />
     <None Remove="Resources\PersonManager.png" />
     <None Remove="Resources\photoGallery.png" />
     <None Remove="Resources\pokedex.png" />
@@ -17,6 +21,7 @@
     <None Remove="Resources\StudentPhoto.jpeg" />
     <None Remove="Resources\tic-tac-toe.png" />
     <None Remove="Resources\uno_logo.png" />
+    <None Remove="Resources\xaml.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -31,9 +36,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\api.png" />
+    <Resource Include="Resources\c-sharp.png" />
     <Resource Include="Resources\joke.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Resources\json.png" />
+    <Resource Include="Resources\oop.png" />
     <Resource Include="Resources\PersonManager.png" />
     <Resource Include="Resources\photoGallery.png" />
     <Resource Include="Resources\pokedex.png" />
@@ -41,6 +50,7 @@
     <Resource Include="Resources\StudentPhoto.jpeg" />
     <Resource Include="Resources\tic-tac-toe.png" />
     <Resource Include="Resources\uno_logo.png" />
+    <Resource Include="Resources\xaml.png" />
   </ItemGroup>
 
 </Project>

@@ -7,11 +7,16 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <StackPanel>
-            <TextBlock Text="My Projects Gallery" TextAlignment="Center" FontSize="30" Margin="5"/>
-            <TextBlock Text="A gallery with some of my projects" TextAlignment="Center"/>
-            <WrapPanel Name="ProjectPanel" Margin="10" HorizontalAlignment="Left"/>
-        </StackPanel>
-        <controls:ProjectDescription x:Name="projectDescription"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="My Projects Gallery" TextAlignment="Center" FontSize="30" Margin="0,20,0,20"/>
+        <WrapPanel Grid.Row="1" Name="ProjectPanel" Margin="10" HorizontalAlignment="Left"/>
+
+        <controls:Footer Grid.Row="2" Margin="10"/>
+        <controls:ProjectDescription Grid.RowSpan="3" x:Name="projectDescription"/>
     </Grid>
 </Window>

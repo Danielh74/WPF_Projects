@@ -45,7 +45,8 @@ namespace ProjectGallery
                 TextBlock projectName = new TextBlock()
                 {
                     Text = project.Name,
-                    TextAlignment = TextAlignment.Center
+                    TextAlignment = TextAlignment.Center,
+                    Margin = new Thickness(0,5,0,0)
                 };
 
                 projectBtn.MouseDown += (sender, e) =>

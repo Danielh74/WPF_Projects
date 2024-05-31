@@ -1,5 +1,4 @@
-﻿using Common;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,18 +16,13 @@ using System.Windows.Shapes;
 namespace ProjectGallery.Controls
 {
     /// <summary>
-    /// Interaction logic for ProjectButton.xaml
+    /// Interaction logic for Footer.xaml
     /// </summary>
-    public partial class ProjectButton : UserControl
+    public partial class Footer : UserControl
     {
-        public string Text { get; set; }
-        public BitmapImage Image { get; set; }
-        public ProjectButton(IProjectMeta project)
+        public Footer()
         {
             InitializeComponent();
-            DataContext = project;
-
-            RunButton.Click += (sender, e) => project.Run();
         }
     }
 }

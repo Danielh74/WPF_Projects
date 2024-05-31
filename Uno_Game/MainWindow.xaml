@@ -10,7 +10,7 @@
     <Grid Name="GameBoard">
         <Grid.Background>
             <RadialGradientBrush>
-                <GradientStop Color="#FFB88080"/>
+                <GradientStop Color="#FFFFCB00"/>
                 <GradientStop Color="#FFE50606" Offset="1"/>
             </RadialGradientBrush>
         </Grid.Background>

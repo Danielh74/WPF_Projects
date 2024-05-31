@@ -1,0 +1,23 @@
+﻿<UserControl x:Class="ProjectGallery.Controls.Footer"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ProjectGallery.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+
+    <Grid>
+        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center">
+                <TextBlock Text="&#169; 2024 Daniel Hazan. All rights reserved" FontSize="10" VerticalAlignment="Center"/>
+            </StackPanel>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Image Source="\Resources\c-sharp.png" Height="30" Width="30" Margin="5"/>
+            <Image Source="\Resources\json.png" Height="30" Width="30" Margin="5"/>
+            <Image Source="\Resources\oop.png" Height="30" Width="30" Margin="5"/>
+            <Image Source="\Resources\api.png" Height="30" Width="30" Margin="5"/>
+            <Image Source="\Resources\xaml.png" Height="30" Width="30" Margin="5"/>
+        </StackPanel>
+    </Grid>
+
+</UserControl>
