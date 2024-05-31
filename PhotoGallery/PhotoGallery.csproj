@@ -20,6 +20,7 @@
     <None Remove="Resources\next_arrow.png" />
     <None Remove="Resources\plus_icon.png" />
     <None Remove="Resources\previous_arrow.png" />
+    <None Remove="Resources\StudentPhoto.jpeg" />
     <None Remove="Resources\trash-bin.png" />
   </ItemGroup>
 

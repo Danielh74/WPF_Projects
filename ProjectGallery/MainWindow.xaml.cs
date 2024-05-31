@@ -18,29 +18,54 @@ namespace ProjectGallery
     /// </summary>
     public partial class MainWindow : Window
     {
-        private IProjectMeta[] projects = [
-            new Tic_Tac_Toe.Project(),
-            new Memory_Game.Project(),
-            new PersonManager.Project(),
-            new JokeApp.Project(),
-            new Pokedex.Project(),
-            new PhotoGallery.Project(),
-            new Uno_Game.Project(),
-        ];
+        public event EventHandler<ProjectRedirectEventArgs> ProjectClicked;
         public MainWindow()
         {
             InitializeComponent();
             InitializeProjectButtons();
+            projectDescription.SetMainWindow(this);
+            projectDescription.Visibility = Visibility.Collapsed;
         }
 
         private void InitializeProjectButtons()
         {
-            foreach (IProjectMeta project in projects)
+            foreach (IProjectMeta project in Projects.List)
             {
-                ProjectButton button = new ProjectButton(project);
-                button.Margin = new Thickness(10);
-                ProjectPanel.Children.Add(button);
+                StackPanel projectBtn = new StackPanel()
+                {
+                    Margin = new Thickness(10)
+                };
+                Image projectImg = new Image()
+                {
+                    Source = project.Image,
+                    Height = 60,
+                    Width = 60,
+                    Cursor = Cursors.Hand
+                };
+                TextBlock projectName = new TextBlock()
+                {
+                    Text = project.Name,
+                    TextAlignment = TextAlignment.Center
+                };
+
+                projectBtn.MouseDown += (sender, e) =>
+                {
+                    projectDescription.Visibility = Visibility.Visible;
+                    ProjectClicked?.Invoke(this, new ProjectRedirectEventArgs() { Project = project });
+                };
+                projectBtn.Children.Add(projectImg);
+                projectBtn.Children.Add(projectName);
+
+                ProjectPanel.Children.Add(projectBtn);
             }
         }
+    }
+
+    public class ProjectRedirectEventArgs : EventArgs
+    {
+        public IProjectMeta Project { get; set; }
+        
+
+        
     }
 }

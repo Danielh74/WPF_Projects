@@ -14,6 +14,7 @@
     <None Remove="Resources\photoGallery.png" />
     <None Remove="Resources\pokedex.png" />
     <None Remove="Resources\pokemon_memory.png" />
+    <None Remove="Resources\StudentPhoto.jpeg" />
     <None Remove="Resources\tic-tac-toe.png" />
     <None Remove="Resources\uno_logo.png" />
   </ItemGroup>
@@ -37,6 +38,7 @@
     <Resource Include="Resources\photoGallery.png" />
     <Resource Include="Resources\pokedex.png" />
     <Resource Include="Resources\pokemon_memory.png" />
+    <Resource Include="Resources\StudentPhoto.jpeg" />
     <Resource Include="Resources\tic-tac-toe.png" />
     <Resource Include="Resources\uno_logo.png" />
   </ItemGroup>

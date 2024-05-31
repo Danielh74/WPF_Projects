@@ -3,12 +3,15 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:ProjectGallery"
+        xmlns:local="clr-namespace:ProjectGallery" xmlns:controls="clr-namespace:ProjectGallery.Controls"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <StackPanel>
-        <TextBlock Text="My Projects Gallery" TextAlignment="Center" FontSize="30" Margin="5"/>
-        <TextBlock Text="A gallery with some of my projects" TextAlignment="Center"/>
-        <WrapPanel Name="ProjectPanel" Margin="10" HorizontalAlignment="Left"/>
-    </StackPanel>
+    <Grid>
+        <StackPanel>
+            <TextBlock Text="My Projects Gallery" TextAlignment="Center" FontSize="30" Margin="5"/>
+            <TextBlock Text="A gallery with some of my projects" TextAlignment="Center"/>
+            <WrapPanel Name="ProjectPanel" Margin="10" HorizontalAlignment="Left"/>
+        </StackPanel>
+        <controls:ProjectDescription x:Name="projectDescription"/>
+    </Grid>
 </Window>
