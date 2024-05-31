@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Common;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,6 +22,7 @@ namespace ProjectGallery.Controls
     public partial class ProjectDescription : UserControl
     {
         MainWindow mainWindow;
+        IProjectMeta displayedProject;
         public ProjectDescription()
         {
             InitializeComponent();
@@ -28,7 +30,8 @@ namespace ProjectGallery.Controls
 
         private void HandleClick(object? sender, ProjectRedirectEventArgs e)
         {
-            //Connect the contents of e.Project to the xaml
+            DataContext = e.Project;
+            displayedProject = e.Project;
         }
 
         private void Back_Click(object sender, MouseButtonEventArgs e)
@@ -39,6 +42,11 @@ namespace ProjectGallery.Controls
         {
             mainWindow = window;
             mainWindow.ProjectClicked += HandleClick;
+        }
+
+        private void StartGame(object sender, MouseButtonEventArgs e)
+        {
+            displayedProject.Run();
         }
     }
 }

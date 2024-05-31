@@ -11,9 +11,8 @@ namespace PhotoGallery
     public class Project : IProjectMeta
     {
         public string Name { get; set; } = "Photo Gallery";
-
         public BitmapImage Image => new BitmapImage(new Uri(@"\Resources\photoGallery.png", UriKind.Relative));
-
+        public string Description { get; set; } = "";
         public void Run()
         {
             MainWindow mainWindow = new MainWindow();

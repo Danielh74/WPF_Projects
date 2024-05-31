@@ -12,7 +12,7 @@ namespace Tic_Tac_Toe
     {
         public string Name { get; set; } = "Tic-Tac-Toe";
         public BitmapImage Image => new BitmapImage(new Uri("\\Resources\\tic-tac-toe.png", UriKind.Relative));
-
+        public string Description { get; set; } = "";
         public void Run()
         {
             MainWindow window = new MainWindow();

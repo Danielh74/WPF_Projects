@@ -12,6 +12,7 @@ namespace JokeApp
     {
         public string Name { get; set; } = "Joke App";
         public BitmapImage Image => new BitmapImage(new Uri("\\Resources\\joke.png", UriKind.Relative));
+        public string Description { get; set; } = "";
         public void Run()
         {
             MainWindow window = new MainWindow();

@@ -9,8 +9,7 @@
     <Grid>
         <Button Name="RunButton" Background="Transparent" BorderThickness="0">
             <StackPanel Orientation="Vertical">
-                <Image Source="{Binding Image}" Height="60" Width="60"/>
-                <TextBlock Text="{Binding Name}" TextAlignment="Center"/>
+                <Image Source="{Binding Image}" Height="100" Width="100"/>
             </StackPanel>
         </Button>
     </Grid>

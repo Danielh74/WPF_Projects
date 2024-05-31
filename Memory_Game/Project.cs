@@ -12,6 +12,7 @@ namespace Memory_Game
     {
         public string Name { get; set; } = "Memory Game";
         public BitmapImage Image => new BitmapImage(new Uri("\\Resources\\pokemon_memory.png", UriKind.Relative));
+        public string Description { get; set; } = "";
         public void Run()
         {
             MainWindow window = new MainWindow();

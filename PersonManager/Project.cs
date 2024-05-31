@@ -12,7 +12,7 @@ namespace PersonManager
     {
         public string Name { get; set; } = "Project Manager";
         public BitmapImage Image => new BitmapImage(new Uri("\\Resources\\PersonManager.png", UriKind.Relative));
-
+        public string Description { get; set; } = "";
         public void Run()
         {
             MainWindow window = new MainWindow();
