@@ -54,6 +54,7 @@ namespace ProjectGallery
                     projectDescription.Visibility = Visibility.Visible;
                     ProjectClicked?.Invoke(this, new ProjectRedirectEventArgs() { Project = project });
                 };
+
                 projectBtn.Children.Add(projectImg);
                 projectBtn.Children.Add(projectName);
 

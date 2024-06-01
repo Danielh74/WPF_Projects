@@ -1,0 +1,33 @@
+﻿<Window x:Class="Pong.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Pong" xmlns:controls="clr-namespace:Pong.Controls"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+         <Canvas Name="gameScreen" Background="Black">
+        <Rectangle Name="player1" 
+                   Fill="White" 
+                   Width="10" 
+                   Height="100"/>
+        
+        <Rectangle 
+            Name="player2" 
+            Fill="White" 
+            Width="10" 
+            Height="100"/>
+        
+        <Rectangle 
+            Name="ball" 
+            Fill="White" 
+            Width="10" 
+            Height="10"/>
+
+    </Canvas>
+        
+        <controls:StartScreen x:Name="startScreen"/>
+    </Grid>
+   
+</Window>

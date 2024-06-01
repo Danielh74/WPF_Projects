@@ -17,6 +17,7 @@ namespace ProjectGallery
             new Pokedex.Project(),
             new PhotoGallery.Project(),
             new Uno_Game.Project(),
+            new Pong.Project()
         ];
         public static IProjectMeta[] List { get => list; }
     }
