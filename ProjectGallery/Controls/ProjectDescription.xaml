@@ -31,14 +31,17 @@
             </DockPanel>
         </Border>
 
-        <StackPanel Grid.Row="1">
-            <TextBlock Text="{Binding Description}" TextWrapping="Wrap" FontSize="14" FontWeight="DemiBold" Margin="10"/>
-            <TextBlock Margin="10">
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="1" Margin="10">
+            <StackPanel>
+            <TextBlock Text="{Binding Description}" TextWrapping="Wrap" FontSize="14" FontWeight="DemiBold"/>
+            <TextBlock Margin="0,15,0,0" >
                 <Run Text="To start the game click the Game Image." FontSize="14" FontWeight="DemiBold"/>
                 <LineBreak/>
                 <Run Text="To return to the main window click my profile picture." FontSize="14" FontWeight="DemiBold"/>
             </TextBlock>
         </StackPanel>
+        </ScrollViewer>
+        
 
         <Viewbox Grid.Column="1" Grid.Row="1">
             <Image Source="{Binding Image}" Height="50" Width="50" Margin="10" Cursor="Hand" MouseDown="StartGame"/>

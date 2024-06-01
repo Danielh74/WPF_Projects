@@ -256,7 +256,7 @@ public partial class MainWindow : Window, INotifyPropertyChanged
     {
         DispatcherTimer timer = new DispatcherTimer()
         {
-            Interval = TimeSpan.FromSeconds(5)
+            Interval = TimeSpan.FromSeconds(3)
         };
         timer.Tick += (sender, e) =>
         {
@@ -593,7 +593,6 @@ public partial class MainWindow : Window, INotifyPropertyChanged
                 ComputerMove(ActivePlayer);
             }
         }
-
     }
 
     private void ChackPileEmpty(int condition)

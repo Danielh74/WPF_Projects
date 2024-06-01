@@ -41,19 +41,24 @@
         <Viewbox Grid.Row="2" Grid.Column="1">
             <StackPanel HorizontalAlignment="Center">
                 <StackPanel Name="Player1Space" HorizontalAlignment="Center" Orientation="Horizontal">
-                    <Button Name="Green" Click="ColorChange">
-                        <Border CornerRadius="20" BorderThickness="0.5" BorderBrush="Black" Background="Green" Height="15" Width="15"/>
-                    </Button>
-                    <Button Name="Blue" Click="ColorChange">
-                        <Border CornerRadius="20" BorderThickness="0.5" BorderBrush="Black" Background="Blue" Height="15" Width="15"/>
-                    </Button>
-                    <Button Name="Red" Click="ColorChange">
-                        <Border CornerRadius="20" BorderThickness="0.5" BorderBrush="Black" Background="Red" Height="15" Width="15"/>
-                    </Button>
-                    <Button Name="Yellow" Click="ColorChange">
-                        <Border CornerRadius="20" BorderThickness="0.5" BorderBrush="Black" Background="Yellow" Height="15" Width="15"/>
-                    </Button>
+                    <Border CornerRadius="10" Background="Wheat" Padding="3" BorderThickness="1">
+                        <StackPanel Orientation="Horizontal">
+                            <Button Name="Green" Cursor="Hand" BorderThickness="0" Padding="3" Background="Transparent" Click="ColorChange">
+                                <Border CornerRadius="20" BorderThickness="0.5" BorderBrush="Black" Background="Green" Height="25" Width="25"/>
+                            </Button>
+                            <Button Name="Blue" Cursor="Hand" BorderThickness="0" Padding="3" Background="Transparent" Click="ColorChange">
+                                <Border CornerRadius="20" BorderThickness="0.5" BorderBrush="Black" Background="Blue" Height="25" Width="25"/>
+                            </Button>
+                            <Button Name="Red" Cursor="Hand" BorderThickness="0" Padding="3" Background="Transparent" Click="ColorChange">
+                                <Border CornerRadius="20" BorderThickness="0.5" BorderBrush="Black" Background="Red" Height="25" Width="25"/>
+                            </Button>
+                            <Button Name="Yellow" Cursor="Hand" BorderThickness="0" Padding="3" Background="Transparent" Click="ColorChange">
+                                <Border CornerRadius="20" BorderThickness="0.5" BorderBrush="Black" Background="Yellow" Height="25" Width="25"/>
+                            </Button>
+                        </StackPanel>
+                    </Border>
                 </StackPanel>
+                
                 <TextBlock Name="Player1Text" Text="Player 1" Foreground="LightGray"/>
                 <StackPanel Name="Player1Hand" HorizontalAlignment="Center" Orientation="Horizontal"/>
             </StackPanel>
