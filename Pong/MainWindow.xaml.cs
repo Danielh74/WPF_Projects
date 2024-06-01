@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.ComponentModel;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -8,18 +9,25 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Xml.Linq;
 
 namespace Pong
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler? PropertyChanged;
+
         private HashSet<Key> pressedKeys = new HashSet<Key>();
         private double playerSpeed = 3;
-        private double ballSpeedX = 3;
-        private double ballSpeedY = 3;
+        private double ballSpeedX = 4;
+        private double ballSpeedY = 4;
+        private int playerOneScore;
+        private int playerTwoScore;
+
+
         public MainWindow()
         {
             InitializeComponent();
@@ -27,12 +35,35 @@ namespace Pong
             SizeChanged += HandleWindowSizeChanged;
 
             startScreen.GameStarted += GameStart;
+
+            scorePanel.DataContext = this;
+        }
+
+        public int PlayerOneScore 
+        { 
+            get => playerOneScore;
+            set
+            {
+                playerOneScore = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(PlayerOneScore)));
+            }
+        }
+        public int PlayerTwoScore
+        {
+            get => playerTwoScore;
+            set
+            {
+                playerTwoScore = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(PlayerTwoScore)));
+            }
         }
 
         private void GameStart(object? sender, EventArgs e)
         {
             startScreen.Visibility = Visibility.Collapsed;
-
+            PlayerOneScore = 0;
+            PlayerTwoScore = 0;
+            Canvas.SetLeft(scorePanel, (gameScreen.ActualWidth - scorePanel.ActualWidth) / 2);
             CompositionTarget.Rendering += OnRendering;
 
             ResetScreen();
@@ -97,8 +128,15 @@ namespace Pong
                 Canvas.SetLeft(ball, Canvas.GetLeft(player2) - ball.Width);
             }
 
-            if (Canvas.GetLeft(ball) < 0 || Canvas.GetLeft(ball) + ball.Width > gameScreen.ActualWidth)
+            if (Canvas.GetLeft(ball) < 0)
             {
+                PlayerTwoScore++;
+                ResetBall();
+            }
+
+            if (Canvas.GetLeft(ball) + ball.Width > gameScreen.ActualWidth)
+            {
+                PlayerOneScore++;
                 ResetBall();
             }
         }
@@ -123,6 +161,18 @@ namespace Pong
         private void HandleWindowSizeChanged(object sender, SizeChangedEventArgs e)
         {
             ResetScreen();
+        }
+
+        private void ExitGame(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        private void RestartGame(object sender, RoutedEventArgs e)
+        {
+            ResetScreen();
+            PlayerOneScore = 0;
+            PlayerTwoScore = 0;
         }
     }
 }
