@@ -43,7 +43,7 @@ namespace Pokedex
 
             List<string> pokemonNames = pokemonsFromAPI.List.Select(pokemon => pokemon.Name).ToList();
             pokemonNames.Sort();
-            var capitalNames = pokemonNames.Select(CapitalFirstLetter);
+            var capitalNames = pokemonNames.Select(Helpers.CapitalFirstLetter);
 
             ItemsList.ItemsSource = capitalNames;
         }
@@ -74,7 +74,7 @@ namespace Pokedex
 
                 await GetPokemonGeneralDescription(pokemonToView.SpeciesInfo.URL);
 
-                pokemonToView.Name = CapitalFirstLetter(pokemonToView.Name);
+                pokemonToView.Name = Helpers.CapitalFirstLetter(pokemonToView.Name);
 
                 foreach (Type type in pokemonToView.Types)
                 {
@@ -91,12 +91,12 @@ namespace Pokedex
 
                 foreach (Move move in pokemonToView.Moves)
                 {
-                    move.Info.Name = CapitalFirstLetter(move.Info.Name);
+                    move.Info.Name = Helpers.CapitalFirstLetter(move.Info.Name);
                 }
 
                 foreach (Ability ability in pokemonToView.Abilities)
                 {
-                    ability.Info.Name = CapitalFirstLetter(ability.Info.Name);
+                    ability.Info.Name = Helpers.CapitalFirstLetter(ability.Info.Name);
 
                     await GetPokemonAbilityEffect(ability.Info.Url, abilityIndex);
                     abilityIndex++;
@@ -231,11 +231,6 @@ namespace Pokedex
             {
                 return;
             }
-        }
-
-        public static string CapitalFirstLetter(string str)
-        {
-            return str[0].ToString().ToUpper() + str.Substring(1);
         }
     }
 }
