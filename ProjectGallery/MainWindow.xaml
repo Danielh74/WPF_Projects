@@ -12,8 +12,21 @@
             <RowDefinition/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-
-        <TextBlock Grid.Row="0" Text="My Projects Gallery" TextAlignment="Center" FontSize="30" Margin="0,20,0,20"/>
+        
+        <Border Grid.Row="0" BorderThickness="0,0,0,1" BorderBrush="LightGray" Margin="5,0,5,0">
+            <DockPanel>
+                <StackPanel>
+                    <Rectangle Margin="10,10,0,10" Cursor="Hand" Width="50" Height="50" RadiusX="30" RadiusY="30" HorizontalAlignment="Left">
+                        <Rectangle.Fill>
+                            <ImageBrush ImageSource=".\Resources\studentPhoto.jpeg"/>
+                        </Rectangle.Fill>
+                    </Rectangle>
+                </StackPanel>
+                <StackPanel HorizontalAlignment="Center">
+                    <TextBlock Text="Project Gallery" FontFamily="Impact" FontSize="35" TextAlignment="Center" Margin="10"/>
+                </StackPanel>
+            </DockPanel>
+        </Border>
         <WrapPanel Grid.Row="1" Name="ProjectPanel" Margin="10" HorizontalAlignment="Left"/>
 
         <controls:Footer Grid.Row="2" Margin="10"/>

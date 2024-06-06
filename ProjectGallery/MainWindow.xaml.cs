@@ -25,8 +25,9 @@ namespace ProjectGallery
             InitializeProjectButtons();
             projectDescription.SetMainWindow(this);
             projectDescription.Visibility = Visibility.Collapsed;
+           
         }
-
+       
         private void InitializeProjectButtons()
         {
             foreach (IProjectMeta project in Projects.List)

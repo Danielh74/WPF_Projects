@@ -50,7 +50,7 @@
     <Resource Include="Resources\pokedex.png" />
     <Resource Include="Resources\pokemon_memory.png" />
     <Resource Include="Resources\pong.png" />
-    <Resource Include="Resources\StudentPhoto.jpeg" />
+    <Resource Include="Resources\studentPhoto.jpeg" />
     <Resource Include="Resources\tic-tac-toe.png" />
     <Resource Include="Resources\uno_logo.png" />
     <Resource Include="Resources\xaml.png" />
