@@ -11,43 +11,44 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <controls:Board Grid.Column="0" x:Name="MyBoard" />
-        <controls:EndGameMessage Grid.Column="0" x:Name="MyMessage" />
+        <controls:Board Grid.Column="0" x:Name="gameBoard" />
+        <controls:EndGameMessage Grid.Column="0" x:Name="endGameMessage" />
 
-        <StackPanel Grid.Column="1" Margin="10">
-            <TextBlock Text="Tic-Tac-Toe Game" FontSize="24" FontWeight="Bold" Margin="10" />
+        <Border BorderThickness="1,0,0,0" BorderBrush="Black" Margin="0,5,0,5" Grid.Column="1">
+            <StackPanel  Margin="10">
+                <TextBlock Text="Tic-Tac-Toe Game" FontSize="24" FontWeight="Bold" Margin="10" HorizontalAlignment="Center" />
 
-            <StackPanel Name="playerNameBoxes" Visibility="Visible">
-                <StackPanel Orientation="Horizontal">
-                     <Label Content="Player1:" Width="50" HorizontalAlignment="Left"/>
-                    <TextBox Name="p1_text" Width="150" Height="17"/>
+                <StackPanel Name="playerNameBoxes" Visibility="Visible">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Label Content="Player1:" Width="50" HorizontalAlignment="Left"/>
+                        <TextBox Name="p1_text" Width="150" Height="17"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Label Content="Player2:" Width="50" HorizontalAlignment="Left"/>
+                        <TextBox Name="p2_text" Width="150" Height="17"/>
+                    </StackPanel>
                 </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <Label Content="Player2:" Width="50" HorizontalAlignment="Left"/>
-                    <TextBox Name="p2_text" Width="150" Height="17"/>
-                </StackPanel>
-                
-            </StackPanel>
 
-            <TextBlock Text="Leaderboard:" Margin="10 10 10 5" FontWeight="Bold" FontSize ="15" />
-            
-                <TextBlock Margin="10 0 10 0" FontSize ="15" >
+                <TextBlock Text="Leaderboard:" Margin="10 10 10 5" FontWeight="Bold" FontSize ="15" HorizontalAlignment="Center"/>
+
+                <TextBlock Margin="10 0 10 0" FontSize ="15">
                     <Run Name="p1_name" Text="Player1" FontWeight="DemiBold"/>
                     <Run Text=":" FontWeight="Bold"/>
                     <Run Name="p1_score" Text="{Binding PlayerOneScore}"/>
                 </TextBlock>
 
-            <TextBlock  Margin="10 0 10 20" FontSize ="15">
+                <TextBlock  Margin="10 0 10 20" FontSize ="15">
                     <Run Name="p2_name" Text="Player2" FontWeight="DemiBold"/>
                     <Run Text=":"  FontWeight="Bold"/>
                     <Run Name="p2_score" Text="{Binding PlayerTwoScore}"/>
                 </TextBlock>
 
-                <Button Content="PvP (Player Vs Player)" Margin="10" Click="NewGame_Click" Name="Btn_PvP" />
-            <Button Content="PvC (Player Vs Computer)" Margin="10 0 10 0" Click="NewGame_Click" Name="Btn_PvC"/>
-            <Button Content="CvC (Computer Vs Computer)" Margin="10" Click="NewGame_Click" Name="Btn_CvC"/>
+                <Button Name="Btn_PvP" Content="PvP (Player Vs Player)" Margin="10" Click="NewGame_Click" />
+                <Button Name="Btn_PvC" Content="PvC (Player Vs Computer)" Margin="10,0,10,0" Click="NewGame_Click" />
+                <Button Name="Btn_CvC" Content="CvC (Computer Vs Computer)" Margin="10" Click="NewGame_Click" />
 
-            <Button Content="Exit" Margin="10 20 10 10" Click="NewGame_Click" Name="Btn_Exit"/>
-        </StackPanel>
+                <Button Content="Exit" Margin="10 20 10 10" HorizontalAlignment="Center" Padding="15,0,15,0" FontWeight="DemiBold" Background="OrangeRed" Click="NewGame_Click" Name="Btn_Exit"/>
+            </StackPanel>
+        </Border>
     </Grid>
 </Window>

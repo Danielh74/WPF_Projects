@@ -16,7 +16,6 @@
                 Grid.Row="0"
                 Grid.Column="1"
                 HorizontalAlignment="Center"
-		        Background="White" 
 		        Margin="10" 
 		        Padding="50,10,50,10"
 		        BorderThickness="3" 

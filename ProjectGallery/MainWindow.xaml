@@ -16,7 +16,7 @@
         <Border Grid.Row="0" BorderThickness="0,0,0,1" BorderBrush="LightGray" Margin="5,0,5,0">
             <DockPanel>
                 <StackPanel>
-                    <Rectangle Margin="10,10,0,10" Cursor="Hand" Width="50" Height="50" RadiusX="30" RadiusY="30" HorizontalAlignment="Left">
+                    <Rectangle Margin="10,10,0,10" Cursor="Hand" Width="50" Height="50" RadiusX="30" RadiusY="30" HorizontalAlignment="Left" MouseDown="About_Click">
                         <Rectangle.Fill>
                             <ImageBrush ImageSource=".\Resources\studentPhoto.jpeg"/>
                         </Rectangle.Fill>
@@ -31,5 +31,6 @@
 
         <controls:Footer Grid.Row="2" Margin="10"/>
         <controls:ProjectDescription Grid.RowSpan="3" x:Name="projectDescription"/>
+        <controls:AboutMeSection Grid.RowSpan="3" x:Name="aboutMeSection"/>
     </Grid>
 </Window>

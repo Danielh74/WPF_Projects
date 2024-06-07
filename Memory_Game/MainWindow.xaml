@@ -27,7 +27,7 @@
         </Border>
 
         <Border Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2">
-            <TextBlock Text="Welcome To The Pokemon Memory Game" HorizontalAlignment="Center" FontSize="35" FontWeight="Bold" Margin="5"/>
+            <TextBlock Text="Pokemon Memory Game" HorizontalAlignment="Center" FontSize="40" FontWeight="Bold" Margin="5"/>
         </Border>
 
         <Border BorderThickness="1,0,0,0" Grid.Column="1" Grid.Row="1" Grid.RowSpan="1"/>

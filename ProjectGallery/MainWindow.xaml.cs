@@ -10,6 +10,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ProjectGallery.Controls;
 using Common;
+using ProjectGallery.CustomEventArgs;
 
 namespace ProjectGallery
 {
@@ -19,13 +20,14 @@ namespace ProjectGallery
     public partial class MainWindow : Window
     {
         public event EventHandler<ProjectRedirectEventArgs> ProjectClicked;
+        string aboutMe = "Hello! I'm Daniel Hazan, a FullStack development student at HackerU.\nI'm passionate about creating seamless web applications using technologies like JavaScript, HTML, CSS, Node.js, and React.\nAdditionally, I have experience building WPF applications.\nAt HackerU, I've developed my skills through hands-on projects and rigorous coursework.\nI'm driven by a love for innovation and continuous learning, and I enjoy collaborating on tech projects.\nThis is my WPF project, feel free to check it out!";
         public MainWindow()
         {
             InitializeComponent();
             InitializeProjectButtons();
             projectDescription.SetMainWindow(this);
             projectDescription.Visibility = Visibility.Collapsed;
-           
+            aboutMeSection.Visibility = Visibility.Collapsed;
         }
        
         private void InitializeProjectButtons()
@@ -62,13 +64,11 @@ namespace ProjectGallery
                 ProjectPanel.Children.Add(projectBtn);
             }
         }
-    }
 
-    public class ProjectRedirectEventArgs : EventArgs
-    {
-        public IProjectMeta Project { get; set; }
-        
-
-        
+        private void About_Click(object sender, MouseButtonEventArgs e)
+        {
+            aboutMeSection.DataContext = aboutMe;
+           aboutMeSection.Visibility = Visibility.Visible;
+        }
     }
 }

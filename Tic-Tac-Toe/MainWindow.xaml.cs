@@ -28,10 +28,11 @@ namespace Tic_Tac_Toe
         public MainWindow()
         {
             InitializeComponent();
-            MyMessage.Visibility = Visibility.Collapsed;
+            endGameMessage.Visibility = Visibility.Collapsed;
+            gameBoard.Visibility = Visibility.Collapsed;
             DataContext = this;
 
-            MyBoard.GameEnded += HandleGameEnded;
+            gameBoard.GameEnded += HandleGameEnded;
         }
 
         private void OnPropertyChanged(string name)
@@ -111,7 +112,8 @@ namespace Tic_Tac_Toe
             PlayerOneScore = 0;
             PlayerTwoScore = 0;
 
-            MyBoard.StartNewGame(gameType, p1_name.Text, p2_name.Text);
+            gameBoard.Visibility = Visibility.Visible;
+            gameBoard.StartNewGame(gameType, p1_name.Text, p2_name.Text);
         }
         private void ActiveGameMode(Button activeButton)
         {
@@ -127,44 +129,42 @@ namespace Tic_Tac_Toe
                 {
                     button.Background = Brushes.LightGray;
                 }
-
             }
         }
+
         private void HandleGameEnded(object? sender, GameEndEventArgs e)
         {
             switch (e.GameResult)
             {
                 case GameResult.PlayerOneWins:
                     PlayerOneScore++;
-                    MyMessage.textBox.Text = p1_name.Text + " Wins!";
-                    MyMessage.textBox.Foreground = Brushes.Blue;
+                    endGameMessage.textBox.Text = p1_name.Text + " Wins!";
+                    endGameMessage.textBox.Foreground = Brushes.Blue;
                     break;
 
                 case GameResult.PlayerTwoWins:
                     PlayerTwoScore++;
-                    MyMessage.textBox.Text = p2_name.Text + " Wins!";
-                    MyMessage.textBox.Foreground = Brushes.Red;
+                    endGameMessage.textBox.Text = p2_name.Text + " Wins!";
+                    endGameMessage.textBox.Foreground = Brushes.Red;
                     break;
 
                 case GameResult.Draw:
-                    MyMessage.textBox.Text = "It's a draw!";
-                    MyMessage.textBox.Foreground = Brushes.Black;
+                    endGameMessage.textBox.Text = "It's a draw!";
+                    endGameMessage.textBox.Foreground = Brushes.Black;
                     break;
             }
+            endGameMessage.Visibility = Visibility.Visible;
 
-            MyMessage.Visibility = Visibility.Visible;
             DispatcherTimer timer = new DispatcherTimer()
             {
                 Interval = TimeSpan.FromSeconds(1)
             };
             timer.Tick += (sender, e) =>
             {
-                MyMessage.Visibility = Visibility.Collapsed;
+                endGameMessage.Visibility = Visibility.Collapsed;
                 timer.Stop();
-
             };
             timer.Start();
-           
         }
     }
 }

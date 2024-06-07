@@ -7,36 +7,59 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
 
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../CustomStyles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition/>
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition />
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
 
-    <StackPanel Name="RegisterPanel" Margin="10" Width="300" VerticalAlignment="Center" HorizontalAlignment="Center">
-        <GroupBox BorderThickness="2" BorderBrush="Black" Padding="20">
-            <GroupBox.Header>
-                <TextBlock Text="Registery" FontWeight="DemiBold"/>
-            </GroupBox.Header>
-            <StackPanel>
-                <StackPanel Margin="5">
-                    <Label Content="User Name:"/>
-                    <TextBox Name="UserName_TB"/>
-                </StackPanel>
+        <Viewbox Grid.Row="1" Grid.Column="1">
+            <StackPanel Name="RegisterPanel" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <GroupBox BorderThickness="2" Height="Auto" Width="300" BorderBrush="Black" Padding="20">
+                    <GroupBox.Header>
+                        <TextBlock Text="Registery" FontWeight="DemiBold"/>
+                    </GroupBox.Header>
+                    <StackPanel>
+                        <StackPanel Margin="5">
+                            <Label Content="User Name:"/>
+                            <TextBox Name="UserName_TB"/>
+                        </StackPanel>
 
-                <StackPanel Margin="5">
-                    <Label Content="Email:"/>
-                    <TextBox Name="Email_TB"/>
-                </StackPanel>
+                        <StackPanel Margin="5">
+                            <Label Content="Email:"/>
+                            <TextBox Name="Email_TB"/>
+                        </StackPanel>
 
-                <StackPanel Margin="5">
-                    <Label Content="Password:"/>
-                    <TextBox Name="Password_TB"/>
-                </StackPanel>
+                        <StackPanel Margin="5">
+                            <Label Content="Password:"/>
+                            <TextBox Name="Password_TB"/>
+                        </StackPanel>
 
-                <Button Content="Register" Margin="10" Width="60"  Click="OnUserRegister"/>
-                <TextBlock Name="ErrorMessage" Foreground="Red" HorizontalAlignment="Center"/>
+                        <Button Content="Register" Style="{StaticResource LoginButtonStyle}" Margin="10" Width="60"  Click="OnUserRegister"/>
+                        <TextBlock Name="ErrorMessage" Foreground="Red" HorizontalAlignment="Center"/>
 
-                <TextBlock Text="Already a user? Login" Margin="0,20,0,5" HorizontalAlignment="Center"/>
-                <Button Content="Login" Width="50" HorizontalAlignment="Center" Click="ChangeForm" />
+                        <TextBlock Text="Already a user? Login" Margin="0,20,0,5" HorizontalAlignment="Center"/>
+                        <Button Content="Login" Style="{StaticResource CustomButtonStyle}" Width="50" HorizontalAlignment="Center" Click="ChangeForm" />
+                    </StackPanel>
+                </GroupBox>
             </StackPanel>
-        </GroupBox>
-    </StackPanel>
+
+        </Viewbox>
+    </Grid>
+
 
 
 
