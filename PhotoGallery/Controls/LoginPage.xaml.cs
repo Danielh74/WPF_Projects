@@ -38,7 +38,7 @@ namespace PhotoGallery.Controls
 
         private void OnUserLogin(object sender, RoutedEventArgs e)
         {
-            if (Email_TB.Text == "" || Password_TB.Text == "")
+            if (Email_TB.Text == "Email" || Password_TB.Text == "Password")
             {
                 ErrorMessage.Text = "Please input email and password";
                 return;
@@ -64,6 +64,34 @@ namespace PhotoGallery.Controls
         private void ChangeForm(object sender, RoutedEventArgs e)
         {
             ChangingForm?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void TextboxInFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox textboxInFocus = sender as TextBox;
+            switch (textboxInFocus.Name)
+            {
+                case "Email_TB":
+                    Helpers.RemovePlaceHolder(textboxInFocus, "Email");
+                    break;
+                case "Password_TB":
+                    Helpers.RemovePlaceHolder(textboxInFocus, "Password");
+                    break;
+            }
+        }
+
+        private void TextboxOutOfFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox textboxInFocus = sender as TextBox;
+            switch (textboxInFocus.Name)
+            {
+                case "Email_TB":
+                    Helpers.ShowPlaceHolder(textboxInFocus, "Email");
+                    break;
+                case "Password_TB":
+                    Helpers.ShowPlaceHolder(textboxInFocus, "Password");
+                    break;
+            }
         }
     }
 }

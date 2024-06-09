@@ -17,6 +17,7 @@
     <None Remove="Resources\back_icon.png" />
     <None Remove="Resources\empty_heart.png" />
     <None Remove="Resources\full_heart.png" />
+    <None Remove="Resources\login_background.jpg" />
     <None Remove="Resources\next_arrow.png" />
     <None Remove="Resources\plus_icon.png" />
     <None Remove="Resources\previous_arrow.png" />
@@ -39,6 +40,7 @@
     <Resource Include="Resources\back_icon.png" />
     <Resource Include="Resources\empty_heart.png" />
     <Resource Include="Resources\full_heart.png" />
+    <Resource Include="Resources\login_background.jpg" />
     <Resource Include="Resources\next_arrow.png" />
     <Resource Include="Resources\plus_icon.png" />
     <Resource Include="Resources\previous_arrow.png" />

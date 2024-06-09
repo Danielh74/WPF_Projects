@@ -17,16 +17,31 @@
         </Style.Triggers>
     </Style>
 
+    <Style x:Key="TextBoxBorderStyle" TargetType="Border">
+        <Setter Property="Background" Value="#B2FFFFFF" />
+        <Setter Property="BorderBrush" Value="DodgerBlue" />
+        <Setter Property="BorderThickness" Value="0.5" />
+        <Setter Property="CornerRadius" Value="2" />
+    </Style>
+
+    <Style x:Key="TextBoxStyle" TargetType="TextBox">
+        <Setter Property="FontSize" Value="10"/>
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Foreground" Value="Gray" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="TextWrapping" Value="WrapWithOverflow" />
+        <Setter Property="Width" Value="150" />
+    </Style>
+
     <Style x:Key="AddButtonStyle" TargetType="Button">
         <Setter Property="Background" Value="Transparent" />
-        <Setter Property="BorderThickness" Value="0" />
-        <Setter Property="BorderBrush" Value="Transparent" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
                     <Border Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
-                            BorderThickness="{TemplateBinding BorderThickness}">
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="20">
                         <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Border>
                 </ControlTemplate>
@@ -58,7 +73,7 @@
         </Setter>
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Foreground" Value="LightBlue" />
+                <Setter Property="Foreground" Value="CornflowerBlue" />
                 <Setter Property="Background" Value="Transparent" />
             </Trigger>
             <Trigger Property="IsMouseOver" Value="False">
@@ -69,10 +84,9 @@
     </Style>
 
     <Style x:Key="LoginButtonStyle" TargetType="Button">
-        <Setter Property="Background" Value="Transparent" />
-        <Setter Property="BorderBrush" Value="Black" />
-        <Setter Property="BorderThickness" Value="1" />
-        <Setter Property="Foreground" Value="Black" />
+        <Setter Property="Background" Value="#660075FF" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Foreground" Value="White" />
         <Setter Property="FontWeight" Value="DemiBold" />
         <Setter Property="Template">
             <Setter.Value>
@@ -82,7 +96,7 @@
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}"
                         CornerRadius="10"
-                        Padding="0,2,0,2">
+                        Padding="0,3,0,3">
                         <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Border>
                 </ControlTemplate>
@@ -90,10 +104,10 @@
         </Setter>
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="LightGray" />
+                <Setter Property="Background" Value="CornflowerBlue" />
             </Trigger>
             <Trigger Property="IsPressed" Value="True">
-                <Setter Property="Background" Value="DarkGray" />
+                <Setter Property="Background" Value="Blue" />
             </Trigger>
         </Style.Triggers>
     </Style>

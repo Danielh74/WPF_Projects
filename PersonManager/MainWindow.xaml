@@ -24,7 +24,6 @@
                 <DataGridTextColumn Header="Name" Width="*" Binding="{Binding Name}"/>
                 <DataGridTextColumn Header="Age" Width="*" Binding="{Binding Age}"/>
 
-                <!-- To make a Delete button to every item-->
                 <DataGridTemplateColumn Header="Action" Width="*">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>

@@ -270,6 +270,8 @@ namespace PhotoGallery
         private void AddToGallery_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog fileDialog = new OpenFileDialog();
+            fileDialog.Filter = "Image Files|*.bmp;*.jpg;*.jpeg;*.png;*.gif;*.tiff;*.heic";
+
             if (fileDialog.ShowDialog() == false)
             {
                 return;
@@ -280,12 +282,6 @@ namespace PhotoGallery
                 SafeUri = fileDialog.SafeFileName,
                 IsFavorite = false
             };
-
-            if (Helpers.IsVideoFormat(photoToAdd.Uri))
-            {
-                MessageBox.Show("Cannot add videos to gallery");
-                return;
-            }
 
             if (currentUser.Gallery.Any(photo => photo.SafeUri == photoToAdd.SafeUri))
             {
@@ -300,7 +296,6 @@ namespace PhotoGallery
             File.WriteAllText("UsersInvantory.json", ListToJson);
 
             LoadWindow("home");
-
         }
 
         private void ChangeWindow_Click(object sender, RoutedEventArgs e)

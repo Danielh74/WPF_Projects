@@ -95,10 +95,40 @@ namespace PhotoGallery.Controls
         private void ChangeForm(object sender, RoutedEventArgs e)
         {
             ChangingForm?.Invoke(this, EventArgs.Empty);
+        }
 
-            UserName_TB.Text = "";
-            Email_TB.Text = "";
-            Password_TB.Text = "";
+        private void TextboxInFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox textboxInFocus = sender as TextBox;
+            switch (textboxInFocus.Name)
+            {
+                case "UserName_TB":
+                    Helpers.RemovePlaceHolder(textboxInFocus, "Username");
+                    break;
+                case "Email_TB":
+                    Helpers.RemovePlaceHolder(textboxInFocus, "Email");
+                    break;
+                case "Password_TB":
+                    Helpers.RemovePlaceHolder(textboxInFocus, "Password");
+                    break;
+            }
+        }
+
+        private void TextboxOutOfFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox textboxInFocus = sender as TextBox;
+            switch (textboxInFocus.Name)
+            {
+                case "UserName_TB":
+                    Helpers.ShowPlaceHolder(textboxInFocus, "Username");
+                    break;
+                case "Email_TB":
+                    Helpers.ShowPlaceHolder(textboxInFocus, "Email");
+                    break;
+                case "Password_TB":
+                    Helpers.ShowPlaceHolder(textboxInFocus, "Password");
+                    break;
+            }
         }
     }
 }

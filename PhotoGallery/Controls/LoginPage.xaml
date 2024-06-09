@@ -27,31 +27,48 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+        <Grid.Background>
+            <ImageBrush ImageSource="\Resources\login_background.jpg" />
+        </Grid.Background>
+
         <Viewbox Grid.Row="1" Grid.Column="1" >
-                    <StackPanel Name="LoginPanel" VerticalAlignment="Center" HorizontalAlignment="Center">
-            <GroupBox BorderThickness="2" Height="Auto" Width="300" BorderBrush="Black" Padding="20">
-                <GroupBox.Header>
-                    <TextBlock Text="Log-in" FontWeight="DemiBold"/>
-                </GroupBox.Header>
-                <StackPanel>
-                    <StackPanel Margin="5">
-                        <Label Content="Email:"/>
-                        <TextBox Name="Email_TB"/>
-                    </StackPanel>
+            <StackPanel Name="LoginPanel" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <TextBlock Text="Login" Foreground="DodgerBlue" FontWeight="DemiBold" HorizontalAlignment="Center" FontSize="20"/>
+                <Border Style="{StaticResource TextBoxBorderStyle}" Margin="0,10,0,10">
+                    <TextBox
+                    Name="Email_TB" 
+                    Text="Email" 
+                    FontSize="10"
+                    Foreground="Gray" 
+                    Background="Transparent"
+                    BorderThickness="0"
+                    TextWrapping="WrapWithOverflow"
+                    Width="150"
+                    GotFocus="TextboxInFocus"
+                    LostFocus="TextboxOutOfFocus"/>
+                </Border>
 
-                    <StackPanel Margin="5">
-                        <Label Content="Password:"/>
-                        <TextBox Name="Password_TB"/>
-                    </StackPanel>
+                <Border Style="{StaticResource TextBoxBorderStyle}">
+                    <TextBox 
+                    Name="Password_TB" 
+                    Text="Password" 
+                    FontSize="10"
+                    Background="Transparent"
+                    Foreground="Gray" 
+                    BorderThickness="0"
+                    TextWrapping="WrapWithOverflow"
+                    Width="150"
+                    GotFocus="TextboxInFocus"
+                    LostFocus="TextboxOutOfFocus" />
+                </Border>
+                
 
-                    <Button Content="Login" Style="{StaticResource LoginButtonStyle}" Margin="10" Width="50" Click="OnUserLogin"/>
-                    <TextBlock Name="ErrorMessage" Foreground="Red" HorizontalAlignment="Center"/>
+                <Button Content="Login" Style="{StaticResource LoginButtonStyle}" Margin="15" Click="OnUserLogin"/>
+                <TextBlock Name="ErrorMessage" Foreground="Red" HorizontalAlignment="Center"/>
+                <TextBlock Text="Not a user? Register now" Margin="0,10,0,5" HorizontalAlignment="Center"/>
+                <Button Content="Register" Style="{StaticResource CustomButtonStyle}" HorizontalAlignment="Center" Width="60" Click="ChangeForm"/>
 
-                    <TextBlock Text="Not a user? Register now" Margin="0,20,0,5" HorizontalAlignment="Center"/>
-                    <Button Content="Register" Style="{StaticResource CustomButtonStyle}" HorizontalAlignment="Center" Width="60" Click="ChangeForm"/>
-                </StackPanel>
-            </GroupBox>
-        </StackPanel>
+            </StackPanel>
 
         </Viewbox>
 
