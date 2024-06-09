@@ -42,7 +42,6 @@
                         Padding="2" 
                         Height="25"
                         Width="25"
-                        Background="Transparent"
                         BorderThickness="0"
                         Click="AddToGallery_Click">
                             <Image Source="Resources\plus_icon.png"/>

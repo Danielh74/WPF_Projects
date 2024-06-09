@@ -6,19 +6,33 @@
              xmlns:local="clr-namespace:Uno_Game.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../CustomStyles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
 
     <StackPanel Background="Black">
         <TextBlock Text="SELECT THE NUMBER OF PLAYERS" HorizontalAlignment="Center" Foreground="White" FontSize="25" FontWeight="DemiBold" Margin="0,150,0,25"/>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button Name="TwoPlayersBtn" BorderThickness="0" Background="Transparent" Margin="10" Click="PlayerModeSelection">
-                <Image Source="../Resources/twoplayers.jpeg" Height="50" Width="50"/>
-            </Button>
-            <Button Name="ThreePlayersBtn" BorderThickness="0" Background="Transparent" Margin="10" Click="PlayerModeSelection">
-                <Image Source="../Resources/threeplayers.jpeg" Height="50" Width="50"/>
-            </Button>
-            <Button Name="FourPlayersBtn" BorderThickness="0" Background="Transparent" Margin="10" Click="PlayerModeSelection">
-                <Image Source="../Resources/fourplayers.jpeg" Height="50" Width="50"/>
-            </Button>
+            <Border Style="{StaticResource ButtonBorderStyle}">
+                <Button Name="TwoPlayersBtn" Style="{StaticResource PlayerSelectButton}" Margin="10" Click="PlayerModeSelection">
+                    <Image Source="../Resources/twoplayers.jpeg" Height="50" Width="50"/>
+                </Button>
+            </Border>
+            <Border Style="{StaticResource ButtonBorderStyle}">
+                <Button Name="ThreePlayersBtn" Style="{StaticResource PlayerSelectButton}" Margin="10" Click="PlayerModeSelection">
+                    <Image Source="../Resources/threeplayers.jpeg" Height="50" Width="50"/>
+                </Button>
+            </Border>
+            <Border Style="{StaticResource ButtonBorderStyle}">
+                <Button Name="FourPlayersBtn" Style="{StaticResource PlayerSelectButton}" Margin="10" Click="PlayerModeSelection">
+                    <Image Source="../Resources/fourplayers.jpeg" Height="50" Width="50"/>
+                </Button>
+            </Border>
+
         </StackPanel>
     </StackPanel>
 
