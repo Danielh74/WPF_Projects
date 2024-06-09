@@ -2,13 +2,14 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <Style x:Key="ButtonBorderStyle" TargetType="Border">
-        <Setter Property="Background" Value="Transparent" />
-        <Setter Property="BorderBrush" Value="Black" />
-        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="BorderBrush" Value="White" />
+        <Setter Property="BorderThickness" Value="0" />
         <Setter Property="CornerRadius" Value="30" />
+        <Setter Property="Height" Value="60" />
+        <Setter Property="Width" Value="60" />
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="CornflowerBlue" />
+                <Setter Property="BorderThickness" Value="2" />
             </Trigger>
             <Trigger Property="IsMouseOver" Value="False">
                 <Setter Property="Background" Value="Transparent" />

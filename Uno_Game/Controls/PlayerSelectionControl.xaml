@@ -14,26 +14,50 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <StackPanel Background="Black">
-        <TextBlock Text="SELECT THE NUMBER OF PLAYERS" HorizontalAlignment="Center" Foreground="White" FontSize="25" FontWeight="DemiBold" Margin="0,150,0,25"/>
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-            <Border Style="{StaticResource ButtonBorderStyle}">
-                <Button Name="TwoPlayersBtn" Style="{StaticResource PlayerSelectButton}" Margin="10" Click="PlayerModeSelection">
-                    <Image Source="../Resources/twoplayers.jpeg" Height="50" Width="50"/>
-                </Button>
-            </Border>
-            <Border Style="{StaticResource ButtonBorderStyle}">
-                <Button Name="ThreePlayersBtn" Style="{StaticResource PlayerSelectButton}" Margin="10" Click="PlayerModeSelection">
-                    <Image Source="../Resources/threeplayers.jpeg" Height="50" Width="50"/>
-                </Button>
-            </Border>
-            <Border Style="{StaticResource ButtonBorderStyle}">
-                <Button Name="FourPlayersBtn" Style="{StaticResource PlayerSelectButton}" Margin="10" Click="PlayerModeSelection">
-                    <Image Source="../Resources/fourplayers.jpeg" Height="50" Width="50"/>
-                </Button>
-            </Border>
+    <Grid Background="Black">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition />
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
 
+
+        <StackPanel Grid.Row="1" Grid.Column="1">
+            <Viewbox>
+                <TextBlock Text="SELECT THE NUMBER OF PLAYERS" HorizontalAlignment="Center" Foreground="White" FontSize="30" FontWeight="DemiBold"/>
+            </Viewbox>
+
+            <Viewbox>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="15">
+                    <Border Style="{StaticResource ButtonBorderStyle}" Margin="10">
+                        <Border.Background>
+                            <ImageBrush ImageSource="../Resources/twoplayers.jpeg"/>
+                        </Border.Background>
+                        <Button Name="TwoPlayersBtn" Style="{StaticResource PlayerSelectButton}" Click="PlayerModeSelection"/>
+                    </Border>
+                    <Border Style="{StaticResource ButtonBorderStyle}" Margin="10">
+                        <Border.Background>
+                            <ImageBrush ImageSource="../Resources/threeplayers.jpeg"/>
+                        </Border.Background>
+                        <Button Name="ThreePlayersBtn" Style="{StaticResource PlayerSelectButton}" Click="PlayerModeSelection"/>
+                    </Border>
+                    <Border Style="{StaticResource ButtonBorderStyle}" Margin="10">
+                        <Border.Background>
+                            <ImageBrush ImageSource="../Resources/fourplayers.jpeg"/>
+                        </Border.Background>
+                        <Button Name="FourPlayersBtn" Style="{StaticResource PlayerSelectButton}" Click="PlayerModeSelection"/>
+                    </Border>
+
+                </StackPanel>
+
+            </Viewbox>
         </StackPanel>
-    </StackPanel>
+    </Grid>
+
 
 </UserControl>
