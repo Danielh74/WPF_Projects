@@ -57,5 +57,11 @@ namespace PhotoGallery.Utils
             textbox.Text = string.Empty;
             textbox.Foreground = Brushes.Black;
         }
+        public static void ResetText(TextBox textbox, string placeHolder)
+        {
+            
+            textbox.Text = placeHolder;
+            textbox.Foreground = Brushes.Black;
+        }
     }
 }

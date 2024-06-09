@@ -9,7 +9,7 @@
 
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="LightBlue" />
+                <Setter Property="Background" Value="CornflowerBlue" />
             </Trigger>
             <Trigger Property="IsMouseOver" Value="False">
                 <Setter Property="Background" Value="Transparent" />
@@ -57,6 +57,7 @@
     <Style x:Key="CustomButtonStyle" TargetType="Button">
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="FontWeight" Value="DemiBold" />
+        <Setter Property="FontSize" Value="14" />
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="BorderBrush" Value="Transparent" />
         <Setter Property="Foreground" Value="Black" />

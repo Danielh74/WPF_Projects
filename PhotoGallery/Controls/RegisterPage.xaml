@@ -32,8 +32,8 @@
 
         <Viewbox Grid.Row="1" Grid.Column="1">
             <StackPanel Name="RegisterPanel" VerticalAlignment="Center" HorizontalAlignment="Center">
-                <TextBlock Text="Register" Foreground="DodgerBlue" FontWeight="DemiBold" HorizontalAlignment="Center" Margin="10"/>
-                <Border Style="{StaticResource TextBoxBorderStyle}">
+                <TextBlock Text="Register" Foreground="DodgerBlue" FontWeight="DemiBold" HorizontalAlignment="Center" FontSize="20"/>
+                <Border Style="{StaticResource TextBoxBorderStyle}" Margin="0,10,0,10">
                     <TextBox
                     Name="UserName_TB"
                     Style="{StaticResource TextBoxStyle}"
@@ -42,7 +42,7 @@
                     LostFocus="TextboxOutOfFocus"/>
                 </Border>
 
-                <Border Style="{StaticResource TextBoxBorderStyle}" Margin="0,10,0,10">
+                <Border Style="{StaticResource TextBoxBorderStyle}">
                     <TextBox 
                         Name="Email_TB" 
                         Style="{StaticResource TextBoxStyle}"
@@ -52,7 +52,7 @@
                         />
                 </Border>
 
-                <Border Style="{StaticResource TextBoxBorderStyle}">
+                <Border Style="{StaticResource TextBoxBorderStyle}" Margin="0,10,0,0">
                     <TextBox 
                         Name="Password_TB" 
                         Style="{StaticResource TextBoxStyle}"
@@ -63,10 +63,9 @@
                 </Border>
                 <TextBlock Name="ErrorMessage" Foreground="Red" HorizontalAlignment="Center"/>
 
+                <Button Content="Register" Style="{StaticResource LoginButtonStyle}" Margin="15" Click="OnUserRegister"/>
 
-                <Button Content="Register" Style="{StaticResource LoginButtonStyle}" Margin="10" Width="60"  Click="OnUserRegister"/>
-
-                <TextBlock Text="Already a user? Login" Margin="0,20,0,5" HorizontalAlignment="Center"/>
+                <TextBlock Text="Already a user? Login" Margin="0,10,0,5" HorizontalAlignment="Center"/>
                 <Button Content="Login" Style="{StaticResource CustomButtonStyle}" Width="50" HorizontalAlignment="Center" Click="ChangeForm" />
                 
             </StackPanel>

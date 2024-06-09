@@ -37,13 +37,8 @@
                 <Border Style="{StaticResource TextBoxBorderStyle}" Margin="0,10,0,10">
                     <TextBox
                     Name="Email_TB" 
+                    Style="{StaticResource TextBoxStyle}"
                     Text="Email" 
-                    FontSize="10"
-                    Foreground="Gray" 
-                    Background="Transparent"
-                    BorderThickness="0"
-                    TextWrapping="WrapWithOverflow"
-                    Width="150"
                     GotFocus="TextboxInFocus"
                     LostFocus="TextboxOutOfFocus"/>
                 </Border>
@@ -51,20 +46,15 @@
                 <Border Style="{StaticResource TextBoxBorderStyle}">
                     <TextBox 
                     Name="Password_TB" 
+                    Style="{StaticResource TextBoxStyle}"
                     Text="Password" 
-                    FontSize="10"
-                    Background="Transparent"
-                    Foreground="Gray" 
-                    BorderThickness="0"
-                    TextWrapping="WrapWithOverflow"
-                    Width="150"
                     GotFocus="TextboxInFocus"
                     LostFocus="TextboxOutOfFocus" />
                 </Border>
                 
+                <TextBlock Name="ErrorMessage" Foreground="Red" HorizontalAlignment="Center"/>
 
                 <Button Content="Login" Style="{StaticResource LoginButtonStyle}" Margin="15" Click="OnUserLogin"/>
-                <TextBlock Name="ErrorMessage" Foreground="Red" HorizontalAlignment="Center"/>
                 <TextBlock Text="Not a user? Register now" Margin="0,10,0,5" HorizontalAlignment="Center"/>
                 <Button Content="Register" Style="{StaticResource CustomButtonStyle}" HorizontalAlignment="Center" Width="60" Click="ChangeForm"/>
 

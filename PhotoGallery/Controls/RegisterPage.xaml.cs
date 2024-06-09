@@ -87,13 +87,12 @@ namespace PhotoGallery.Controls
 
             UserRegistered?.Invoke(this, new LoginEventArgs { Email = Email_TB.Text, Password = Password_TB.Text, UserList = userList });
 
-            UserName_TB.Text = "";
-            Email_TB.Text = "";
-            Password_TB.Text = "";
+            ResetForm();
         }
 
         private void ChangeForm(object sender, RoutedEventArgs e)
         {
+            ResetForm();
             ChangingForm?.Invoke(this, EventArgs.Empty);
         }
 
@@ -129,6 +128,13 @@ namespace PhotoGallery.Controls
                     Helpers.ShowPlaceHolder(textboxInFocus, "Password");
                     break;
             }
+        }
+
+        private void ResetForm()
+        {
+            Helpers.ResetText(UserName_TB, "Username");
+            Helpers.ResetText(Email_TB, "Email");
+            Helpers.ResetText(Password_TB, "Password");
         }
     }
 }
