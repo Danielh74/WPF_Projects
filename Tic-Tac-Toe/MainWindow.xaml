@@ -5,50 +5,69 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:controls="clr-namespace:Tic_Tac_Toe.Controls"
         mc:Ignorable="d"
         Title="MainWindow" Height="500" Width="800">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="CustomStyles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2*" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
 
-        <controls:Board Grid.Column="0" x:Name="gameBoard" />
-        <controls:EndGameMessage Grid.Column="0" x:Name="endGameMessage" />
+        <controls:Board Grid.Column="0" Grid.Row="1" x:Name="gameBoard" />
+        <controls:EndGameMessage Grid.Column="0"  Grid.Row="1" x:Name="endGameMessage"/>
 
-        <Border BorderThickness="1,0,0,0" BorderBrush="Black" Margin="0,5,0,5" Grid.Column="1">
-            <StackPanel  Margin="10">
+
+        <Border BorderThickness="1" CornerRadius="10" BorderBrush="Black" Margin="5" Grid.Column="1" Grid.Row="1">
+            <StackPanel>
                 <TextBlock Text="Tic-Tac-Toe Game" FontSize="24" FontWeight="Bold" Margin="10" HorizontalAlignment="Center" />
+                <StackPanel Name="leaderboard">
+                    <TextBlock Text="Leaderboard" FontFamily="Agency FB" FontWeight="Bold" FontSize ="20" HorizontalAlignment="Center"/>
+                    <TextBlock Margin="10,20,0,5" FontFamily="Agency FB" FontSize ="15">
+                        <Run Name="p1_name" FontWeight="DemiBold"/>
+                        <Run Name="p1_score" Text="{Binding PlayerOneScore}" FontWeight="DemiBold"/>
+                    </TextBlock>
 
-                <StackPanel Name="playerNameBoxes" Visibility="Visible">
+                    <TextBlock Margin="10,0,0,20" FontFamily="Agency FB" FontSize ="15">
+                        <Run Name="p2_name" FontWeight="DemiBold"/>
+                        <Run Name="p2_score" Text="{Binding PlayerTwoScore}" FontWeight="DemiBold"/>
+                    </TextBlock>
+                </StackPanel>
+
+                <StackPanel Name="playerNameBoxes" Margin="0,10,0,0">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <Label Content="Player1:" Width="50" HorizontalAlignment="Left"/>
-                        <TextBox Name="p1_text" Width="150" Height="17"/>
+                        <Label Content="Player1:" HorizontalAlignment="Left"/>
+                        <Border Style="{StaticResource CustomTextBoxBorderStyle}">
+                            <TextBox Name="p1_text" Style="{StaticResource CustomTextBoxStyle}" Width="150"/>
+                        </Border>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <Label Content="Player2:" Width="50" HorizontalAlignment="Left"/>
-                        <TextBox Name="p2_text" Width="150" Height="17"/>
+                        <Label Content="Player2:" HorizontalAlignment="Left"/>
+                        <Border Style="{StaticResource CustomTextBoxBorderStyle}">
+                            <TextBox Name="p2_text" Style="{StaticResource CustomTextBoxStyle}" Width="150"/>
+                        </Border>
                     </StackPanel>
                 </StackPanel>
 
-                <TextBlock Text="Leaderboard:" Margin="10 10 10 5" FontWeight="Bold" FontSize ="15" HorizontalAlignment="Center"/>
+                <StackPanel Margin="10,30">
+                    <Button Name="Btn_PvP" Style="{StaticResource GameModeButtonStyle}" Content="PvP (Player Vs Player)" Margin="10" Click="NewGame_Click" />
+                    <Button Name="Btn_PvC" Style="{StaticResource GameModeButtonStyle}" Content="PvC (Player Vs Computer)" Margin="10,0,10,0" Click="NewGame_Click" />
+                    <Button Name="Btn_CvC" Style="{StaticResource GameModeButtonStyle}" Content="CvC (Computer Vs Computer)" Margin="10" Click="NewGame_Click" />
+                </StackPanel>
 
-                <TextBlock Margin="10 0 10 0" FontSize ="15">
-                    <Run Name="p1_name" Text="Player1" FontWeight="DemiBold"/>
-                    <Run Text=":" FontWeight="Bold"/>
-                    <Run Name="p1_score" Text="{Binding PlayerOneScore}"/>
-                </TextBlock>
-
-                <TextBlock  Margin="10 0 10 20" FontSize ="15">
-                    <Run Name="p2_name" Text="Player2" FontWeight="DemiBold"/>
-                    <Run Text=":"  FontWeight="Bold"/>
-                    <Run Name="p2_score" Text="{Binding PlayerTwoScore}"/>
-                </TextBlock>
-
-                <Button Name="Btn_PvP" Content="PvP (Player Vs Player)" Margin="10" Click="NewGame_Click" />
-                <Button Name="Btn_PvC" Content="PvC (Player Vs Computer)" Margin="10,0,10,0" Click="NewGame_Click" />
-                <Button Name="Btn_CvC" Content="CvC (Computer Vs Computer)" Margin="10" Click="NewGame_Click" />
-
-                <Button Content="Exit" Margin="10 20 10 10" HorizontalAlignment="Center" Padding="15,0,15,0" FontWeight="DemiBold" Background="OrangeRed" Click="NewGame_Click" Name="Btn_Exit"/>
             </StackPanel>
         </Border>
+        <Button Name="Btn_Exit" Style="{StaticResource ExitButtonStyle}" Content="Exit" Grid.Column="1" Grid.Row="1" VerticalAlignment="Bottom" Margin="50" HorizontalAlignment="Center" Click="NewGame_Click"/>
+
     </Grid>
 </Window>

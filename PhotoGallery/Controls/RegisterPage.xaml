@@ -33,13 +33,13 @@
         <Viewbox Grid.Row="1" Grid.Column="1">
             <StackPanel Name="RegisterPanel" VerticalAlignment="Center" HorizontalAlignment="Center">
                 <TextBlock Text="Register" Foreground="DodgerBlue" FontWeight="DemiBold" HorizontalAlignment="Center" FontSize="20"/>
-                <Border Style="{StaticResource TextBoxBorderStyle}" Margin="0,10,0,10">
+                <Border Style="{StaticResource TextBoxBorderStyle}" Margin="0,10,0,5">
                     <TextBox
-                    Name="UserName_TB"
-                    Style="{StaticResource TextBoxStyle}"
+                        Name="UserName_TB"
+                        Style="{StaticResource TextBoxStyle}"
                         Text="Username"
-                    GotFocus="TextboxInFocus"
-                    LostFocus="TextboxOutOfFocus"/>
+                        GotFocus="TextboxInFocus"
+                        LostFocus="TextboxOutOfFocus"/>
                 </Border>
 
                 <Border Style="{StaticResource TextBoxBorderStyle}">
@@ -52,7 +52,7 @@
                         />
                 </Border>
 
-                <Border Style="{StaticResource TextBoxBorderStyle}" Margin="0,10,0,0">
+                <Border Style="{StaticResource TextBoxBorderStyle}" Margin="0,5,0,0">
                     <TextBox 
                         Name="Password_TB" 
                         Style="{StaticResource TextBoxStyle}"

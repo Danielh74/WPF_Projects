@@ -58,11 +58,11 @@ namespace Tic_Tac_Toe.Controls
         {
             if (ActivePlayer == p1Name)
             {
-                indicatorBorder.BorderBrush = Brushes.Blue;
+                indicatorBorder.Style = (Style)FindResource("PlayerOneBorderStyle");
             }
             else
             {
-                indicatorBorder.BorderBrush = Brushes.Red;
+                indicatorBorder.Style = (Style)FindResource("PlayerTwoBorderStyle");
             }
         }
 
@@ -93,11 +93,7 @@ namespace Tic_Tac_Toe.Controls
                 {
                     Button btn = new Button()
                     {
-                        FontSize = 40,
-                        FontWeight = FontWeights.Bold,
-                        Margin = new Thickness(5),
-                        Background = Brushes.White,
-                        BorderThickness = new Thickness(0)
+                        Style = (Style)FindResource("BoardButtonStyle")
                     };
 
                     btn.Click += Button_Click;
@@ -136,7 +132,6 @@ namespace Tic_Tac_Toe.Controls
 
                 ActivePlayer = ActivePlayer == p1Name ? p2Name : p1Name;
 
-                // After human - let the computer take a turn
                 if (_gameType == GameType.PvC && ActivePlayer != p1Name)
                 {
                     ComputerMove();
@@ -154,7 +149,6 @@ namespace Tic_Tac_Toe.Controls
             {
                 timer.Stop();
 
-                // randomly find an empty button
                 Button btn;
                 do
                 {
@@ -255,20 +249,17 @@ namespace Tic_Tac_Toe.Controls
         {
             for (int i = 0; i < 3; i++)
             {
-                // Check Row
                 if (AreButtonsEqual(board[i, 0], board[i, 1], board[i, 2]))
                 {
                     return true;
                 }
 
-                // Check Column
                 if (AreButtonsEqual(board[0, i], board[1, i], board[2, i]))
                 {
                     return true;
                 }
             }
 
-            //Check Diagonals
             if (AreButtonsEqual(board[0, 0], board[1, 1], board[2, 2]))
             {
                 return true;

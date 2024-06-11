@@ -61,7 +61,7 @@ namespace PhotoGallery.Utils
         {
             
             textbox.Text = placeHolder;
-            textbox.Foreground = Brushes.Black;
+            textbox.Foreground = Brushes.Gray;
         }
     }
 }

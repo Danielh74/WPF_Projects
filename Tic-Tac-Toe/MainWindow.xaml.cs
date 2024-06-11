@@ -21,15 +21,17 @@ namespace Tic_Tac_Toe
     /// </summary>
     public partial class MainWindow : Window, INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler? PropertyChanged;
+
         private int playerOneScore = 0;
         private int playerTwoScore = 0;
-
-        public event PropertyChangedEventHandler? PropertyChanged;
+       
         public MainWindow()
         {
             InitializeComponent();
             endGameMessage.Visibility = Visibility.Collapsed;
             gameBoard.Visibility = Visibility.Collapsed;
+            leaderboard.Visibility = Visibility.Collapsed;
             DataContext = this;
 
             gameBoard.GameEnded += HandleGameEnded;
@@ -73,24 +75,24 @@ namespace Tic_Tac_Toe
                     return;
                 }
                 gameType = GameType.PvP;
-                p1_name.Text = $"{p1_text.Text}";
-                p2_name.Text = $"{p2_text.Text}";
+                p1_name.Text = $"{p1_text.Text} : ";
+                p2_name.Text = $"{p2_text.Text} : ";
 
                 ActiveGameMode(Btn_PvP);
             }
             else if (sender == Btn_PvC)
             {
                 gameType = GameType.PvC;
-                p1_name.Text = $"Player1";
-                p2_name.Text = "Computer";
+                p1_name.Text = $"Player 1 : ";
+                p2_name.Text = "Computer : ";
 
                 ActiveGameMode(Btn_PvC);
             }
             else if (sender == Btn_CvC)
             {
                 gameType = GameType.CvC;
-                p1_name.Text = "Computer1";
-                p2_name.Text = "Computer2";
+                p1_name.Text = "Computer 1 : ";
+                p2_name.Text = "Computer 2 : ";
 
                 ActiveGameMode(Btn_CvC);
             }
@@ -113,6 +115,7 @@ namespace Tic_Tac_Toe
             PlayerTwoScore = 0;
 
             gameBoard.Visibility = Visibility.Visible;
+            leaderboard.Visibility = Visibility.Visible;
             gameBoard.StartNewGame(gameType, p1_name.Text, p2_name.Text);
         }
         private void ActiveGameMode(Button activeButton)
@@ -127,7 +130,8 @@ namespace Tic_Tac_Toe
                 }
                 else
                 {
-                    button.Background = Brushes.LightGray;
+                    button.ClearValue(BackgroundProperty);
+                    button.Style = (Style)FindResource("GameModeButtonStyle");
                 }
             }
         }
