@@ -39,23 +39,23 @@ namespace Pokedex
 
         private async Task GetNamesFromAPI()
         {
-            PokemonList pokemonsFromAPI = await client.GetFromJsonAsync<PokemonList>("pokemon/?limit=100000&offset=0");
+                PokemonList pokemonsFromAPI = await client.GetFromJsonAsync<PokemonList>("pokemon/?limit=100000&offset=0");
 
-            List<string> pokemonNames = pokemonsFromAPI.List.Select(pokemon => pokemon.Name).ToList();
-            pokemonNames.Sort();
-            var capitalNames = pokemonNames.Select(Helpers.CapitalFirstLetter);
+                List<string> pokemonNames = pokemonsFromAPI.List.Select(pokemon => pokemon.Name).ToList();
+                pokemonNames.Sort();
+                var capitalNames = pokemonNames.Select(Helpers.CapitalFirstLetter);
 
-            ItemsList.ItemsSource = capitalNames;
+            PokemonList.ItemsSource = capitalNames;
         }
 
         private async void DisplayPokemon(object sender, RoutedEventArgs e)
         {
-            if (ItemsList.SelectedItem == null)
+            if (PokemonList.SelectedItem == null)
             {
                 MessageBox.Show("No pokemon was selected");
                 return;
             }
-            string? selectedPokemonName = ItemsList.SelectedItem.ToString().ToLower();
+            string? selectedPokemonName = PokemonList.SelectedItem.ToString().ToLower();
 
             await GetPokemonFromAPI(selectedPokemonName);
 
