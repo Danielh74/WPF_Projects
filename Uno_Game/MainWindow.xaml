@@ -7,6 +7,14 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
 
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="CustomStyles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
     <Grid Name="GameBoard">
         <Grid.Background>
             <RadialGradientBrush>
@@ -28,9 +36,13 @@
 
         <Viewbox Grid.Row="1" Grid.Column="1">
             <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                <Button Name="DrawPile" BorderThickness="0" Background="Transparent" Height="75" Width="25">
-                    <Image Source="./Resources/card_back.png" Cursor="Hand"/>
+
+                <Button Name="DrawPile" Style="{StaticResource CardButtonStyle}" BorderThickness="0" Background="Transparent" Height="75" Width="25">
+                    <Border Style="{StaticResource CardBorderStyle}">
+                        <Image Source="./Resources/card_back.png" Cursor="Hand"/>
+                    </Border>
                 </Button>
+
                 <Image Name="UpCardImage" Margin="0,0,10,0" Height="75" Width="25"/>
                 <StackPanel VerticalAlignment="Center">
                     <Border CornerRadius="20" BorderThickness="0.5" BorderBrush="Black" Background="{Binding CurrentColor}" Height="15" Width="15"/>
@@ -41,7 +53,7 @@
         <Viewbox Grid.Row="2" Grid.Column="1">
             <StackPanel HorizontalAlignment="Center">
                 <StackPanel Name="Player1Space" HorizontalAlignment="Center" Orientation="Horizontal">
-                    <Border CornerRadius="10" Background="Wheat" Padding="3" BorderThickness="1">
+                    <Border CornerRadius="10" Padding="3" BorderThickness="1">
                         <StackPanel Orientation="Horizontal">
                             <Button Name="Green" Cursor="Hand" BorderThickness="0" Padding="3" Background="Transparent" Click="ColorChange">
                                 <Border CornerRadius="20" BorderThickness="0.5" BorderBrush="Black" Background="Green" Height="25" Width="25"/>
@@ -58,7 +70,7 @@
                         </StackPanel>
                     </Border>
                 </StackPanel>
-                
+
                 <TextBlock Name="Player1Text" Text="Player 1" Foreground="LightGray"/>
                 <StackPanel Name="Player1Hand" HorizontalAlignment="Center" Orientation="Horizontal"/>
             </StackPanel>

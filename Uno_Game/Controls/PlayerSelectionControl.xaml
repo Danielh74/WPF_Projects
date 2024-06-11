@@ -34,23 +34,23 @@
 
             <Viewbox>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="15">
-                    <Border Style="{StaticResource ButtonBorderStyle}" Margin="10">
+                    <Border Style="{StaticResource PlayerSelectionBorderStyle}" Margin="10">
                         <Border.Background>
                             <ImageBrush ImageSource="../Resources/twoplayers.jpeg"/>
                         </Border.Background>
-                        <Button Name="TwoPlayersBtn" Style="{StaticResource PlayerSelectButton}" Click="PlayerModeSelection"/>
+                        <Button Name="TwoPlayersBtn" Style="{StaticResource PlayerSelectButtonStyle}" Click="PlayerModeSelection"/>
                     </Border>
-                    <Border Style="{StaticResource ButtonBorderStyle}" Margin="10">
+                    <Border Style="{StaticResource PlayerSelectionBorderStyle}" Margin="10">
                         <Border.Background>
                             <ImageBrush ImageSource="../Resources/threeplayers.jpeg"/>
                         </Border.Background>
-                        <Button Name="ThreePlayersBtn" Style="{StaticResource PlayerSelectButton}" Click="PlayerModeSelection"/>
+                        <Button Name="ThreePlayersBtn" Style="{StaticResource PlayerSelectButtonStyle}" Click="PlayerModeSelection"/>
                     </Border>
-                    <Border Style="{StaticResource ButtonBorderStyle}" Margin="10">
+                    <Border Style="{StaticResource PlayerSelectionBorderStyle}" Margin="10">
                         <Border.Background>
                             <ImageBrush ImageSource="../Resources/fourplayers.jpeg"/>
                         </Border.Background>
-                        <Button Name="FourPlayersBtn" Style="{StaticResource PlayerSelectButton}" Click="PlayerModeSelection"/>
+                        <Button Name="FourPlayersBtn" Style="{StaticResource PlayerSelectButtonStyle}" Click="PlayerModeSelection"/>
                     </Border>
 
                 </StackPanel>

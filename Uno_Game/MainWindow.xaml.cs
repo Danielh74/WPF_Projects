@@ -108,25 +108,8 @@ public partial class MainWindow : Window, INotifyPropertyChanged
 
         player1Deck = new List<string>();
         playerOne = new Player("Player 1", Player1Hand, player1Deck);
-        InitializePlayerDeck(playerOne);
-        for (int j = 0; j < 7; j++)
-        {
-            Button card = new Button()
-            {
-                Uid = deck[remainingCardsInPile - 1],
-                Background = Brushes.Transparent,
-                BorderThickness = new Thickness(1),
-                Margin = new Thickness(0, 0, -40, 0),
-                BorderBrush = new SolidColorBrush(Colors.Transparent),
-                Height = 125,
-                Width = 75,
-                Content = new Image() { Source = new BitmapImage(new Uri($@".\Resources\{deck[remainingCardsInPile - 1]}.png", UriKind.Relative)) }
-            };
-            card.Click += PlayerTurn;
-            playerOne.Hand.Children.Add(card);
-            playerOne.Deck.Add(deck[remainingCardsInPile - 1]);
-            remainingCardsInPile -= 1;
-        }
+        ClearPlayerDeck(playerOne);
+        HumanCardsDraw(7);
 
         switch (e.PlayerMode)
         {
@@ -171,7 +154,7 @@ public partial class MainWindow : Window, INotifyPropertyChanged
         GameStart();
     }
 
-    private void InitializePlayerDeck(Player player)
+    private void ClearPlayerDeck(Player player)
     {
         player.Deck.Clear();
         player.Hand.Children.Clear();
@@ -226,22 +209,9 @@ public partial class MainWindow : Window, INotifyPropertyChanged
     {
         foreach (Player player in players)
         {
-            InitializePlayerDeck(player);
+            ClearPlayerDeck(player);
 
-            for (int i = 0; i < 7; i++)
-            {
-                Image cardImage = new Image()
-                {
-                    Uid = deck[remainingCardsInPile - 1],
-                    Source = new BitmapImage(new Uri(@".\Resources\card_back.png", UriKind.Relative)),
-                    Height = 100,
-                    Width = 50,
-                    Margin = new Thickness(0, 0, -15, 0),
-                };
-                player.Hand.Children.Add(cardImage);
-                player.Deck.Add(deck[remainingCardsInPile - 1]);
-                remainingCardsInPile -= 1;
-            }
+            ComputerCardsDraw(7,player);
         }
     }
 
@@ -289,17 +259,7 @@ public partial class MainWindow : Window, INotifyPropertyChanged
             {
                 ChackPileEmpty(1);
 
-                Image cardImage = new Image()
-                {
-                    Uid = deck[remainingCardsInPile - 1],
-                    Source = new BitmapImage(new Uri(@".\Resources\card_back.png", UriKind.Relative)),
-                    Height = 100,
-                    Width = 50,
-                    Margin = new Thickness(0, 0, -15, 0),
-                };
-                player.Hand.Children.Add(cardImage);
-                player.Deck.Add(deck[remainingCardsInPile - 1]);
-                remainingCardsInPile -= 1;
+                ComputerCardsDraw(1, player);
 
                 nextTurn = AdvanceTurn(1);
             }
@@ -322,7 +282,7 @@ public partial class MainWindow : Window, INotifyPropertyChanged
             {
                 if (player1Deck.Find(c => c.Contains(CurrentColor.ToLower()) || c.Contains(CurrentNumber)) == null)
                 {
-                    DrawPile.Click += HumanPlayerDraw;
+                    DrawPile.Click += DrawFromPile;
                 }
             }
         };
@@ -405,7 +365,10 @@ public partial class MainWindow : Window, INotifyPropertyChanged
             button.Uid.Contains("plus4") ||
             button.Uid.Contains("wild"))
         {
-            Image buttonImage = (Image)button.Content;
+            Image buttonImage = new Image()
+            {
+                 Source = new BitmapImage(new Uri($@".\Resources\{button.Uid}.png", UriKind.Relative))
+            };
             UpCardImage.Source = buttonImage.Source;
             UpCardName = button.Uid;
             CurrentColor = Utils.FindCurrentColor(UpCardName);
@@ -499,73 +462,29 @@ public partial class MainWindow : Window, INotifyPropertyChanged
         }
     }
 
-    private void HumanPlayerDraw(object sender, RoutedEventArgs e)
-    {
-        ChackPileEmpty(1);
-
-        Button card = new Button()
-        {
-            Uid = deck[remainingCardsInPile - 1],
-            Background = Brushes.Transparent,
-            BorderThickness = new Thickness(1),
-            Margin = new Thickness(0, 0, -40, 0),
-            BorderBrush = new SolidColorBrush(Colors.Transparent),
-            Height = 125,
-            Width = 75,
-            Content = new Image() { Source = new BitmapImage(new Uri($@".\Resources\{deck[remainingCardsInPile - 1]}.png", UriKind.Relative)) }
-        };
-        card.Click += PlayerTurn;
-        playerOne.Hand.Children.Add(card);
-        playerOne.Deck.Add(deck[remainingCardsInPile - 1]);
-        remainingCardsInPile -= 1;
-
-        DrawPile.Click -= HumanPlayerDraw;
-
-        nextTurn = AdvanceTurn(1);
-        ActivePlayer = turns[nextTurn];
-        currentTurn = nextTurn;
-    }
-
     private void SpecialCardDraw(int times)
     {
         if (turns[AdvanceTurn(1)] != playerOne)
         {
-            for (int i = 0; i < times; i++)
-            {
-                Image cardImage = new Image()
-                {
-                    Uid = deck[remainingCardsInPile - 1],
-                    Source = new BitmapImage(new Uri(@".\Resources\card_back.png", UriKind.Relative)),
-                    Height = 100,
-                    Width = 50,
-                    Margin = new Thickness(0, 0, -15, 0),
-                };
-                turns[AdvanceTurn(1)].Hand.Children.Add(cardImage);
-                turns[AdvanceTurn(1)].Deck.Add(deck[remainingCardsInPile - 1]);
-                remainingCardsInPile -= 1;
-            }
+            ComputerCardsDraw(times, turns[AdvanceTurn(1)]);
         }
         else
         {
-            for (int i = 0; i < times; i++)
-            {
-                Button card = new Button()
-                {
-                    Uid = deck[remainingCardsInPile - 1],
-                    Background = Brushes.Transparent,
-                    BorderThickness = new Thickness(1),
-                    Margin = new Thickness(0, 0, -40, 0),
-                    BorderBrush = new SolidColorBrush(Colors.Transparent),
-                    Height = 125,
-                    Width = 75,
-                    Content = new Image() { Source = new BitmapImage(new Uri($@".\Resources\{deck[remainingCardsInPile - 1]}.png", UriKind.Relative)) }
-                };
-                card.Click += PlayerTurn;
-                playerOne.Hand.Children.Add(card);
-                playerOne.Deck.Add(deck[remainingCardsInPile - 1]);
-                remainingCardsInPile -= 1;
-            }
+            HumanCardsDraw(times);
         }
+    }
+
+    private void DrawFromPile(object sender, RoutedEventArgs e)
+    {
+        ChackPileEmpty(1);
+
+        HumanCardsDraw(1);
+
+        DrawPile.Click -= DrawFromPile;
+
+        nextTurn = AdvanceTurn(1);
+        ActivePlayer = turns[nextTurn];
+        currentTurn = nextTurn;
     }
 
     private void ColorChange(object sender, RoutedEventArgs e)
@@ -607,5 +526,48 @@ public partial class MainWindow : Window, INotifyPropertyChanged
     {
         Player1Space.Visibility = Visibility.Collapsed;
         PlayerSelectionWindow.Visibility = Visibility.Visible;
+    }
+
+    private void HumanCardsDraw(int amount)
+    {
+        for (int j = 0; j < amount; j++)
+        {
+            Button card = new Button()
+            {
+                Uid = deck[remainingCardsInPile - 1],
+                Margin = new Thickness(0, 0, -40, 0),
+                Height = 125,
+                Width = 75,
+                Style = (Style)FindResource("CardButtonStyle")
+            };
+            Border cardBorder = new Border()
+            {
+                Style = (Style)FindResource("CardBorderStyle"),
+                Child = new Image() { Source = new BitmapImage(new Uri($@".\Resources\{deck[remainingCardsInPile - 1]}.png", UriKind.Relative)) }
+            };
+            card.Content = cardBorder;
+            card.Click += PlayerTurn;
+            playerOne.Hand.Children.Add(card);
+            playerOne.Deck.Add(deck[remainingCardsInPile - 1]);
+            remainingCardsInPile -= 1;
+        }
+    }
+
+    private void ComputerCardsDraw(int amount, Player player)
+    {
+        for (int i = 0; i < amount; i++)
+        {
+            Image cardImage = new Image()
+            {
+                Uid = deck[remainingCardsInPile - 1],
+                Source = new BitmapImage(new Uri(@".\Resources\card_back.png", UriKind.Relative)),
+                Height = 100,
+                Width = 50,
+                Margin = new Thickness(0, 0, -15, 0),
+            };
+            player.Hand.Children.Add(cardImage);
+            player.Deck.Add(deck[remainingCardsInPile - 1]);
+            remainingCardsInPile -= 1;
+        }
     }
 }
