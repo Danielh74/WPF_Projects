@@ -6,27 +6,38 @@
         xmlns:local="clr-namespace:Pong" xmlns:controls="clr-namespace:Pong.Controls"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="CustomStyles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
     <Grid>
         <Canvas Name="gameScreen" Background="Black">
-            <Rectangle Name="player1" 
-                   Fill="White" 
-                   Width="10" 
-                   Height="100"/>
+            <Rectangle 
+                Name="player1" 
+                Fill="White" 
+                Width="10" 
+                Height="100"/>
 
             <Rectangle 
-            Name="player2" 
-            Fill="White" 
-            Width="10" 
-            Height="100"/>
+                Name="player2" 
+                Fill="White" 
+                Width="10" 
+                Height="100"/>
 
             <Rectangle 
-            Name="ball" 
-            Fill="White" 
-            Width="10" 
-            Height="10"/>
+                Name="ball" 
+                Fill="White" 
+                Width="10" 
+                Height="10"/>
+            
             <StackPanel Orientation="Horizontal">
-                <Button Content="Exit" Padding="3" FontFamily="FFF Forward" Margin="5" Foreground="White" Background="Transparent" BorderBrush="White" Click="ExitGame"/>
-                <Button Content="Restart" Padding="3" FontFamily="FFF Forward" Margin="5" Foreground="White" Background="Transparent" BorderBrush="White" Click="RestartGame"/>
+                <Button Content="Exit" Style="{StaticResource CustomButtonStyle}" Width="55" Click="ExitGame"/>
+                <Button Content="Restart" Style="{StaticResource CustomButtonStyle}" Width="80" Click="RestartGame"/>
             </StackPanel>
             <StackPanel Name="scorePanel" Orientation="Horizontal">
                 <TextBlock Text="{Binding PlayerOneScore}" FontFamily="FFF Forward" Foreground="White" FontSize="40" Margin="5"/>
