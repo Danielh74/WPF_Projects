@@ -74,7 +74,15 @@
 
     <Style x:Key="EndGameButtonStyle" TargetType="Button">
         <Setter Property="Background" Value="White" />
-        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="BorderThickness" Value="1.5" />
+        <Setter Property="BorderBrush" >
+            <Setter.Value>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.2,0">
+                    <GradientStop Color="Red"/>
+                    <GradientStop Color="#FFFFDD00" Offset="1"/>
+                </LinearGradientBrush>
+            </Setter.Value>
+        </Setter>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
