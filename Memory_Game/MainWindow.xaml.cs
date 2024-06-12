@@ -29,6 +29,7 @@ namespace Memory_Game
         {
             InitializeComponent();
 
+            gameGrid.TurnChanged += HandleTurnChanged;
             gameGrid.TurnWon += HandleTurnWon;
             gameGrid.GameEnded += HandleGameEnd;
             winnerAlert.Visibility = Visibility.Collapsed;
@@ -78,9 +79,24 @@ namespace Memory_Game
             {
                 gameGrid.InitializeGameBoard(5);
             }
+
             isGameActive = true;
+            HighlightPlayerOne();
         }
-        private void HandleTurnWon(object? sender, TurnWinEventArgs e)
+
+        private void HandleTurnChanged(object? sender, TurnChangeEventArgs e)
+        {
+            if (e.IsPlayerOneTurn)
+            {
+                HighlightPlayerOne();
+            }
+            else
+            {
+                HighlightPlayerTwo();
+            }
+        }
+
+        private void HandleTurnWon(object? sender, TurnChangeEventArgs e)
         {
             if (e.IsPlayerOneTurn)
             {
@@ -140,9 +156,26 @@ namespace Memory_Game
             PlayerTwoScore = 0;
             gameGrid.ResetGameBoard();
         }
+
         private void ExitGame(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+        private void HighlightPlayerOne()
+        {
+            p1_section.Foreground = Brushes.Blue;
+            p1_section.FontWeight = FontWeights.Bold;
+
+            p2_section.Foreground = Brushes.Black;
+            p2_section.FontWeight = FontWeights.SemiBold;
+        }
+        private void HighlightPlayerTwo()
+        {
+            p2_section.Foreground = Brushes.Red;
+            p2_section.FontWeight = FontWeights.Bold;
+
+            p1_section.Foreground = Brushes.Black;
+            p1_section.FontWeight = FontWeights.SemiBold;
         }
     }
 }

@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Memory_Game.CustomEventArgs
 {
-    public class TurnWinEventArgs : EventArgs
+    public class TurnChangeEventArgs : EventArgs
     {
-        public TurnWinEventArgs(bool isPlayerOneTurn)
+        public TurnChangeEventArgs(bool isPlayerOneTurn)
         {
             IsPlayerOneTurn = isPlayerOneTurn;
         }

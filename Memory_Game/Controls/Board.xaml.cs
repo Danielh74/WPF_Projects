@@ -23,7 +23,8 @@ namespace Memory_Game.Controls
     public partial class Board : UserControl
     {
         public EventHandler GameEnded;
-        public EventHandler<TurnWinEventArgs> TurnWon;
+        public EventHandler<TurnChangeEventArgs> TurnWon;
+        public EventHandler<TurnChangeEventArgs> TurnChanged;
 
         public bool isPlayerOneTurn = true;
 
@@ -65,9 +66,7 @@ namespace Memory_Game.Controls
                     {
                         Uid = randomizePokemon[pokemonIndex],
                         Background = new ImageBrush() { ImageSource = cardBackground.Source },
-                        Width = 100,
-                        Height = 120,
-                        Margin = new Thickness(10)
+                        Style = (Style)FindResource("CardStyle")
                     };
 
                     button.Click += RevealImage;
@@ -119,6 +118,7 @@ namespace Memory_Game.Controls
                 }
 
                 isPlayerOneTurn = !isPlayerOneTurn;
+                OnTurnChanged(isPlayerOneTurn);
             }
         }
 
@@ -131,10 +131,14 @@ namespace Memory_Game.Controls
                 button.Background = new ImageBrush() { ImageSource = cardBackground.Source };
             }
         }
+        private void OnTurnChanged(bool isPlayerOneTurn)
+        {
+            TurnChanged?.Invoke(this, new TurnChangeEventArgs(isPlayerOneTurn));
+        }
 
         private void OnTurnWin(bool isPlayerOneTurn)
         {
-            TurnWon?.Invoke(this, new TurnWinEventArgs(isPlayerOneTurn));
+            TurnWon?.Invoke(this, new TurnChangeEventArgs(isPlayerOneTurn));
         }
 
         private void OnGameEnd()
