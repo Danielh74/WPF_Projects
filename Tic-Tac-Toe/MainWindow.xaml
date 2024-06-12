@@ -35,11 +35,13 @@
                     <TextBlock Text="Leaderboard" FontFamily="Agency FB" FontWeight="Bold" FontSize ="20" HorizontalAlignment="Center"/>
                     <TextBlock Margin="10,20,0,5" FontFamily="Agency FB" FontSize ="15">
                         <Run Name="p1_name" FontWeight="DemiBold"/>
+                        <Run Text=": " Foreground="Blue" FontWeight="DemiBold"/>
                         <Run Name="p1_score" Text="{Binding PlayerOneScore}" FontWeight="DemiBold"/>
                     </TextBlock>
 
                     <TextBlock Margin="10,0,0,20" FontFamily="Agency FB" FontSize ="15">
                         <Run Name="p2_name" FontWeight="DemiBold"/>
+                        <Run Text=": " Foreground="Red" FontWeight="DemiBold"/>
                         <Run Name="p2_score" Text="{Binding PlayerTwoScore}" FontWeight="DemiBold"/>
                     </TextBlock>
                 </StackPanel>

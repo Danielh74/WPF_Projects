@@ -75,24 +75,24 @@ namespace Tic_Tac_Toe
                     return;
                 }
                 gameType = GameType.PvP;
-                p1_name.Text = $"{p1_text.Text} : ";
-                p2_name.Text = $"{p2_text.Text} : ";
+                p1_name.Text = $"{p1_text.Text}";
+                p2_name.Text = $"{p2_text.Text}";
 
                 ActiveGameMode(Btn_PvP);
             }
             else if (sender == Btn_PvC)
             {
                 gameType = GameType.PvC;
-                p1_name.Text = $"Player 1 : ";
-                p2_name.Text = "Computer : ";
+                p1_name.Text = $"Player 1";
+                p2_name.Text = "Computer";
 
                 ActiveGameMode(Btn_PvC);
             }
             else if (sender == Btn_CvC)
             {
                 gameType = GameType.CvC;
-                p1_name.Text = "Computer 1 : ";
-                p2_name.Text = "Computer 2 : ";
+                p1_name.Text = "Computer 1";
+                p2_name.Text = "Computer 2";
 
                 ActiveGameMode(Btn_CvC);
             }
