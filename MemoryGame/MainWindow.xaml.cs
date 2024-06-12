@@ -1,4 +1,4 @@
-﻿using Memory_Game.CustomEventArgs;
+﻿using MemoryGame.CustomEventArgs;
 using System.ComponentModel;
 using System.Text;
 using System.Windows;
@@ -12,7 +12,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 
-namespace Memory_Game
+namespace MemoryGame
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

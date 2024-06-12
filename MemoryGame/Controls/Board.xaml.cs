@@ -13,9 +13,9 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Memory_Game.CustomEventArgs;
+using MemoryGame.CustomEventArgs;
 
-namespace Memory_Game.Controls
+namespace MemoryGame.Controls
 {
     /// <summary>
     /// Interaction logic for Board.xaml
@@ -29,7 +29,7 @@ namespace Memory_Game.Controls
 
         private List<string> pokemon = new List<string>() { "Blastoise", "Bulbasaur", "Charizard", "Charmander", "Dragonite", "Eevee", "Magikarp", "Mewtwo", "Pikachu", "Squirtle" };
         private List<string> randomizePokemon;
-        private string uriString = "pack://application:,,,/Memory_Game;component/Resources";
+        private string uriString = @"C:\Users\Danie\Desktop\Studies\.NET\.NET_course\WPF\Projects\Memory_Game\Resources";
         private Button firstClickedCard;
         private Button secondClickedCard;
         private Image cardBackground;
@@ -44,7 +44,7 @@ namespace Memory_Game.Controls
 
             cardBackground = new Image()
             {
-                Source = new BitmapImage(new Uri($@"{uriString}\card_background.png"))
+                Source = new BitmapImage(new Uri($"./Resources/card_background.png",UriKind.Relative))
             };
             
             int pokemonIndex = 0;
@@ -89,7 +89,7 @@ namespace Memory_Game.Controls
             int row = Grid.GetRow(btn);
             int col = Grid.GetColumn(btn);
 
-            btn.Background = new ImageBrush() { ImageSource = new BitmapImage(new Uri($@"{uriString}\{btn.Uid}.png")) };
+            btn.Background = new ImageBrush() { ImageSource = new BitmapImage(new Uri($"{uriString}/{btn.Uid}.png", UriKind.Absolute)) };
 
             if (firstClickedCard == null)
             {
