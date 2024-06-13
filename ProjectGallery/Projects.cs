@@ -16,7 +16,7 @@ namespace ProjectGallery
             new PhotoGallery.Project(),
             new Uno_Game.Project(),
             new Pong.Project(),
-            new PersonManager.Project(),
+            new EmployeeManager.Project(),
             new JokeApp.Project()
         ];
         public static IProjectMeta[] List { get => list; }

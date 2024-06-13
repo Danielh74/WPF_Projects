@@ -35,17 +35,25 @@
         <ScrollViewer  VerticalScrollBarVisibility="Auto" Grid.Row="1" Margin="10">
             <StackPanel>
                 <TextBlock Text="{Binding}" TextWrapping="Wrap" FontSize="14" FontWeight="DemiBold"/>
-                
+
                 <TextBlock Text="Contacts" FontSize="17" FontWeight="bold" Margin="0,10"/>
-                
+
                 <StackPanel Orientation="Horizontal">
                     <Image Source="../Resources/phone_icon.png" Height="40" Width="40"/>
-                    <TextBlock Text="+972507717440" Margin="5,0,0,0" VerticalAlignment="Center"/>
+                    <TextBlock Margin="5,0,0,0" VerticalAlignment="Center">
+                        <Hyperlink NavigateUri="tel:+972507717440" RequestNavigate="NavigateToContact">
+                            +972507717440
+                        </Hyperlink>
+                    </TextBlock>
                 </StackPanel>
-               
+
                 <StackPanel Orientation="Horizontal">
                     <Image Source="../Resources/email_icon.png" Height="40" Width="40"/>
-                    <TextBlock Text="Danielh07042000@gmail.com" Margin="5,0,0,0" VerticalAlignment="Center"/>
+                    <TextBlock Margin="5,0,0,0" VerticalAlignment="Center">
+                        <Hyperlink NavigateUri="mailto:Danielh07042000@gmail.com" RequestNavigate="NavigateToContact">
+                             Danielh07042000@gmail.com
+                         </Hyperlink>
+                    </TextBlock>
                 </StackPanel>
             </StackPanel>
         </ScrollViewer>

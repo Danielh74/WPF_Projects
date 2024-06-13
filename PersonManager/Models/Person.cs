@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PersonManager.Models
+namespace EmployeeManager.Models
 {
     public class Person
     {
@@ -13,12 +13,14 @@ namespace PersonManager.Models
         public int ID { get; set; }
         public string Name { get; set; }
         public int Age { get; set; }
+        public string Department { get; set; }
 
-        public Person(int id, string name, int age)
+        public Person(int id, string name, int age, string department)
         {
             ID = id;
             Name = name;
             Age = age;
+            Department = department;
         }
     }
 }

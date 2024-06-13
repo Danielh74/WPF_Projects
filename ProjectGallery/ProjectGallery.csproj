@@ -12,10 +12,10 @@
     <None Remove="Resources\api.png" />
     <None Remove="Resources\c-sharp.png" />
     <None Remove="Resources\email_icon.png" />
+    <None Remove="Resources\EmployeeManager.png" />
     <None Remove="Resources\joke.png" />
     <None Remove="Resources\json.png" />
     <None Remove="Resources\oop.png" />
-    <None Remove="Resources\PersonManager.png" />
     <None Remove="Resources\phone_icon.png" />
     <None Remove="Resources\photoGallery.png" />
     <None Remove="Resources\pokedex.png" />
@@ -31,7 +31,7 @@
     <ProjectReference Include="..\Common\Common.csproj" />
     <ProjectReference Include="..\JokeApp\JokeApp.csproj" />
     <ProjectReference Include="..\Memory_Game\Memory_Game.csproj" />
-    <ProjectReference Include="..\PersonManager\PersonManager.csproj" />
+    <ProjectReference Include="..\PersonManager\EmployeeManager.csproj" />
     <ProjectReference Include="..\PhotoGallery\PhotoGallery.csproj" />
     <ProjectReference Include="..\Pokedex\Pokedex.csproj" />
     <ProjectReference Include="..\Pong\Pong.csproj" />
@@ -48,7 +48,7 @@
     </Resource>
     <Resource Include="Resources\json.png" />
     <Resource Include="Resources\oop.png" />
-    <Resource Include="Resources\PersonManager.png" />
+    <Resource Include="Resources\EmployeeManager.png" />
     <Resource Include="Resources\phone_icon.png" />
     <Resource Include="Resources\photoGallery.png" />
     <Resource Include="Resources\pokedex.png" />

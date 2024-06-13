@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common", "Common\Common.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tic-Tac-Toe", "Tic-Tac-Toe\Tic-Tac-Toe.csproj", "{1DCA0669-CD93-4DC6-BE95-23F3E26D541D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PersonManager", "PersonManager\PersonManager.csproj", "{9D1FB44F-F865-4826-A6E0-4C8860B0DCA7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmployeeManager", "PersonManager\EmployeeManager.csproj", "{9D1FB44F-F865-4826-A6E0-4C8860B0DCA7}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JokeApp", "JokeApp\JokeApp.csproj", "{F82CD3CC-29F0-45CC-B422-CEB13C9ADA94}"
 EndProject

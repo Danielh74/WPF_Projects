@@ -1,4 +1,4 @@
-﻿using PersonManager.Models;
+﻿using EmployeeManager.Models;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -16,29 +16,57 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace PersonManager
+namespace EmployeeManager
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
-        private const string filePath = @"C:\Users\Danie\Desktop\Studies\.NET\.NET_course\WPF\Projects\PersonManager\people.json";
         JsonSerializerOptions options = new JsonSerializerOptions
         {
             WriteIndented = true
         };
         private ObservableCollection<Person> People { get; set; } = new ObservableCollection<Person>();
         private readonly ICollectionView peopleView;
-
+        private List<string> departmentList = new List<string>(){"R&D", "IT", "HR", "Analytics", "Managment", "QA","Development","Design" };
         public MainWindow()
         {
             InitializeComponent();
 
+            btn_Update.Visibility = Visibility.Collapsed;
             peopleView = CollectionViewSource.GetDefaultView(People);
             PeopleTable.ItemsSource = peopleView;
+            DepartmentList.ItemsSource = departmentList;
 
             LoadData();
+        }
+        private void LoadData()
+        {
+            if (!File.Exists("people.json"))
+            {
+                return;
+            }
+            try
+            {
+                string rawData = File.ReadAllText("people.json");
+                List<Person>? result = JsonSerializer.Deserialize<List<Person>>(rawData);
+                if (result == null)
+                {
+                    return;
+                }
+                else
+                {
+                    foreach (Person person in result)
+                    {
+                        People.Add(person);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Failed to load data: {ex.Message}");
+            }
         }
 
         private void AddPerson(object sender, RoutedEventArgs e)
@@ -71,10 +99,46 @@ namespace PersonManager
 
             string name = TB_Name.Text;
 
-            People.Add(new Person(id, name, age));
+            if (DepartmentList.SelectedItem == null)
+            {
+                MessageBox.Show("No department was selected");
+                return;
+            }
+
+            string? department = DepartmentList.SelectedItem.ToString();
+
+            People.Add(new Person(id, name, age, department));
 
             SaveData();
             ClearForm();
+        }
+
+        private void SaveData()
+        {
+            try
+            {
+                string rawData = JsonSerializer.Serialize(People, options);
+                File.WriteAllText("people.json", rawData);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Failed to save data: {ex.Message}");
+            }
+        }
+
+        private void ShowDetailsToEdit(object sender, RoutedEventArgs e)
+        {
+            TB_ID.IsEnabled = false;
+            btn_Update.Visibility = Visibility.Visible;
+            btn_Add.Visibility = Visibility.Collapsed;
+
+            if (PeopleTable.SelectedItem is Person selectedPerson)
+            {
+                TB_ID.Text = selectedPerson?.ID.ToString();
+                TB_Name.Text = selectedPerson?.Name;
+                TB_Age.Text = selectedPerson?.Age.ToString();
+                DepartmentList.SelectedItem = selectedPerson?.Department;
+            }
         }
 
         private void UpdatePerson(object sender, RoutedEventArgs e)
@@ -94,13 +158,8 @@ namespace PersonManager
 
             SaveData();
             ClearForm();
-
-            TB_ID.IsEnabled = true;
-        }
-
-        private void HandleClearClick(object sender, RoutedEventArgs e)
-        {
-            ClearForm();
+            btn_Update.Visibility = Visibility.Collapsed;
+            btn_Add.Visibility = Visibility.Visible;
 
             TB_ID.IsEnabled = true;
         }
@@ -108,18 +167,18 @@ namespace PersonManager
         private void HandleDeleteClick(object sender, RoutedEventArgs e)
         {
             MessageBoxResult result = MessageBox.Show("Are you sure you want to delete?", "Delete item", MessageBoxButton.YesNo);
-            if (result == MessageBoxResult.No) 
+            if (result == MessageBoxResult.No)
             {
                 return;
             }
 
             Button btn = sender as Button;
-            if (btn == null) 
+            if (btn == null)
             {
                 return;
             }
 
-            if(btn.DataContext is Person personToDelete) 
+            if (btn.DataContext is Person personToDelete)
             {
                 People.Remove(personToDelete);
                 SaveData();
@@ -127,6 +186,24 @@ namespace PersonManager
 
                 TB_ID.IsEnabled = true;
             }
+        }
+
+        private void ClearForm()
+        {
+            TB_ID.Clear();
+            TB_Age.Clear();
+            TB_Name.Clear();
+            DepartmentList.SelectedItem = null;
+
+            PeopleTable.SelectedItem = null;
+        }
+
+        private void HandleClearClick(object sender, RoutedEventArgs e)
+        {
+            ClearForm();
+            btn_Update.Visibility = Visibility.Collapsed;
+            btn_Add.Visibility = Visibility.Visible;
+            TB_ID.IsEnabled = true;
         }
 
         private void Filter_KeyUp(object sender, KeyEventArgs e)
@@ -141,56 +218,6 @@ namespace PersonManager
                 }
                 return false;
             };
-        }
-
-        private void LoadData()
-        {
-            if (!File.Exists(filePath))
-            {
-                return;
-            }
-            try
-            {
-                string rawData = File.ReadAllText(filePath);
-                List<Person>? result = JsonSerializer.Deserialize<List<Person>>(rawData);
-                if (result == null)
-                {
-                    return;
-                }
-                else
-                {
-                    foreach (Person person in result)
-                    {
-                        People.Add(person);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Failed to load data: {ex.Message}");
-            }
-        }
-
-        private void SaveData()
-        {
-            try
-            {
-                string rawData = JsonSerializer.Serialize(People, options);
-                File.WriteAllText(filePath, rawData);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Failed to save data: {ex.Message}");
-            }
-        }
-
-        private void ClearForm()
-        {
-            TB_ID.Clear();
-            TB_Age.Clear();
-            TB_Name.Clear();
-
-            PeopleTable.SelectedItem = null;
         }
 
         private bool IdExists()
@@ -221,18 +248,6 @@ namespace PersonManager
             TB_Filter.Foreground = Brushes.Gray;
 
             peopleView.Filter = o => true;
-        }
-
-        private void ShowDetailsToEdit(object sender, RoutedEventArgs e)
-        {
-            TB_ID.IsEnabled = false;
-
-            if (PeopleTable.SelectedItem is Person selectedPerson)
-            {
-                TB_ID.Text = selectedPerson?.ID.ToString();
-                TB_Name.Text = selectedPerson?.Name;
-                TB_Age.Text = selectedPerson?.Age.ToString();
-            }
         }
     }
 }
