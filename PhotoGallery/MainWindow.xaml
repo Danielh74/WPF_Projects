@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PhotoGallery" xmlns:controls="clr-namespace:PhotoGallery.Controls"
         mc:Ignorable="d"
-        Title="MainWindow" Height="500" Width="800">
+        Title="Photo Gallery" Height="500" Width="800">
 
     <Window.Resources>
         <ResourceDictionary>

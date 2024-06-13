@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Uno_Game" xmlns:controls="clr-namespace:Uno_Game.Controls"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Uno Card Game" Height="450" Width="800">
 
     <Window.Resources>
         <ResourceDictionary>

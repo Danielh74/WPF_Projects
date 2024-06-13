@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Memory_Game" xmlns:controls="clr-namespace:Memory_Game.Controls"
         mc:Ignorable="d"
-        Title="MainWindow" Height="700" Width="850">
+        Title="Pokemon Memory Game" Height="700" Width="850">
 
     <Window.Resources>
         <ResourceDictionary>

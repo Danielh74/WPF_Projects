@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:controls="clr-namespace:Tic_Tac_Toe.Controls"
         mc:Ignorable="d"
-        Title="MainWindow" Height="500" Width="800">
+        Title="TicTacToe" Height="500" Width="800">
 
     <Window.Resources>
         <ResourceDictionary>
