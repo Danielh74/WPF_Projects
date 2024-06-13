@@ -11,10 +11,12 @@
   <ItemGroup>
     <None Remove="Resources\api.png" />
     <None Remove="Resources\c-sharp.png" />
+    <None Remove="Resources\email_icon.png" />
     <None Remove="Resources\joke.png" />
     <None Remove="Resources\json.png" />
     <None Remove="Resources\oop.png" />
     <None Remove="Resources\PersonManager.png" />
+    <None Remove="Resources\phone_icon.png" />
     <None Remove="Resources\photoGallery.png" />
     <None Remove="Resources\pokedex.png" />
     <None Remove="Resources\pokemon_memory.png" />
@@ -40,12 +42,14 @@
   <ItemGroup>
     <Resource Include="Resources\api.png" />
     <Resource Include="Resources\c-sharp.png" />
+    <Resource Include="Resources\email_icon.png" />
     <Resource Include="Resources\joke.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\json.png" />
     <Resource Include="Resources\oop.png" />
     <Resource Include="Resources\PersonManager.png" />
+    <Resource Include="Resources\phone_icon.png" />
     <Resource Include="Resources\photoGallery.png" />
     <Resource Include="Resources\pokedex.png" />
     <Resource Include="Resources\pokemon_memory.png" />

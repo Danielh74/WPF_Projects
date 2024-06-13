@@ -17,8 +17,7 @@
             Name="PeopleTable" 
             IsReadOnly="True" 
             SelectionMode="Single"
-            SelectionUnit="FullRow"
-            SelectionChanged="PeopleTable_SelectionChanged" >
+            SelectionUnit="FullRow">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ID" Width="*" Binding="{Binding ID}"/>
                 <DataGridTextColumn Header="Name" Width="*" Binding="{Binding Name}"/>
@@ -27,7 +26,18 @@
                 <DataGridTemplateColumn Header="Action" Width="*">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Content="Delete" Click="HandleDeleteClick"/>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Button Background="Transparent" BorderThickness="0" Margin="5,0,5,0" Click="ShowDetailsToEdit">
+                                    <Border CornerRadius="3" BorderThickness="1" BorderBrush="Black" Padding="2">
+                                        <Image Source="Resources/edit.png" Height="15" Width="15"/>
+                                    </Border>
+                                </Button>
+                                <Button Background="Transparent" BorderThickness="0" Margin="5,0,5,0" Click="EditPerson">
+                                    <Border CornerRadius="3" BorderThickness="1" BorderBrush="Black" Padding="2">
+                                        <Image Source="Resources/delete.png" Height="15" Width="15"/>
+                                    </Border>
+                                </Button>
+                            </StackPanel>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -51,9 +61,9 @@
             <Label Content="Age:" Margin="6,0,10,0"/>
             <TextBox Name="TB_Age" Margin="10,0,10,0"/>
 
-            <Button Name="btn_Clear" Content="Clear" HorizontalAlignment="Right" Margin="10,10" Padding="10,0,10,0" Click="ClearBtn_Click"/>
-            <Button Name="btn_Add" Content="Add" Margin="30,10,30,0" Click="AddBtn_Click"/>
-            <Button Name="btn_Update" Content="Update" Margin="30,10,30,0" Click="UpdateBtn_Click"/>
+            <Button Name="btn_Clear" Content="Clear" HorizontalAlignment="Right" Margin="10,10" Padding="10,0,10,0" Click="HandleClearClick"/>
+            <Button Name="btn_Add" Content="Add" Margin="30,10,30,0" Click="AddPerson"/>
+            <Button Name="btn_Update" Content="Update" Margin="30,10,30,0" Click="UpdatePerson"/>
         </StackPanel>
     </Grid>
 </Window>

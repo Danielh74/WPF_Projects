@@ -41,7 +41,7 @@ namespace PersonManager
             LoadData();
         }
 
-        private void AddBtn_Click(object sender, RoutedEventArgs e)
+        private void AddPerson(object sender, RoutedEventArgs e)
         {
             if (TB_ID.Text == "" || !int.TryParse(TB_ID.Text, out int id) || IdExists())
             {
@@ -77,7 +77,7 @@ namespace PersonManager
             ClearForm();
         }
 
-        private void UpdateBtn_Click(object sender, RoutedEventArgs e)
+        private void UpdatePerson(object sender, RoutedEventArgs e)
         {
             if (PeopleTable.SelectedItem is Person selectedPerson
                 && int.TryParse(TB_Age.Text, out int age)
@@ -98,19 +98,13 @@ namespace PersonManager
             TB_ID.IsEnabled = true;
         }
 
-        private void ClearBtn_Click(object sender, RoutedEventArgs e)
+        private void HandleClearClick(object sender, RoutedEventArgs e)
         {
             ClearForm();
 
             TB_ID.IsEnabled = true;
         }
 
-        private void DeleteBtn_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        // For Delete buttons for every item
         private void HandleDeleteClick(object sender, RoutedEventArgs e)
         {
             MessageBoxResult result = MessageBox.Show("Are you sure you want to delete?", "Delete item", MessageBoxButton.YesNo);
@@ -132,18 +126,6 @@ namespace PersonManager
                 ClearForm();
 
                 TB_ID.IsEnabled = true;
-            }
-        }
-
-        private void PeopleTable_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            TB_ID.IsEnabled = false;
-
-            if (PeopleTable.SelectedItem is Person selectedPerson)
-            {
-                TB_ID.Text = selectedPerson?.ID.ToString();
-                TB_Name.Text = selectedPerson?.Name;
-                TB_Age.Text = selectedPerson?.Age.ToString();
             }
         }
 
@@ -239,6 +221,18 @@ namespace PersonManager
             TB_Filter.Foreground = Brushes.Gray;
 
             peopleView.Filter = o => true;
+        }
+
+        private void ShowDetailsToEdit(object sender, RoutedEventArgs e)
+        {
+            TB_ID.IsEnabled = false;
+
+            if (PeopleTable.SelectedItem is Person selectedPerson)
+            {
+                TB_ID.Text = selectedPerson?.ID.ToString();
+                TB_Name.Text = selectedPerson?.Name;
+                TB_Age.Text = selectedPerson?.Age.ToString();
+            }
         }
     }
 }

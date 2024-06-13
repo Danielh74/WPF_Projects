@@ -12,12 +12,12 @@ namespace ProjectGallery
         private static IProjectMeta[] list = [
             new Tic_Tac_Toe.Project(),
             new Memory_Game.Project(),
-            new PersonManager.Project(),
-            new JokeApp.Project(),
             new Pokedex.Project(),
             new PhotoGallery.Project(),
             new Uno_Game.Project(),
-            new Pong.Project()
+            new Pong.Project(),
+            new PersonManager.Project(),
+            new JokeApp.Project()
         ];
         public static IProjectMeta[] List { get => list; }
     }
