@@ -62,6 +62,6 @@
             <Image Source="..\Resources\studentPhoto.jpeg" Margin="30"/>
         </Viewbox>
 
-        <local:Footer Grid.Row="2" Grid.ColumnSpan="2" Margin="10"/>
+        <local:Footer Grid.Row="2" Grid.ColumnSpan="2"/>
     </Grid>
 </UserControl>

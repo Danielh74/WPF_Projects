@@ -24,15 +24,19 @@ namespace ProjectGallery
         public MainWindow()
         {
             InitializeComponent();
-            InitializeProjectButtons();
+
+            ViewProjectList(Projects.List, ProjectPanel);
+            ViewProjectList(Projects.ExtraList, ExtraPanel);
+
             projectDescription.SetMainWindow(this);
+
             projectDescription.Visibility = Visibility.Collapsed;
             aboutMeSection.Visibility = Visibility.Collapsed;
         }
-       
-        private void InitializeProjectButtons()
+
+        private void ViewProjectList(IProjectMeta[] projectList, Panel panel)
         {
-            foreach (IProjectMeta project in Projects.List)
+            foreach (IProjectMeta project in projectList)
             {
                 StackPanel projectBtn = new StackPanel()
                 {
@@ -49,7 +53,7 @@ namespace ProjectGallery
                 {
                     Text = project.Name,
                     TextAlignment = TextAlignment.Center,
-                    Margin = new Thickness(0,5,0,0)
+                    Margin = new Thickness(0, 5, 0, 0)
                 };
 
                 projectBtn.MouseDown += (sender, e) =>
@@ -61,10 +65,9 @@ namespace ProjectGallery
                 projectBtn.Children.Add(projectImg);
                 projectBtn.Children.Add(projectName);
 
-                ProjectPanel.Children.Add(projectBtn);
+                panel.Children.Add(projectBtn);
             }
         }
-
         private void About_Click(object sender, MouseButtonEventArgs e)
         {
            aboutMeSection.Visibility = Visibility.Visible;

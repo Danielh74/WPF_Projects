@@ -6,22 +6,27 @@
              xmlns:local="clr-namespace:ProjectGallery.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    
+    <Border BorderThickness="0,0.5,0,0" BorderBrush="LightGray">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
 
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
-        <StackPanel Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center">
-                <TextBlock Text="&#169; 2024 Daniel Hazan. All rights reserved" FontSize="10" VerticalAlignment="Center"/>
+            <StackPanel Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center">
+                <TextBlock Text="&#169; 2024 Daniel Hazan. All rights reserved" FontSize="10" Margin="10" VerticalAlignment="Center"/>
             </StackPanel>
-        <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
-            <Image Source="\Resources\c-sharp.png" Height="30" Width="30" Margin="5"/>
-            <Image Source="\Resources\json.png" Height="30" Width="30" Margin="5"/>
-            <Image Source="\Resources\oop.png" Height="30" Width="30" Margin="5"/>
-            <Image Source="\Resources\api.png" Height="30" Width="30" Margin="5"/>
-            <Image Source="\Resources\xaml.png" Height="30" Width="30" Margin="5"/>
-        </StackPanel>
-    </Grid>
+
+            <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                <Image Source="\Resources\c-sharp.png" Height="30" Width="30" Margin="5"/>
+                <Image Source="\Resources\json.png" Height="30" Width="30" Margin="5"/>
+                <Image Source="\Resources\oop.png" Height="30" Width="30" Margin="5"/>
+                <Image Source="\Resources\api.png" Height="30" Width="30" Margin="5"/>
+                <Image Source="\Resources\xaml.png" Height="30" Width="30" Margin="5"/>
+            </StackPanel>
+        </Grid>
+    </Border>
+
 
 </UserControl>
