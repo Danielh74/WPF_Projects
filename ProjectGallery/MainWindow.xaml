@@ -28,11 +28,10 @@
             </DockPanel>
         </Border>
         
-        <StackPanel Grid.Row="1">
+        <StackPanel Grid.Row="1" Background="#FFE3E3E3" Margin="0,2,0,2">
             <WrapPanel Name="ProjectPanel" Margin="10" HorizontalAlignment="Center"/>
             <TextBlock Text="Extra Projecs:" Margin="0,10,0,0" FontWeight="Bold" FontSize="30" HorizontalAlignment="Center"/>
             <StackPanel Name="ExtraPanel" HorizontalAlignment="Center" Orientation="Horizontal"/>
-
         </StackPanel>
 
         <controls:Footer Grid.Row="2"/>

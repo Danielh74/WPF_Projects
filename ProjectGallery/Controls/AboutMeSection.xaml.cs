@@ -21,8 +21,7 @@ namespace ProjectGallery.Controls
     /// </summary>
     public partial class AboutMeSection : UserControl
     {
-        string aboutMe = "Hello! I'm Daniel Hazan, a FullStack development student at HackerU.\nI'm passionate about creating seamless web applications using technologies like JavaScript, HTML, CSS, Node.js, and React.\nAdditionally, I have experience building WPF applications.\nAt HackerU, I've developed my skills through hands-on projects and rigorous coursework.\nI'm driven by a love for innovation and continuous learning, and I enjoy collaborating on tech projects.\nThis is my WPF project, feel free to check it out!";
-
+        string aboutMe = "Hello and welcome to my WPF showcase project! My name is Daniel Hazan, and I'm currently honing my skills as a full-stack developer at HuckerU College. I have a passion for crafting innovative solutions and aspire to create top-notch products in the future.\r\n\r\nIn this final WPF project, you'll discover 8 mini-projects that highlight my journey and skills in WPF development. Each project showcases different aspects of WPF, from UI design to functionality, aiming to provide a glimpse into my growth and capabilities as a developer.\r\n\r\nThank you for taking the time to visit! If you're interested in learning more or have any questions, please feel free to contact me using the information below. I look forward to connecting with you!";
         public AboutMeSection()
         {
             InitializeComponent();

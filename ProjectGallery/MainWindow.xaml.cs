@@ -52,6 +52,7 @@ namespace ProjectGallery
                 TextBlock projectName = new TextBlock()
                 {
                     Text = project.Name,
+                    FontWeight = FontWeights.DemiBold,
                     TextAlignment = TextAlignment.Center,
                     Margin = new Thickness(0, 5, 0, 0)
                 };
