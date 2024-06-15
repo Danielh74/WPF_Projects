@@ -1,4 +1,5 @@
-﻿using System.Net.Http;
+﻿using JokeApp.CustomEventArgs;
+using System.Net.Http;
 using System.Text;
 using System.Text.Json;
 using System.Windows;
@@ -19,9 +20,43 @@ namespace JokeApp
     public partial class MainWindow : Window
     {
         private HttpClient client = new HttpClient();
+        private const string baseURL = "https://v2.jokeapi.dev/joke";
+        private string fullURL = "https://v2.jokeapi.dev/joke/Any";
         public MainWindow()
         {
             InitializeComponent();
+
+            settingsControl.SettingsChanged += ChangeSettings;
+
+            settingsControl.Visibility = Visibility.Collapsed;
+        }
+
+        private void ChangeSettings(object? sender, SettingsChangeEventArgs e)
+        {
+            string fullCategories = string.Join(",", e.Categories);
+            string fullBlackList = "";
+            if(e.Blacklist != null)
+            {
+                fullBlackList = string.Join(",", e.Blacklist);
+            }
+
+            if (e.Blacklist == null && e.JokeType == null)
+            {
+                fullURL = $"{baseURL}/{fullCategories}";
+            }
+            else if (e.Blacklist == null && e.JokeType != null)
+            {
+                fullURL = $"{baseURL}/{fullCategories}?type={e.JokeType}";
+            }
+            else if (e.Blacklist != null && e.JokeType == null)
+            {
+                fullURL = $"{baseURL}/{fullCategories}?blacklistFlags={fullBlackList}";
+            }
+            else if (e.Blacklist != null && e.JokeType != null)
+            {
+                fullURL = $"{baseURL}/{fullCategories}?blacklistFlags={fullBlackList}&type={e.JokeType}";
+            }
+
         }
 
         private async void Button_Click(object sender, RoutedEventArgs e)
@@ -56,8 +91,13 @@ namespace JokeApp
 
         private async Task<string> GetJoke()
         {
-            string response = await client.GetStringAsync("https://v2.jokeapi.dev/joke/Any");
+            string response = await client.GetStringAsync($"{fullURL}");
             return response;
+        }
+
+        private void OpenSettings(object sender, RoutedEventArgs e)
+        {
+            settingsControl.Visibility = Visibility.Visible;
         }
     }
 }

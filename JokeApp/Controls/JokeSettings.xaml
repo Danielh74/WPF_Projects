@@ -1,0 +1,74 @@
+﻿<UserControl x:Class="JokeApp.Controls.JokeSettings"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:JokeApp.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../CustomStyles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid Background="#D8FFFFFF">
+        <Viewbox>
+            <StackPanel>
+                <Button Style="{StaticResource SeconderyButtonStyle}" Click="CloseControl">
+                    <Image Source="../Resources/close.png"/>
+                </Button>
+
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <StackPanel Orientation="Horizontal" Margin="10">
+                        <TextBlock Text="Select category / categories:" FontSize="14" FontWeight="DemiBold"/>
+                        <Border Name="categoryBorder" Style="{StaticResource SettingsBorderStyle}">
+                            <StackPanel>
+                                <RadioButton Name="Any" Content="Any" GroupName="Category" Margin="10,0,0,10" Checked="CategoryRadioButtonChecked"/>
+                                <RadioButton Name="Custom" Content="Custom:" GroupName="Category" Margin="10,0,0,5" Checked="CategoryRadioButtonChecked"/>
+                                <StackPanel Name="categoryPanel" Orientation="Horizontal">
+                                    <CheckBox Name="Programming" Content="Programming" Margin="10,0,0,0" Checked="CategorySelected" Unchecked="CategoryUnselected"/>
+                                    <CheckBox Name="Miscellaneous" Content="Misc" Margin="10,0,0,0" Checked="CategorySelected" Unchecked="CategoryUnselected"/>
+                                    <CheckBox Name="Dark" Content="Dark" Margin="10,0,0,0" Checked="CategorySelected" Unchecked="CategoryUnselected"/>
+                                    <CheckBox Name="Pun" Content="Pun" Margin="10,0,0,0" Checked="CategorySelected" Unchecked="CategoryUnselected"/>
+                                    <CheckBox Name="Spooky" Content="Spooky" Margin="10,0,0,0" Checked="CategorySelected" Unchecked="CategoryUnselected"/>
+                                    <CheckBox Name="Christmas" Content="Christmas" Margin="10,0,0,0" Checked="CategorySelected" Unchecked="CategoryUnselected"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="10">
+                        <TextBlock Text="Select flags to blacklist:" FontSize="14" FontWeight="DemiBold"/>
+                        <Border Style="{StaticResource SettingsBorderStyle}">
+                            <StackPanel Name="flagPanel" Orientation="Horizontal">
+                                <CheckBox Name="nsfw" Content="NSFW" Margin="10,0,0,0" Checked="FlagSelected" Unchecked="FlagUnselected"/>
+                                <CheckBox Name="religion" Content="Religion" Margin="10,0,0,0" Checked="FlagSelected" Unchecked="FlagUnselected"/>
+                                <CheckBox Name="political" Content="Political" Margin="10,0,0,0" Checked="FlagSelected" Unchecked="FlagUnselected"/>
+                                <CheckBox Name="racist" Content="Racist" Margin="10,0,0,0" Checked="FlagSelected" Unchecked="FlagUnselected"/>
+                                <CheckBox Name="sexist" Content="Sexist" Margin="10,0,0,0" Checked="FlagSelected" Unchecked="FlagUnselected"/>
+                                <CheckBox Name="explicit" Content="Explicit" Margin="10,0,0,0" Checked="FlagSelected" Unchecked="FlagUnselected"/>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="10">
+                        <TextBlock Text="Select at least one joke type:" FontSize="14" FontWeight="DemiBold"/>
+                        <Border Name="typeBorder" Style="{StaticResource SettingsBorderStyle}">
+                            <StackPanel Name="typePanel" Orientation="Horizontal">
+                                <CheckBox Name="single" Content="single" Margin="10,0,0,0"/>
+                                <CheckBox Name="twopart" Content="twopart" Margin="10,0,0,0"/>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+                </StackPanel>
+
+                <Button Content="Set Changes" Style="{StaticResource SettingsButtonStyle}" Click="SetChanges"/>
+            </StackPanel>
+        </Viewbox>
+    </Grid>
+
+</UserControl>

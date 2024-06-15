@@ -3,11 +3,48 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:JokeApp"
+        xmlns:local="clr-namespace:JokeApp"  xmlns:controls="clr-namespace:JokeApp.Controls"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <StackPanel VerticalAlignment="Center">
-        <Button Content="Tell me a joke!" HorizontalAlignment="Center" Click="Button_Click"/>
-        <TextBlock Name="TB_Joke" TextWrapping="Wrap" Margin="10" HorizontalAlignment="Center"/>
-    </StackPanel>
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="CustomStyles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="./Resources/jokeApp_background.jpg"/>
+        </Grid.Background>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <StackPanel HorizontalAlignment="Center" Margin="0,10,0,0">
+            <TextBlock Text="The app that will make you laugh out loud!" FontWeight="Bold" FontFamily="comic sans ms" FontSize="20"/>
+            <TextBlock Text="Or veeery offended"  FontSize="12" FontFamily="comic sans ms" HorizontalAlignment="Center"/>
+        </StackPanel>
+
+        <Button Style="{StaticResource SeconderyButtonStyle}" Grid.Row="0" Click="OpenSettings">
+            <Image Source="./Resources/settings.png"/>
+        </Button>
+
+        <Viewbox Grid.Row="1" VerticalAlignment="Center">
+            <StackPanel Width="800">
+                <Button Style="{StaticResource GenerateButtonStyle}" Background="Yellow" Click="Button_Click">
+                    <TextBlock Text="Make me laugh!" FontWeight="Bold"/>
+                </Button>
+                <Border Background="#D8F0F8FF" CornerRadius="10" BorderThickness="1" BorderBrush="MediumBlue" Margin="10">
+                    <TextBlock Name="TB_Joke" FontSize="15" FontWeight="DemiBold" TextWrapping="Wrap" Margin="10" HorizontalAlignment="Center" />
+                </Border>
+            </StackPanel>
+        </Viewbox>
+
+
+        <controls:JokeSettings x:Name="settingsControl" Grid.RowSpan="2"/>
+    </Grid>
 </Window>

@@ -9,7 +9,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\close.png" />
+    <None Remove="Resources\jokeApp_background.jpg" />
+    <None Remove="Resources\settings.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\close.png" />
+    <Resource Include="Resources\jokeApp_background.jpg" />
+    <Resource Include="Resources\settings.png" />
   </ItemGroup>
 
 </Project>
