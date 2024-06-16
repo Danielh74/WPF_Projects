@@ -69,7 +69,9 @@ namespace ProjectGallery
                 panel.Children.Add(projectBtn);
             }
         }
-        private void About_Click(object sender, MouseButtonEventArgs e)
+
+        //Displaying the About me page
+        private void AboutMe(object sender, MouseButtonEventArgs e)
         {
            aboutMeSection.Visibility = Visibility.Visible;
         }

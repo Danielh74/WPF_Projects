@@ -43,14 +43,14 @@
                         Height="25"
                         Width="25"
                         BorderThickness="0"
-                        Click="AddToGallery_Click">
+                        Click="AddPhotoToGallery">
                             <Image Source="Resources\plus_icon.png"/>
                         </Button>
                     </Border>
 
-                    <Button Name="HomeBtn" Content="Home" Style="{StaticResource CustomButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="2" Click="ChangeWindow_Click"/>
-                    <Button Name="FavBtn" Content="Favorites" Style="{StaticResource CustomButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="3" Click="ChangeWindow_Click"/>
-                    <Button Name="LogOutBtn" Content="Log out" Style="{StaticResource CustomButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="4" Click="ChangeWindow_Click"/>
+                    <Button Name="HomeBtn" Content="Home" Style="{StaticResource CustomButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="2" Click="ChangeWindow"/>
+                    <Button Name="FavBtn" Content="Favorites" Style="{StaticResource CustomButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="3" Click="ChangeWindow"/>
+                    <Button Name="LogOutBtn" Content="Log out" Style="{StaticResource CustomButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="4" Click="ChangeWindow"/>
 
                 </Grid>
 

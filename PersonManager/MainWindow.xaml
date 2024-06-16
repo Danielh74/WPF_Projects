@@ -42,7 +42,7 @@
                                         <Image Source="Resources/edit.png" Height="15" Width="35"/>
                                     </Border>
                                 </Button>
-                                <Button  Style="{StaticResource CustomButtonStyle}" Margin="2" Click="HandleDeleteClick">
+                                <Button  Style="{StaticResource CustomButtonStyle}" Margin="2" Click="DeleteEmployee">
                                     <Border Style="{StaticResource ButtonBorderStyle}">
                                         <Image Source="Resources/delete.png" Height="15" Width="35"/>
                                     </Border>
@@ -93,12 +93,12 @@
                     <Image Source="Resources/eraser.png" Height="20" Width="40"/>
                 </Border>
             </Button>
-            <Button Name="btn_Add" Style="{StaticResource CustomButtonStyle}" Width="100" Click="AddPerson">
+            <Button Name="btn_Add" Style="{StaticResource CustomButtonStyle}" Width="100" Click="AddEmployee">
                 <Border Style="{StaticResource ButtonBorderStyle}">
                     <Image Source="Resources/add.png" Height="30" Width="100"/>
                 </Border>
             </Button>
-            <Button Name="btn_Update" Style="{StaticResource CustomButtonStyle}" Width="100" Click="UpdatePerson">
+            <Button Name="btn_Update" Style="{StaticResource CustomButtonStyle}" Width="100" Click="UpdateEmployee">
                 <Border Style="{StaticResource ButtonBorderStyle}">
                     <Image Source="Resources/update.png" Height="30" Width="100"/>
                 </Border>

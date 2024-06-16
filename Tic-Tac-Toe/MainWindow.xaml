@@ -62,14 +62,14 @@
                 </StackPanel>
 
                 <StackPanel Margin="10,30">
-                    <Button Name="Btn_PvP" Style="{StaticResource GameModeButtonStyle}" Content="PvP (Player Vs Player)" Margin="10" Click="NewGame_Click" />
-                    <Button Name="Btn_PvC" Style="{StaticResource GameModeButtonStyle}" Content="PvC (Player Vs Computer)" Margin="10,0,10,0" Click="NewGame_Click" />
-                    <Button Name="Btn_CvC" Style="{StaticResource GameModeButtonStyle}" Content="CvC (Computer Vs Computer)" Margin="10" Click="NewGame_Click" />
+                    <Button Name="Btn_PvP" Style="{StaticResource GameModeButtonStyle}" Content="PvP (Player Vs Player)" Margin="10" Click="StartGame" />
+                    <Button Name="Btn_PvC" Style="{StaticResource GameModeButtonStyle}" Content="PvC (Player Vs Computer)" Margin="10,0,10,0" Click="StartGame" />
+                    <Button Name="Btn_CvC" Style="{StaticResource GameModeButtonStyle}" Content="CvC (Computer Vs Computer)" Margin="10" Click="StartGame" />
                 </StackPanel>
 
             </StackPanel>
         </Border>
-        <Button Name="Btn_Exit" Style="{StaticResource ExitButtonStyle}" Content="Exit" Grid.Column="1" Grid.Row="1" VerticalAlignment="Bottom" Margin="50" HorizontalAlignment="Center" Click="NewGame_Click"/>
+        <Button Name="Btn_Exit" Style="{StaticResource ExitButtonStyle}" Content="Exit" Grid.Column="1" Grid.Row="1" VerticalAlignment="Bottom" Margin="50" HorizontalAlignment="Center" Click="CloseGame"/>
 
     </Grid>
 </Window>

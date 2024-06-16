@@ -14,6 +14,8 @@ namespace PhotoGallery.Utils
 {
     public static class Helpers
     {
+
+        //Changing the like button to indicate if the photo is favorited or not.
         public static BitmapImage SetLikeButton(bool isLiked)
         {
             if (isLiked)
@@ -26,6 +28,7 @@ namespace PhotoGallery.Utils
             }
         }
 
+        //Getting the shortened name of the file.
         public static string GetSafeFileName(string uri)
         {
             int lastIndex = uri.LastIndexOf('/');
@@ -39,7 +42,9 @@ namespace PhotoGallery.Utils
             string rawJson = File.ReadAllText("UsersInvantory.json");
             return JsonSerializer.Deserialize<List<User>>(rawJson);
         }
-        public static void ShowPlaceHolder(TextBox textbox, string placeHolder)
+
+
+        public static void AddPlaceHolder(TextBox textbox, string placeHolder)
         {
             if (textbox.Text != string.Empty)
             {
@@ -48,6 +53,7 @@ namespace PhotoGallery.Utils
             textbox.Text = placeHolder;
             textbox.Foreground = Brushes.Gray;
         }
+
         public static void RemovePlaceHolder(TextBox textbox, string placeHolder)
         {
             if (textbox.Text != placeHolder)
@@ -57,6 +63,7 @@ namespace PhotoGallery.Utils
             textbox.Text = string.Empty;
             textbox.Foreground = Brushes.Black;
         }
+
         public static void ResetText(TextBox textbox, string placeHolder)
         {
             

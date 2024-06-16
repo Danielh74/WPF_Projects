@@ -35,7 +35,7 @@
 
         <Viewbox Grid.Row="1" VerticalAlignment="Center">
             <StackPanel Width="800">
-                <Button Style="{StaticResource GenerateButtonStyle}" Background="Yellow" Click="Button_Click">
+                <Button Style="{StaticResource GenerateButtonStyle}" Background="Yellow" Click="DisplayJoke">
                     <TextBlock Text="Make me laugh!" FontWeight="Bold"/>
                 </Button>
                 <Border Background="#D8F0F8FF" CornerRadius="10" BorderThickness="1" BorderBrush="MediumBlue" Margin="10">

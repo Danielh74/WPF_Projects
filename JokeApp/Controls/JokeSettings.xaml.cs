@@ -43,6 +43,7 @@ namespace JokeApp.Controls
             Visibility = Visibility.Collapsed;
         }
 
+        //If the checked button's name is "Any" putting "Any" in the categories list, else enabling the other categories checkboxes to choose from.
         private void CategoryRadioButtonChecked(object sender, RoutedEventArgs e)
         {
             RadioButton radioBtn = sender as RadioButton;
@@ -62,6 +63,7 @@ namespace JokeApp.Controls
                 }
             }
         }
+
         private void DisableCheckboxes()
         {
             foreach (CheckBox checkBox in categoryPanel.Children)
@@ -79,6 +81,7 @@ namespace JokeApp.Controls
             }
         }
 
+        //Adding the selected category to the list.
         private void CategorySelected(object sender, RoutedEventArgs e)
         {
             CheckBox category = sender as CheckBox;
@@ -86,6 +89,7 @@ namespace JokeApp.Controls
             categories.Add(category.Name);
         }
 
+        //Removing the unselected category from the list.
         private void CategoryUnselected(object sender, RoutedEventArgs e)
         {
             CheckBox category = sender as CheckBox;
@@ -93,6 +97,7 @@ namespace JokeApp.Controls
             categories.Remove(category.Name);
         }
 
+        //Adding the selected flag to the list.
         private void FlagSelected(object sender, RoutedEventArgs e)
         {
             CheckBox flag = sender as CheckBox;
@@ -100,6 +105,7 @@ namespace JokeApp.Controls
             blacklist.Add(flag.Name);
         }
 
+        //Removing the unselected category from the list.
         private void FlagUnselected(object sender, RoutedEventArgs e)
         {
             CheckBox flag = sender as CheckBox;
@@ -107,6 +113,7 @@ namespace JokeApp.Controls
             blacklist.Remove(flag.Name);
         }
 
+        //Checking if all the mendatory boxes have been checked and sending the changes to the api url.
         private void SetChanges(object sender, RoutedEventArgs e)
         {
 

@@ -100,6 +100,7 @@ public partial class MainWindow : Window, INotifyPropertyChanged
         }
     }
 
+    //Deal the cards to the number of players that were selected and build their space.
     private void HandlePlayerNumberSelected(object? sender, PlayerSelectionEventArgs e)
     {
         InitializeDeck();
@@ -289,6 +290,7 @@ public partial class MainWindow : Window, INotifyPropertyChanged
         timer.Start();
     }
 
+    //Highlight the name of the active player to indicate who's turn it is
     private void HandleActivePlayerChanged(object? sender, PropertyChangedEventArgs e)
     {
         switch (ActivePlayer.Name)
@@ -408,6 +410,7 @@ public partial class MainWindow : Window, INotifyPropertyChanged
         }
     }
 
+    //Handeling what happens in the game according to the rules of the special card that was set.
     private void HandleSpecialCardSet()
     {
         if (currentNumber == "skip")
@@ -462,6 +465,7 @@ public partial class MainWindow : Window, INotifyPropertyChanged
         }
     }
 
+    //Making the players draw the amount of cards they need depending on why they need to draw.
     private void SpecialCardDraw(int times)
     {
         if (turns[AdvanceTurn(1)] != playerOne)
@@ -487,6 +491,7 @@ public partial class MainWindow : Window, INotifyPropertyChanged
         currentTurn = nextTurn;
     }
 
+    //Changing the current play color.
     private void ColorChange(object sender, RoutedEventArgs e)
     {
         Button colorBtn = sender as Button;
@@ -514,6 +519,7 @@ public partial class MainWindow : Window, INotifyPropertyChanged
         }
     }
 
+    //checks if the pile is empty and if so fill it up again
     private void ChackPileEmpty(int condition)
     {
         if (remainingCardsInPile < condition)

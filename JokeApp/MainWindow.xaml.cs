@@ -31,6 +31,7 @@ namespace JokeApp
             settingsControl.Visibility = Visibility.Collapsed;
         }
 
+        //Changing the url of the request to get the preferred results after the settings change
         private void ChangeSettings(object? sender, SettingsChangeEventArgs e)
         {
             string fullCategories = string.Join(",", e.Categories);
@@ -59,13 +60,13 @@ namespace JokeApp
 
         }
 
-        private async void Button_Click(object sender, RoutedEventArgs e)
+        private async void DisplayJoke(object sender, RoutedEventArgs e)
         {
             TB_Joke.Text = "Loading joke...";
 
             try
             {
-                string joke = await GetJoke();
+                string joke = await GetJokeFromAPI();
                 JokeTDO jokeObj = JsonSerializer.Deserialize<JokeTDO>(joke);
 
                 if (jokeObj == null)
@@ -89,7 +90,7 @@ namespace JokeApp
             }
         }
 
-        private async Task<string> GetJoke()
+        private async Task<string> GetJokeFromAPI()
         {
             string response = await client.GetStringAsync($"{fullURL}");
             return response;

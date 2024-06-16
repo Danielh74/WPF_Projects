@@ -11,6 +11,7 @@ namespace Pokedex.Converters
     [ValueConversion(typeof(string), typeof(string))]
     class WeightConverter : IValueConverter
     {
+        //Convert the pokemon weight to kgs and lbs.
         public object Convert(object value, System.Type targetType, object parameter, CultureInfo culture)
         {
             double kg = (double)value;

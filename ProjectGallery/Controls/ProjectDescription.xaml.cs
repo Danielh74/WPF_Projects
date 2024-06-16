@@ -29,23 +29,23 @@ namespace ProjectGallery.Controls
             InitializeComponent();
         }
 
-        private void HandleClick(object? sender, ProjectRedirectEventArgs e)
+        private void DisplayProjectInfo(object? sender, ProjectRedirectEventArgs e)
         {
             DataContext = e.Project;
             displayedProject = e.Project;
         }
 
-        private void Back_Click(object sender, MouseButtonEventArgs e)
+        private void BackToHome(object sender, MouseButtonEventArgs e)
         {
             Visibility = Visibility.Collapsed;
         }
         public void SetMainWindow(MainWindow window)
         {
             mainWindow = window;
-            mainWindow.ProjectClicked += HandleClick;
+            mainWindow.ProjectClicked += DisplayProjectInfo;
         }
 
-        private void StartGame(object sender, MouseButtonEventArgs e)
+        private void StartProject(object sender, MouseButtonEventArgs e)
         {
             displayedProject.Run();
         }

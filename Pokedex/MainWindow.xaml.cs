@@ -213,6 +213,7 @@ namespace Pokedex
             }
         }
 
+        //Getting all the pokemon's evolutions sprites
         private async Task ExtractEvos(Evolution evolution)
         {
             if (evolution.Evolutions.Count > 0)

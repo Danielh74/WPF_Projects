@@ -84,6 +84,7 @@ namespace Memory_Game
             HighlightPlayerOne();
         }
 
+        //When the turn change, highlight the name of the active player to display which turn is it.
         private void HandleTurnChanged(object? sender, TurnChangeEventArgs e)
         {
             if (e.IsPlayerOneTurn)
@@ -96,6 +97,7 @@ namespace Memory_Game
             }
         }
 
+        // Checks who is the active player and add a point to their score
         private void HandleTurnWon(object? sender, TurnChangeEventArgs e)
         {
             if (e.IsPlayerOneTurn)
@@ -112,6 +114,7 @@ namespace Memory_Game
             HandleWinnerAlert("It's A Match!", Brushes.Yellow);
         }
 
+        //Checking who has the highest score and displaying that they won in the winner alert control.
         private void HandleGameEnd(object? sender, EventArgs e)
         {
 
@@ -131,6 +134,7 @@ namespace Memory_Game
             isGameActive = false;
         }
 
+        //Displaying the winner alert control according to which player has won
         private void HandleWinnerAlert(string text, Brush color)
         {
             winnerAlert.Visibility = Visibility.Visible;
@@ -161,6 +165,8 @@ namespace Memory_Game
         {
             Close();
         }
+
+        //Changing the color of the name of player 1 if active to red
         private void HighlightPlayerOne()
         {
             p1_section.Foreground = Brushes.Blue;
@@ -169,6 +175,8 @@ namespace Memory_Game
             p2_section.Foreground = Brushes.Black;
             p2_section.FontWeight = FontWeights.SemiBold;
         }
+
+        //Changing the color of the name of player 2 if active to blue
         private void HighlightPlayerTwo()
         {
             p2_section.Foreground = Brushes.Red;

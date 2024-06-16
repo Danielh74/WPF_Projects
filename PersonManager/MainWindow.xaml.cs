@@ -29,7 +29,7 @@ namespace EmployeeManager
         };
         private ObservableCollection<Person> People { get; set; } = new ObservableCollection<Person>();
         private readonly ICollectionView peopleView;
-        private List<string> departmentList = new List<string>(){"R&D", "IT", "HR", "Analytics", "Managment", "QA","Development","Design" };
+        private List<string> departmentList = new List<string>() { "R&D", "IT", "HR", "Analytics", "Managment", "QA", "Development", "Design" };
         public MainWindow()
         {
             InitializeComponent();
@@ -69,7 +69,8 @@ namespace EmployeeManager
             }
         }
 
-        private void AddPerson(object sender, RoutedEventArgs e)
+        //Checking if the inputs the user put are valid, if so adding the employee to the list and if not displays an error message
+        private void AddEmployee(object sender, RoutedEventArgs e)
         {
             if (TB_ID.Text == "" || !int.TryParse(TB_ID.Text, out int id) || IdExists())
             {
@@ -126,6 +127,7 @@ namespace EmployeeManager
             }
         }
 
+        // Displaying the employee info in the textboxes to edit.
         private void ShowDetailsToEdit(object sender, RoutedEventArgs e)
         {
             TB_ID.IsEnabled = false;
@@ -141,7 +143,7 @@ namespace EmployeeManager
             }
         }
 
-        private void UpdatePerson(object sender, RoutedEventArgs e)
+        private void UpdateEmployee(object sender, RoutedEventArgs e)
         {
             if (PeopleTable.SelectedItem is Person selectedPerson
                 && int.TryParse(TB_Age.Text, out int age)
@@ -164,7 +166,7 @@ namespace EmployeeManager
             TB_ID.IsEnabled = true;
         }
 
-        private void HandleDeleteClick(object sender, RoutedEventArgs e)
+        private void DeleteEmployee(object sender, RoutedEventArgs e)
         {
             MessageBoxResult result = MessageBox.Show("Are you sure you want to delete?", "Delete item", MessageBoxButton.YesNo);
             if (result == MessageBoxResult.No)
@@ -198,6 +200,7 @@ namespace EmployeeManager
             PeopleTable.SelectedItem = null;
         }
 
+        // Resetting the form and updating the add and updaye buttons visibility when the clear button is clicked.
         private void HandleClearClick(object sender, RoutedEventArgs e)
         {
             ClearForm();
@@ -206,13 +209,14 @@ namespace EmployeeManager
             TB_ID.IsEnabled = true;
         }
 
+        // Filters peopleView based on the text entered in the TB_Filter TextBox when the key is up.
         private void Filter_KeyUp(object sender, KeyEventArgs e)
         {
             string filterString = TB_Filter.Text.ToLower();
 
             peopleView.Filter = o =>
             {
-                if(o is Person personToFilter)
+                if (o is Person personToFilter)
                 {
                     return personToFilter.Name.ToLower().Contains(filterString);
                 }
@@ -220,6 +224,7 @@ namespace EmployeeManager
             };
         }
 
+        // Checking whether the ID the user put already exists in the system.
         private bool IdExists()
         {
             foreach (Person person in People)
@@ -232,9 +237,10 @@ namespace EmployeeManager
             return false;
         }
 
+        //Changing the text color clearing the placeholder text in the TB_Filter TextBox when it is in focus.
         private void FilterInFocus(object sender, RoutedEventArgs e)
         {
-            if(TB_Filter.Text != "Filter...")
+            if (TB_Filter.Text != "Filter...")
             {
                 return;
             }
@@ -242,6 +248,7 @@ namespace EmployeeManager
             TB_Filter.Foreground = Brushes.Black;
         }
 
+        //Resetting the placeholder text in the TB_Filter TextBox when it is out of focus.
         private void FilterOutOfFocus(object sender, RoutedEventArgs e)
         {
             TB_Filter.Text = "Filter...";

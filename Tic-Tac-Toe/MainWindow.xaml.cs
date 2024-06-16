@@ -61,7 +61,7 @@ namespace Tic_Tac_Toe
             }
         }
         
-        private void NewGame_Click(object sender, RoutedEventArgs e)
+        private void StartGame(object sender, RoutedEventArgs e)
         {
             GameType gameType;
 
@@ -118,6 +118,8 @@ namespace Tic_Tac_Toe
             leaderboard.Visibility = Visibility.Visible;
             gameBoard.StartNewGame(gameType, p1_name.Text, p2_name.Text);
         }
+
+        // Checks which game mode is active pvp, pvc, cvc and highlight the corresponding button to display the active mode.
         private void ActiveGameMode(Button activeButton)
         {
             Button[] buttons = { Btn_PvP, Btn_PvC, Btn_CvC };
@@ -136,6 +138,7 @@ namespace Tic_Tac_Toe
             }
         }
 
+        //Checks who won and display a winner message accordingly.
         private void HandleGameEnded(object? sender, GameEndEventArgs e)
         {
             switch (e.GameResult)
@@ -169,6 +172,11 @@ namespace Tic_Tac_Toe
                 timer.Stop();
             };
             timer.Start();
+        }
+
+        private void CloseGame(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
     }
 }

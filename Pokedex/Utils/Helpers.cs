@@ -8,10 +8,12 @@ namespace Pokedex.Utils
 {
     public class Helpers
     {
+        //Making the first letter in a string capital
         public static string CapitalFirstLetter(string str)
         {
             return str[0].ToString().ToUpper() + str.Substring(1);
         }
+
         public static List<string> SortNames(List<Pokemon> pokemonList)
         {
             List<string> names = new List<string>();

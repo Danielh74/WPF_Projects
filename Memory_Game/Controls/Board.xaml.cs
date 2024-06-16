@@ -41,13 +41,13 @@ namespace Memory_Game.Controls
 
         public void InitializeGameBoard(int gridSize)
         {
-            RandomizePokemonList(gridSize * 4);
+            ShuffleCards(gridSize * 4);
 
             cardBackground = new Image()
             {
                 Source = new BitmapImage(new Uri($@"{uriString}\card_background.png"))
             };
-            
+
             int pokemonIndex = 0;
 
             for (int rows = 0; rows < 4; rows++)
@@ -62,19 +62,19 @@ namespace Memory_Game.Controls
                     col.Width = GridLength.Auto;
                     gameGrid.ColumnDefinitions.Add(col);
 
-                    Button button = new Button()
+                    Button card = new Button()
                     {
                         Uid = randomizePokemon[pokemonIndex],
                         Background = new ImageBrush() { ImageSource = cardBackground.Source },
                         Style = (Style)FindResource("CardStyle")
                     };
 
-                    button.Click += RevealImage;
+                    card.Click += PlayTurn;
 
-                    Grid.SetRow(button, rows);
-                    Grid.SetColumn(button, cols);
+                    Grid.SetRow(card, rows);
+                    Grid.SetColumn(card, cols);
 
-                    gameGrid.Children.Add(button);
+                    gameGrid.Children.Add(card);
                     pokemonIndex++;
                 }
             }
@@ -82,7 +82,11 @@ namespace Memory_Game.Controls
             isPlayerOneTurn = true;
         }
 
-        private void RevealImage(object sender, RoutedEventArgs e)
+
+        /* Change the image of the first and second selected cards to reveal their images and checks if the images match.
+           If so display a message and removing the cards from the board else changing the image to back of card.
+           Change the turn. */
+        private async void PlayTurn(object sender, RoutedEventArgs e)
         {
             Button btn = (Button)sender;
             int row = Grid.GetRow(btn);
@@ -107,7 +111,7 @@ namespace Memory_Game.Controls
                 }
                 else
                 {
-                    ResetCardsDelayed();
+                    await ResetCardsDelayed();
                 }
                 firstClickedCard = null;
                 secondClickedCard = null;
@@ -122,15 +126,20 @@ namespace Memory_Game.Controls
             }
         }
 
-        private async void ResetCardsDelayed()
+        //Delay the time the cards reset to the back image.
+        private async Task ResetCardsDelayed()
         {
             await Task.Delay(1000);
 
-            foreach (Button button in gameGrid.Children)
+            foreach (var child in gameGrid.Children)
             {
-                button.Background = new ImageBrush() { ImageSource = cardBackground.Source };
+                if (child is Button card)
+                {
+                    card.Background = new ImageBrush() { ImageSource = cardBackground.Source };
+                }
             }
         }
+
         private void OnTurnChanged(bool isPlayerOneTurn)
         {
             TurnChanged?.Invoke(this, new TurnChangeEventArgs(isPlayerOneTurn));
@@ -151,7 +160,8 @@ namespace Memory_Game.Controls
             gameGrid.Children.Clear();
         }
 
-        private void RandomizePokemonList(int size)
+        // Shuffles an array of Pokemon images to randomize their order in the game board.
+        private void ShuffleCards(int size)
         {
             randomizePokemon = Enumerable.Repeat<string>(null, size).ToList();
             Random rnd = new Random();

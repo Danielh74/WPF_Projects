@@ -20,7 +20,7 @@
         <Border BorderThickness="0,0,0,1" BorderBrush="LightGray" Grid.ColumnSpan="3" Margin="5,0,5,0">
             <DockPanel Grid.ColumnSpan="2">
                 <StackPanel Orientation="Horizontal">
-                    <Rectangle Margin="10,10,0,10" Cursor="Hand" Width="50" Height="50" RadiusX="30" RadiusY="30" HorizontalAlignment="Left" MouseDown="Back_Click">
+                    <Rectangle Margin="10,10,0,10" Cursor="Hand" Width="50" Height="50" RadiusX="30" RadiusY="30" HorizontalAlignment="Left" MouseDown="BackToHome">
                         <Rectangle.Fill>
                             <ImageBrush ImageSource="..\Resources\studentPhoto.jpeg"/>
                         </Rectangle.Fill>

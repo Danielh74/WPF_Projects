@@ -12,6 +12,7 @@ namespace Pokedex.Converters
     [ValueConversion(typeof(int), typeof(SolidColorBrush))]
     public class ProgressBarForegroundConverter : IValueConverter
     {
+        //Changing the color of the progress bar according to the numbers.
         public object Convert(object value, System.Type targetType, object parameter, CultureInfo culture)
         {
             double progress = (double)value;

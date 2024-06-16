@@ -8,12 +8,15 @@ namespace Uno_Game.Helpers
 {
     public static class Utils
     {
+        //Checks what is the current play color.
         public static string FindCurrentColor(string upCardName)
         {
             int underscoreIndex = upCardName.IndexOf('_');
             string color = upCardName.Substring(underscoreIndex + 1);
             return char.ToUpper(color[0]) + color.Substring(1);
         }
+
+        //Checks what is the current play number.
         public static string FindCurrentNumber(string upCardName)
         {
             int underscoreIndex = upCardName.IndexOf('_');

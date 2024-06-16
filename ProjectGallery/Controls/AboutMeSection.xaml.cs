@@ -27,7 +27,7 @@ namespace ProjectGallery.Controls
             InitializeComponent();
             DataContext = aboutMe;
         }
-        private void Back_Click(object sender, MouseButtonEventArgs e)
+        private void BackToHome(object sender, MouseButtonEventArgs e)
         {
             Visibility = Visibility.Collapsed;
         }

@@ -30,6 +30,7 @@ namespace Uno_Game.Controls
             InitializeComponent();
         }
 
+        //Checks how many players are selected for the game and activate the event.
         private void PlayerModeSelection(object sender, RoutedEventArgs e)
         {
             Button button = sender as Button;

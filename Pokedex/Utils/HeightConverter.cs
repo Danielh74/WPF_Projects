@@ -11,6 +11,7 @@ namespace Pokedex.Converters
     [ValueConversion(typeof(string), typeof(string))]
     class HeightConverter : IValueConverter
     {
+        //Convert the pokemon height data to meters and feet and inches
         public object Convert(object value, System.Type targetType, object parameter, CultureInfo culture)
         {
             double meters = (double)value;

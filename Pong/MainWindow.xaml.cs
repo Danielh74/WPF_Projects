@@ -72,22 +72,26 @@ namespace Pong
             KeyUp += HandleKeyUp;
         }
 
+        //Adding which key is pressed to the hashset list to keep track of the keys that are pressed simultaneously
         private void HandleKeyDown(object sender, KeyEventArgs e)
         {
             pressedKeys.Add(e.Key);
         }
 
+        //Removing which key is unpressed to the hashset list to keep track of the keys that are pressed
         private void HandleKeyUp(object sender, KeyEventArgs e)
         {
             pressedKeys.Remove(e.Key);
         }
 
+        //Moving the ball and the players if the keys are pressed every frame render.
         private void OnRendering(object? sender, EventArgs e)
         {
             MoveBall();
             CheckPlayerMovement();
         }
 
+        //Checking which key is pressed to move the corresponding player.
         private void CheckPlayerMovement()
         {
             if (pressedKeys.Contains(Key.W) && Canvas.GetTop(player1) > 0)
@@ -102,6 +106,7 @@ namespace Pong
             if (pressedKeys.Contains(Key.Down) && Canvas.GetTop(player2) < (gameScreen.ActualHeight - player2.Height))
                 Canvas.SetTop(player2, Canvas.GetTop(player2) + playerSpeed);
         }
+
         private void MoveBall()
         {
             Canvas.SetTop(ball, Canvas.GetTop(ball) + ballSpeedY);
@@ -158,6 +163,7 @@ namespace Pong
             Canvas.SetTop(ball, (gameScreen.ActualHeight - ball.Height) / 2);
         }
 
+        //Reset the screen and position the elements correctly when the screen changes size.
         private void HandleWindowSizeChanged(object sender, SizeChangedEventArgs e)
         {
             ResetScreen();

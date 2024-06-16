@@ -58,6 +58,7 @@ namespace PhotoGallery
             currentType = WindowType.Home;
         }
 
+        //Changing between the login to the register pages.
         private void HandleFormChange(object? sender, EventArgs e)
         {
             if (RegisterPageControl.Visibility == Visibility.Visible)
@@ -72,6 +73,7 @@ namespace PhotoGallery
             }
         }
 
+        //Log in the user and navigating to the home page
         private void HandleUserLogin(object? sender, LoginEventArgs e)
         {
             userList = e.UserList;
@@ -191,6 +193,7 @@ namespace PhotoGallery
             SelectedPhotoControl.Visibility = Visibility.Visible;
         }
 
+        //Displaying the next or previous photo
         private void HandlePhotoChanged(object? sender, PhotoChangeEventArgs e)
         {
             if (e.Next)
@@ -221,6 +224,7 @@ namespace PhotoGallery
             SelectedPhotoControl.DataContext = GalleryPanel.Children[selectedPhotoIndex];
         }
 
+        //Changing the photo favorite status
         private void HandlePhotoFavorited(object? sender, EventArgs e)
         {
             selectedPhoto.IsFavorite = !selectedPhoto.IsFavorite;
@@ -267,7 +271,7 @@ namespace PhotoGallery
             }
         }
 
-        private void AddToGallery_Click(object sender, RoutedEventArgs e)
+        private void AddPhotoToGallery(object sender, RoutedEventArgs e)
         {
             OpenFileDialog fileDialog = new OpenFileDialog();
             fileDialog.Filter = "Image Files|*.bmp;*.jpg;*.jpeg;*.png;*.gif;*.tiff;*.heic";
@@ -298,7 +302,7 @@ namespace PhotoGallery
             LoadWindow("home");
         }
 
-        private void ChangeWindow_Click(object sender, RoutedEventArgs e)
+        private void ChangeWindow(object sender, RoutedEventArgs e)
         {
             Button button = sender as Button;
             switch (button.Name)

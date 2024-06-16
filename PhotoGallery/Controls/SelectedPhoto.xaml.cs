@@ -31,21 +31,24 @@ namespace PhotoGallery.Controls
             InitializeComponent();
         }
 
-        private void Back_Click(object sender, RoutedEventArgs e)
+        private void CloseControl(object sender, RoutedEventArgs e)
         {
             Visibility = Visibility.Collapsed;
         }
 
+        // Raises the event indicating that a photo has been favorited.
         private void OnPhotoFavorited(object sender, RoutedEventArgs e)
         {
             PhotoFavorited?.Invoke(this, EventArgs.Empty);
         }
 
+        // Raises the  event indicating that a photo has been deleted.
         private void OnPhotoDeleted(object sender, RoutedEventArgs e)
         {
             PhotoDeleted?.Invoke(this, EventArgs.Empty);
         }
 
+        // Displaying the next or previous photo according to which button has been pressed.
         private void OnPhotoChanged(object sender, RoutedEventArgs e)
         {
             Button btnClicked = sender as Button;

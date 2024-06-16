@@ -36,6 +36,7 @@ namespace PhotoGallery.Controls
             userList = Helpers.LoadUsers();
         }
 
+        //Checks if the inputs are correct, if so ligging the user else displaying an error message accordingly.
         private void OnUserLogin(object sender, RoutedEventArgs e)
         {
             if (Email_TB.Text == "Email" || Password_TB.Text == "Password")
@@ -61,12 +62,14 @@ namespace PhotoGallery.Controls
             ResetForm();
         }
 
+        //Changing the page to the register page.
         private void ChangeForm(object sender, RoutedEventArgs e)
         {
             ResetForm();
             ChangingForm?.Invoke(this, EventArgs.Empty);
         }
 
+        //Removing the placeholer of the textbox that is in focus.
         private void TextboxInFocus(object sender, RoutedEventArgs e)
         {
             TextBox textboxInFocus = sender as TextBox;
@@ -81,19 +84,21 @@ namespace PhotoGallery.Controls
             }
         }
 
+        //Adding a placeholder to the textbox that got out of focus if is empty.
         private void TextboxOutOfFocus(object sender, RoutedEventArgs e)
         {
             TextBox textboxInFocus = sender as TextBox;
             switch (textboxInFocus.Name)
             {
                 case "Email_TB":
-                    Helpers.ShowPlaceHolder(textboxInFocus, "Email");
+                    Helpers.AddPlaceHolder(textboxInFocus, "Email");
                     break;
                 case "Password_TB":
-                    Helpers.ShowPlaceHolder(textboxInFocus, "Password");
+                    Helpers.AddPlaceHolder(textboxInFocus, "Password");
                     break;
             }
         }
+
         private void ResetForm()
         {
             Helpers.ResetText(Email_TB, "Email");

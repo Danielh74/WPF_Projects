@@ -31,6 +31,7 @@ namespace Pong.Controls
             KeyDown += HandleKeyDown;
         }
 
+        //Starts game when the space bar is pressed.
         private void HandleKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Space)

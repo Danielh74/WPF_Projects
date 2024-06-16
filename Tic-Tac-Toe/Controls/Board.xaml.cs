@@ -96,7 +96,7 @@ namespace Tic_Tac_Toe.Controls
                         Style = (Style)FindResource("BoardButtonStyle")
                     };
 
-                    btn.Click += Button_Click;
+                    btn.Click += PlayerMove;
 
                     Grid.SetRow(btn, i);
                     Grid.SetColumn(btn, j);
@@ -108,7 +108,8 @@ namespace Tic_Tac_Toe.Controls
             }
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        //Changing the content of the button to the player's symbol in the position they pressed on the board.
+        private void PlayerMove(object sender, RoutedEventArgs e)
         {
             if (!isGameActive || (_gameType == GameType.PvC && ActivePlayer != p1Name) || _gameType == GameType.CvC)
             {
@@ -175,6 +176,7 @@ namespace Tic_Tac_Toe.Controls
             timer.Start();
         }
 
+        //Checks if there is a winner or if the boarder is full to display that the game end
         private bool ProcessEndGame()
         {
             if (CheckForWinner())
@@ -272,6 +274,7 @@ namespace Tic_Tac_Toe.Controls
             return false;
         }
 
+        //Chacks if the symbols are aqual in a specific direction horizontal, vertical or diagonal
         private bool AreButtonsEqual(Button b1, Button b2, Button b3) =>
              b1.Content != null && b1.Content == b2.Content && b2.Content == b3.Content;
 

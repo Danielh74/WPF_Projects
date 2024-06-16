@@ -16,7 +16,7 @@
         <Border Grid.Row="0" BorderThickness="0,0,0,1" BorderBrush="LightGray" Margin="5,0,5,0">
             <DockPanel>
                 <StackPanel>
-                    <Rectangle Margin="10,10,0,10" Cursor="Hand" Width="50" Height="50" RadiusX="30" RadiusY="30" HorizontalAlignment="Left" MouseDown="About_Click">
+                    <Rectangle Margin="10,10,0,10" Cursor="Hand" Width="50" Height="50" RadiusX="30" RadiusY="30" HorizontalAlignment="Left" MouseDown="AboutMe">
                         <Rectangle.Fill>
                             <ImageBrush ImageSource=".\Resources\studentPhoto.jpeg"/>
                         </Rectangle.Fill>
