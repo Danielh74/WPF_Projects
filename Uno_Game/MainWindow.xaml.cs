@@ -489,7 +489,12 @@ public partial class MainWindow : Window, INotifyPropertyChanged
         nextTurn = AdvanceTurn(1);
         ActivePlayer = turns[nextTurn];
         currentTurn = nextTurn;
-    }
+
+		if (ActivePlayer != playerOne)
+		{
+			ComputerMove(ActivePlayer);
+		}
+	}
 
     //Changing the current play color.
     private void ColorChange(object sender, RoutedEventArgs e)
